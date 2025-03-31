@@ -1,23 +1,36 @@
-
 import plants from "@/assets/plants";
-import Image from "next/image";
-
+import PlantCard from "@/components/PlantCard";
+import styled from "styled-components";
 
 export default function HomePage() {
-  
-
   return (
     <div>
       <h1>{"iPlan{t}"}</h1>
-      <ul> {plants.map((plant) => 
-    <li key={plant.id} >{plant.name} <Image alt ="plant image"src={plant.imageUrl} height="200" width="300"/></li>  
-    )
-
-}
-
-      </ul>
-      
-
+      <PlantList>
+        {" "}
+        {plants.map((plant) => (
+          <li key={plant.id}>
+            {" "}
+            <PlantCard
+              name={plant.name}
+              image={plant.imageUrl}
+              botanicalName={plant.botanicalName}
+            ></PlantCard>
+          </li>
+        ))}
+      </PlantList>
     </div>
   );
 }
+
+const PlantList = styled.ul`
+all: unset;
+display: flex;
+list-style:none;
+flex-wrap: wrap;
+justify-content: center;
+gap:20px;
+
+
+
+`
