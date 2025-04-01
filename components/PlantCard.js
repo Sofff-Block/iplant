@@ -12,7 +12,7 @@ export default function PlantCard({ image, name, botanicalName }) {
           fill="true"
         ></StyledImage>
       </PlantImageWrapper>
-      <h2> {name}</h2>
+      <h2>{name}</h2>
       <p>{botanicalName}</p>
     </PlantCardWrapper>
   );
