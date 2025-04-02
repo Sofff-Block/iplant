@@ -6,7 +6,7 @@ import styled from "styled-components";
 export default function LightNeed({ lightNeed }) {
   return (
     <LightNeedWrapper>
-      <StyledShade $isShade $isLight={lightNeed === "Full Shade"} />
+      <StyledShade $isLight={lightNeed === "Full Shade"} />
       <StyledPartialShade $isLight={lightNeed === "Partial Shade"} />
       <StyledSun $isLight={lightNeed === "Full Sun"} />
     </LightNeedWrapper>

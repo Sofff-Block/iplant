@@ -9,7 +9,7 @@ export default function WaterNeed({ waterNeed }) {
           waterNeed === "Low" || waterNeed === "Medium" || waterNeed === "High"
         }
       />
-      <StyledDrop $isWater={waterNeed === "Medium" || waterNeed === "High"} />
+      <StyledDrop $isWater={waterNeed !== "Low"} />
       <StyledDrop $isWater={waterNeed === "High"} />
     </WaterNeedWrapper>
   );
@@ -21,6 +21,6 @@ const WaterNeedWrapper = styled.div`
 `;
 
 const StyledDrop = styled(Drop)`
-  fill: ${({ $isWater }) => ($isWater === true ? "black" : "")};
-  color: ${({ $isWater }) => ($isWater === true ? "black" : "lightgrey")}
+  fill: ${({ $isWater }) => ($isWater ? "black" : "")};
+  color: ${({ $isWater }) => ($isWater ? "black" : "lightgrey")}
 `;

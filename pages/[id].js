@@ -43,8 +43,11 @@ export default function PlantDetails() {
         />
       </PlantImagelWrapper>
       <p>{description}</p>
+      <p>water needs:</p>
       <WaterNeed waterNeed={waterNeed} />
+      <p>light needs:</p>
       <LightNeed lightNeed={lightNeed} />
+      <p>fertiliser season:</p>
       <FertiliserSeason season={fertiliserSeason} />
     </>
   );
