@@ -5,7 +5,7 @@ import styled from "styled-components";
 export default function PlantCard({ image, name, botanicalName, id }) {
   return (
     <PlantCardWrapper>
-      <Link href={"/" + id}>
+      <Link href={`/${id}`}>
         <PlantImageWrapper>
           <StyledImage
             sizes="(max-width: 150px)"

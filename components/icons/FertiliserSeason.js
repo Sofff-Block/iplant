@@ -19,6 +19,5 @@ const StyledSeason = styled.div`
   background-color: ${({ $isSeason }) => ($isSeason ? "black" : "lightgrey")};
   color: ${({ $isSeason }) => ($isSeason ? "white" : "darkgrey")};
   padding: 10px;
-  text-align: center;
   border-radius: 8px;
 `;
