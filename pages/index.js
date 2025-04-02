@@ -12,6 +12,7 @@ export default function HomePage() {
           <li key={plant.id}>
             {" "}
             <PlantCard
+              id={plant.id}
               name={plant.name}
               image={plant.imageUrl}
               botanicalName={plant.botanicalName}
@@ -24,13 +25,10 @@ export default function HomePage() {
 }
 
 const PlantList = styled.ul`
-all: unset;
-display: flex;
-list-style:none;
-flex-wrap: wrap;
-justify-content: center;
-gap:20px;
-
-
-
-`
+  all: unset;
+  display: flex;
+  list-style: none;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+`;

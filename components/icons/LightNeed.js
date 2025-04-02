@@ -1,6 +1,6 @@
 import PartialShade from "@/public/half-shade.svg";
 import Shade from "@/public/sun-shade.svg";
-import Sun from "@/public/sun.svg"
+import Sun from "@/public/sun.svg";
 import styled from "styled-components";
 
 export default function LightNeed({ lightNeed }) {
@@ -32,5 +32,3 @@ const StyledSun = styled(Sun)`
   color: ${({ $isLight }) => ($isLight ? "black" : "lightgray")};
   fill: ${({ $isLight }) => ($isLight ? "black" : "lightgray")};
 `;
-
-
