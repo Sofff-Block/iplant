@@ -4,6 +4,9 @@ import Image from "next/image";
 import styled from "styled-components";
 import Drop from "@/public/droplet.svg";
 import Sun from "@/public/sun.svg";
+import WaterNeed from "@/components/icons/WaterNeed";
+import LightNeed from "@/components/icons/LightNeed";
+import FertiliserSeason from "@/components/icons/FertiliserSeason";
 
 export default function PlantDetails() {
   const router = useRouter();
@@ -37,10 +40,9 @@ export default function PlantDetails() {
         />
       </PlantImagelWrapper>
       <p>{description}</p>
-      <StyledDrop $filled={waterNeed} />
-      <Drop />
-      <Drop />
-      <Sun />
+      <WaterNeed waterNeed={waterNeed}/>
+     <LightNeed lightNeed={lightNeed}/>
+     <FertiliserSeason season={fertiliserSeason}/>
     </>
   );
 }
