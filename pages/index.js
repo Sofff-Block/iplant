@@ -16,6 +16,7 @@ export default function HomePage() {
               name={plant.name}
               image={plant.imageUrl}
               botanicalName={plant.botanicalName}
+              plants={plants}
             ></PlantCard>
           </li>
         ))}
