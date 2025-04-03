@@ -1,15 +1,20 @@
 import PlantCard from "@/components/PlantCard";
-import styled from "styled-components";
-import PlantForm from "@/components/PlantForm";
+import { PlantList } from ".";
 
-export default function HomePage({ plants, onToggleOwned, ownedPlants }) {
+export default function MyPlants({ ownedPlants, plants, onToggleOwned }) {
+  const myPlants = plants.filter((plant) =>
+    ownedPlants.find((id) => id === plant.id)
+  );
+
+  if (myPlants.length === 0) {
+    return <p>You don't own any plants yet!</p>;
+  }
   return (
-    <div>
-      <h1>{"iPlan{t}"}</h1>
-      <PlantForm />
+    <>
+      <h1>Welcome to your Plants!</h1>
       <PlantList>
         {" "}
-        {plants.map((plant) => (
+        {myPlants.map((plant) => (
           <li key={plant.id}>
             {" "}
             <PlantCard
@@ -23,15 +28,6 @@ export default function HomePage({ plants, onToggleOwned, ownedPlants }) {
           </li>
         ))}
       </PlantList>
-    </div>
+    </>
   );
 }
-
-export const PlantList = styled.ul`
-  all: unset;
-  display: flex;
-  list-style: none;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-`;
