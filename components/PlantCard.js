@@ -4,7 +4,7 @@ import styled from "styled-components";
 import OwnedBookmark from "./OwnedBookmark";
 import plants from "@/assets/plants";
 
-export default function PlantCard({ image, name, botanicalName, id, plants }) {
+export default function PlantCard({ image, name, botanicalName, id, onToggle, isOwned }) {
   return (
     <PlantCardWrapper>
       <Link href={`/${id}`}>
@@ -20,7 +20,7 @@ export default function PlantCard({ image, name, botanicalName, id, plants }) {
       </Link>
       <h2>{name}</h2>
       <p>{botanicalName}</p>
-      <OwnedBookmark plantId={id} plants={plants}></OwnedBookmark>
+      <OwnedBookmark plantId={id}  onToggle={onToggle} isOwned={isOwned}></OwnedBookmark>
     </PlantCardWrapper>
   );
 }
