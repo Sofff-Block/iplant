@@ -2,6 +2,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import Flower from "@/public/flower.svg";
 import House from "@/public/house.svg";
+import AddButton from "@/public/badge-plus.svg";
 
 export default function Navigation() {
   return (
@@ -9,7 +10,9 @@ export default function Navigation() {
       <Link href="/">
         <House />
       </Link>
-      <button onClick=""></button>
+      <button onClick="">
+        <AddButton />
+      </button>
       <Link href="/my-plants">
         <Flower />
       </Link>
