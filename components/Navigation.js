@@ -9,7 +9,7 @@ export default function Navigation() {
       <Link href="/">
         <House />
       </Link>
-      <Link href="/">
+      <Link href="/my-plants">
         <Flower />
       </Link>
     </StyledNav>

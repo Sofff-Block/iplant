@@ -26,7 +26,7 @@ export default function HomePage({plants, onToggleOwned, ownedPlants}) {
   );
 }
 
-const PlantList = styled.ul`
+export const PlantList = styled.ul`
   all: unset;
   display: flex;
   list-style: none;
