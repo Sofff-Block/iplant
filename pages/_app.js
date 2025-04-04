@@ -3,20 +3,24 @@ import GlobalStyle from "../styles";
 import { useState } from "react";
 import plants from "@/assets/plants";
 import useLocalStorageState from "use-local-storage-state";
+import { useEffect } from "react";
 
 export default function App({ Component, pageProps }) {
+  const [hasMounted, setHasMounted] = useState(false);
   const [ownedPlantsIds, setOwnedPlantsIds] = useState([]);
-
   const [initialPlants, setInitialPlants] = useLocalStorageState(
-    "initialPlants", {defaultValue: plants}
+    "initialPlants",
+    { defaultValue: plants }
   );
 
- 
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
   function handleAddPlants(newPlant) {
     setInitialPlants([newPlant, ...initialPlants]);
     console.log(newPlant);
   }
-  
 
   function handleToggleOwned(plantId) {
     if (ownedPlantsIds.includes(plantId)) {
@@ -26,6 +30,8 @@ export default function App({ Component, pageProps }) {
       setOwnedPlantsIds([plantId, ...ownedPlantsIds]);
     }
   }
+
+  if (!hasMounted) return null; // ⛑ Prevent hydration error
 
   return (
     <>
