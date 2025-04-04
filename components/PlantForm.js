@@ -1,16 +1,15 @@
-import { v4 as uuid } from "uuid";
+import { uid } from "uid";
 
-export default function PlantForm({onAddPlants}) {
-  
+export default function PlantForm({ onAddPlants }) {
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 
     console.log(data);
-    const randomId = uuid();
+    const randomId = uid();
     const newPlant = {
-      id: randomId,
+      id: `${randomId}`,
       name: data.name,
       botanicalName: data.botanicalName,
       imageUrl:
@@ -20,8 +19,8 @@ export default function PlantForm({onAddPlants}) {
       fertiliserSeason: formData.getAll("fertiliserSeason"),
       description: data.description,
     };
-   onAddPlants(newPlant);
-   event.target.reset();
+    onAddPlants(newPlant);
+    event.target.reset();
   }
 
   return (

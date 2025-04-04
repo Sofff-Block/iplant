@@ -1,22 +1,17 @@
 import Navigation from "@/components/Navigation";
 import GlobalStyle from "../styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import plants from "@/assets/plants";
 import useLocalStorageState from "use-local-storage-state";
 
 export default function App({ Component, pageProps }) {
   const [ownedPlantsIds, setOwnedPlantsIds] = useState([]);
 
-  const [initialPlants, setInitialPlants] = useLocalStorageState(
-    "initialPlants", {defaultValue: plants}
-  );
+  const [initialPlants, setInitialPlants] = useState(plants);
 
- 
   function handleAddPlants(newPlant) {
     setInitialPlants([newPlant, ...initialPlants]);
-    console.log(newPlant);
   }
-  
 
   function handleToggleOwned(plantId) {
     if (ownedPlantsIds.includes(plantId)) {
