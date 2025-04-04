@@ -6,6 +6,7 @@ import useLocalStorageState from "use-local-storage-state";
 
 export default function App({ Component, pageProps }) {
   const [hasMounted, setHasMounted] = useState(false);
+  const [displayForm, setDisplayForm] = useState(false);
   const [ownedPlantsIds, setOwnedPlantsIds] = useLocalStorageState(
     "ownedPlantsIds",
     { defaultValue: [] }
@@ -38,13 +39,15 @@ export default function App({ Component, pageProps }) {
     <>
       <GlobalStyle />
       <Component
+        displayForm={displayForm}
+        setDisplayForm={setDisplayForm}
         onAddPlants={handleAddPlants}
         onToggleOwned={handleToggleOwned}
         plants={initialPlants}
         ownedPlantsIds={ownedPlantsIds}
         {...pageProps}
       />
-      <Navigation />
+      <Navigation setDisplayForm={setDisplayForm} />
     </>
   );
 }

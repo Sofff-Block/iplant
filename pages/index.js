@@ -2,16 +2,28 @@ import PlantCard from "@/components/PlantCard";
 import styled from "styled-components";
 import PlantForm from "@/components/PlantForm";
 
-export default function HomePage({ plants, onToggleOwned, ownedPlantsIds, onAddPlants }) {
+export default function HomePage({
+  plants,
+  onToggleOwned,
+  ownedPlantsIds,
+  onAddPlants,
+  displayForm,
+  setDisplayForm,
+}) {
   return (
     <div>
       <h1>{"iPlan{t}"}</h1>
-      <PlantForm onAddPlants={onAddPlants}/>
+      {displayForm ? (
+        <PlantForm
+          onAddPlants={onAddPlants}
+          setDisplayForm={setDisplayForm}
+        />
+      ) : (
+        ""
+      )}
       <PlantList>
-        {" "}
         {plants.map((plant) => (
           <li key={plant.id}>
-            {" "}
             <PlantCard
               id={plant.id}
               name={plant.name}
