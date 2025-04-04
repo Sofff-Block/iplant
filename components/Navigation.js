@@ -6,10 +6,10 @@ import House from "@/public/house.svg";
 export default function Navigation() {
   return (
     <StyledNav>
-      <Link href="/">
+      <Link href="/" aria-label="Link to homepage">
         <House />
       </Link>
-      <Link href="/my-plants">
+      <Link href="/my-plants" aria-label="Link to my plants page">
         <Flower />
       </Link>
     </StyledNav>

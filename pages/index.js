@@ -1,8 +1,7 @@
-
 import PlantCard from "@/components/PlantCard";
 import styled from "styled-components";
 
-export default function HomePage({plants, onToggleOwned, ownedPlants}) {
+export default function HomePage({ plants, onToggleOwned, ownedPlantsIds }) {
   return (
     <div>
       <h1>{"iPlan{t}"}</h1>
@@ -17,7 +16,7 @@ export default function HomePage({plants, onToggleOwned, ownedPlants}) {
               image={plant.imageUrl}
               botanicalName={plant.botanicalName}
               onToggleOwned={onToggleOwned}
-              ownedPlants={ownedPlants}
+              ownedPlantsIds={ownedPlantsIds}
             ></PlantCard>
           </li>
         ))}
