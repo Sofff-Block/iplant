@@ -102,11 +102,23 @@ export default function PlantForm({ onAddPlants, setDisplayForm }) {
             low
           </label>
           <label htmlFor="medium">
-            <input id="medium" type="radio" name="waterNeed" value="Medium" aria-label="Your plant needs medium water" />
+            <input
+              id="medium"
+              type="radio"
+              name="waterNeed"
+              value="Medium"
+              aria-label="Your plant needs medium water"
+            />
             medium
           </label>
           <label htmlFor="high">
-            <input id="high" type="radio" name="waterNeed" value="High" aria-label="Your plant needs high water" />
+            <input
+              id="high"
+              type="radio"
+              name="waterNeed"
+              value="High"
+              aria-label="Your plant needs high water"
+            />
             high
           </label>
         </fieldset>
@@ -164,6 +176,6 @@ export default function PlantForm({ onAddPlants, setDisplayForm }) {
 }
 
 const StyledForm = styled.form`
-display: flex;
-flex-direction: column;
+  display: flex;
+  flex-direction: column;
 `;
