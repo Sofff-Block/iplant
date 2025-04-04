@@ -10,7 +10,6 @@ const plants = [
     fertiliserSeason: ["Spring", "Summer"],
     description:
       "The Snake Plant, also known as Mother-in-Law's Tongue, is a hardy and low-maintenance plant that can thrive in low light and requires minimal watering.",
-      isOwned: false,
   },
   {
     id: "2",
