@@ -1,10 +1,28 @@
 import Navigation from "@/components/Navigation";
 import GlobalStyle from "../styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import plants from "@/assets/plants";
+import useLocalStorageState from "use-local-storage-state";
 
 export default function App({ Component, pageProps }) {
-  const [ownedPlantsIds, setOwnedPlantsIds] = useState([]);
+  const [hasMounted, setHasMounted] = useState(false);
+  const [displayForm, setDisplayForm] = useState(false);
+  const [ownedPlantsIds, setOwnedPlantsIds] = useLocalStorageState(
+    "ownedPlantsIds",
+    { defaultValue: [] }
+  );
+  const [initialPlants, setInitialPlants] = useLocalStorageState(
+    "initialPlants",
+    { defaultValue: plants }
+  );
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  function handleAddPlants(newPlant) {
+    setInitialPlants([newPlant, ...initialPlants]);
+  }
 
   function handleToggleOwned(plantId) {
     if (ownedPlantsIds.includes(plantId)) {
@@ -15,16 +33,21 @@ export default function App({ Component, pageProps }) {
     }
   }
 
+  if (!hasMounted) return null;
+
   return (
     <>
       <GlobalStyle />
       <Component
+        displayForm={displayForm}
+        setDisplayForm={setDisplayForm}
+        onAddPlants={handleAddPlants}
         onToggleOwned={handleToggleOwned}
-        plants={plants}
+        plants={initialPlants}
         ownedPlantsIds={ownedPlantsIds}
         {...pageProps}
       />
-      <Navigation />
+      <Navigation setDisplayForm={setDisplayForm} />
     </>
   );
 }

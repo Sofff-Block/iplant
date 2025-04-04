@@ -1,3 +1,4 @@
+import BookmarkButton from "@/components/BookmarkButton";
 import PlantCard from "@/components/PlantCard";
 import styled from "styled-components";
 
@@ -17,7 +18,12 @@ export default function HomePage({ plants, onToggleOwned, ownedPlantsIds }) {
               botanicalName={plant.botanicalName}
               onToggleOwned={onToggleOwned}
               ownedPlantsIds={ownedPlantsIds}
-            ></PlantCard>
+            />
+            <BookmarkButton
+              plantId={plant.id}
+              onToggleOwned={onToggleOwned}
+              ownedPlantsIds={ownedPlantsIds}
+            ></BookmarkButton>
           </li>
         ))}
       </PlantList>

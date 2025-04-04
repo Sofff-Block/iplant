@@ -1,9 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
-import BookmarkButton from "./BookmarkButton";
 
-export default function PlantCard({ image, name, botanicalName, id, onToggleOwned, ownedPlantsIds }) {
+export default function PlantCard({ image, name, botanicalName, id }) {
   return (
     <PlantCardWrapper>
       <Link href={`/${id}`}>
@@ -19,7 +18,6 @@ export default function PlantCard({ image, name, botanicalName, id, onToggleOwne
       </Link>
       <h2>{name}</h2>
       <p>{botanicalName}</p>
-      <BookmarkButton plantId={id}  onToggleOwned={onToggleOwned} ownedPlantsIds={ownedPlantsIds}></BookmarkButton>
     </PlantCardWrapper>
   );
 }
