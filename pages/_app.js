@@ -3,7 +3,6 @@ import GlobalStyle from "../styles";
 import { useEffect, useState } from "react";
 import plants from "@/assets/plants";
 import useLocalStorageState from "use-local-storage-state";
-import { useEffect } from "react";
 
 export default function App({ Component, pageProps }) {
   const [hasMounted, setHasMounted] = useState(false);
@@ -19,7 +18,7 @@ export default function App({ Component, pageProps }) {
 
   function handleAddPlants(newPlant) {
     setInitialPlants([newPlant, ...initialPlants]);
-  }gi
+  }
 
   function handleToggleOwned(plantId) {
     if (ownedPlantsIds.includes(plantId)) {
@@ -30,7 +29,7 @@ export default function App({ Component, pageProps }) {
     }
   }
 
-  if (!hasMounted) return null; // ⛑ Prevent hydration error
+  if (!hasMounted) return null; 
 
   return (
     <>
