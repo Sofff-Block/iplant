@@ -1,11 +1,10 @@
-import { useState } from "react";
 import Flower from "@/public/flower.svg";
 import styled from "styled-components";
 
-export default function OwnedBookmark({ plantId, onToggleOwned, ownedPlants }) {
+export default function BookmarkButton({ plantId, onToggleOwned, ownedPlantsIds }) {
   return (
     <button onClick={() => onToggleOwned(plantId)}>
-      <StyledBookmark $isOwned={ownedPlants.includes(plantId)} />
+      <StyledBookmark $isOwned={ownedPlantsIds.includes(plantId)} />
     </button>
   );
 }

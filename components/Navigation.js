@@ -7,13 +7,10 @@ import AddButton from "@/public/badge-plus.svg";
 export default function Navigation() {
   return (
     <StyledNav>
-      <Link href="/">
+      <Link href="/" aria-label="Link to homepage">
         <House />
       </Link>
-      <button onClick="">
-        <AddButton />
-      </button>
-      <Link href="/my-plants">
+      <Link href="/my-plants" aria-label="Link to my plants page">
         <Flower />
       </Link>
     </StyledNav>

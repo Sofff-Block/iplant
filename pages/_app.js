@@ -4,29 +4,24 @@ import { useState } from "react";
 import plants from "@/assets/plants";
 
 export default function App({ Component, pageProps }) {
-  const [ownedPlants, setOwnedPlants] = useState([]);
+  const [ownedPlantsIds, setOwnedPlantsIds] = useState([]);
 
-  function toggleOwned(plantId) {
-    if (ownedPlants.includes(plantId)) {
-      const updateOwnPlants = ownedPlants.filter((id) => id !== plantId);
-      setOwnedPlants(updateOwnPlants)
+  function handleToggleOwned(plantId) {
+    if (ownedPlantsIds.includes(plantId)) {
+      const updateOwnPlants = ownedPlantsIds.filter((id) => id !== plantId);
+      setOwnedPlantsIds(updateOwnPlants);
     } else {
-    const newOwnedPlant = plants.find((plant) => plant.id === plantId);
-    console.log("newOwnedPlant: ", newOwnedPlant);
-
-    setOwnedPlants([newOwnedPlant.id, ...ownedPlants]);
-    return;
+      setOwnedPlantsIds([plantId, ...ownedPlantsIds]);
     }
   }
-  console.log("ownedPlants: ", ownedPlants);
 
   return (
     <>
       <GlobalStyle />
       <Component
-        onToggleOwned={toggleOwned}
+        onToggleOwned={handleToggleOwned}
         plants={plants}
-        ownedPlants={ownedPlants}
+        ownedPlantsIds={ownedPlantsIds}
         {...pageProps}
       />
       <Navigation />
