@@ -7,16 +7,14 @@ export default function MyPlants({ ownedPlants, plants, onToggleOwned }) {
   );
 
   if (myPlants.length === 0) {
-    return <p>You don't own any plants yet!</p>;
+    return <p>You don&apos;t own any plants yet!</p>;
   }
   return (
     <>
       <h1>Welcome to your Plants!</h1>
       <PlantList>
-        {" "}
         {myPlants.map((plant) => (
           <li key={plant.id}>
-            {" "}
             <PlantCard
               id={plant.id}
               name={plant.name}
