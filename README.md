@@ -4,6 +4,11 @@
 
 To work locally, please install the dependencies using `npm i` first.
 
+Furthermore you need:
+
+`npm i uid` - `import { uid } from "uid";`
+`npm i use-local-storage-state@17` - `import useLocalStorageState from "use-local-storage-state";`
+
 Run `npm run dev` to start a development server and open the displayed URL in a browser.
 
 Use `npm run test` to run the tests.
