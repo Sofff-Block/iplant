@@ -2,16 +2,24 @@ import Link from "next/link";
 import styled from "styled-components";
 import Flower from "@/public/flower.svg";
 import House from "@/public/house.svg";
+import AddButton from "@/public/badge-plus.svg";
 
-export default function Navigation() {
+export default function Navigation({ setDisplayForm }) {
   return (
     <StyledNav>
-      <Link href="/" aria-label="Link to homepage">
+      <StyledLink href="/" aria-label="Link to homepage">
         <House />
-      </Link>
-      <Link href="/my-plants" aria-label="Link to my plants page">
+      </StyledLink>
+      <StyledAddLink
+        href={"/"}
+        onClick={() => setDisplayForm(true)}
+        aria-label="Add a new plant"
+      >
+        <AddButton />
+      </StyledAddLink>
+      <StyledLink href="/my-plants" aria-label="Link to my plants page">
         <Flower />
-      </Link>
+      </StyledLink>
     </StyledNav>
   );
 }
@@ -24,4 +32,29 @@ const StyledNav = styled.nav`
   display: flex;
   justify-content: space-evenly;
   background-color: hotpink;
+  align-items: center;
+`;
+
+const StyledAddLink = styled(Link)`
+  all: unset;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: darkmagenta;
+  color: white;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  border-radius: 50px;
+  &:hover {
+    background-color: hotpink;
+  }
+`;
+
+const StyledLink = styled(Link)`
+  all: unset;
+  color: white;
+  &:hover {
+    color: darkmagenta;
+  }
 `;
