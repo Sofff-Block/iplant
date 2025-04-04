@@ -6,7 +6,10 @@ import useLocalStorageState from "use-local-storage-state";
 
 export default function App({ Component, pageProps }) {
   const [hasMounted, setHasMounted] = useState(false);
-  const [ownedPlantsIds, setOwnedPlantsIds] = useState([]);
+  const [ownedPlantsIds, setOwnedPlantsIds] = useLocalStorageState(
+    "ownedPlantsIds",
+    { defaultValue: [] }
+  );
   const [initialPlants, setInitialPlants] = useLocalStorageState(
     "initialPlants",
     { defaultValue: plants }
@@ -29,7 +32,7 @@ export default function App({ Component, pageProps }) {
     }
   }
 
-  if (!hasMounted) return null; 
+  if (!hasMounted) return null;
 
   return (
     <>

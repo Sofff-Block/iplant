@@ -10,6 +10,7 @@ export default function Navigation() {
       <Link href="/" aria-label="Link to homepage">
         <House />
       </Link>
+      <button ><AddButton/></button>
       <Link href="/my-plants" aria-label="Link to my plants page">
         <Flower />
       </Link>
