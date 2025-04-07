@@ -21,7 +21,7 @@ export default function PlantCard({
             src={image}
             fill="true"
             priority
-          ></StyledImage>
+          />
         </PlantImageWrapper>
       </Link>
       <h2>{name}</h2>

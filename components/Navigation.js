@@ -4,7 +4,7 @@ import Flower from "@/public/flower.svg";
 import House from "@/public/house.svg";
 import AddPlantIcon from "@/public/badge-plus.svg";
 
-export default function Navigation({ setDisplayForm }) {
+export default function Navigation() {
   return (
     <StyledNav>
       <StyledLink href="/" aria-label="Link to homepage">

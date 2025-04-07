@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { uid } from "uid";
+import { useRouter } from "next/navigation";
 
 export default function PlantForm({ onAddPlants }) {
+  const router = useRouter();
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -20,7 +22,6 @@ export default function PlantForm({ onAddPlants }) {
     };
     onAddPlants(newPlant);
     event.target.reset();
-    // setDisplayForm(false);
   }
 
   return (
@@ -166,7 +167,7 @@ export default function PlantForm({ onAddPlants }) {
             Winter
           </label>
         </fieldset>
-        <button onClick={() => setDisplayForm(false)} type="button">
+        <button onClick={() => router.push("/")} type="button">
           Cancel
         </button>
         <button type="submit">Submit</button>
