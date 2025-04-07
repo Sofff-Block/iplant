@@ -66,7 +66,7 @@ export default function PlantForm({ onAddPlants, setDisplayForm }) {
             />
             full shade
           </label>
-          <label htmlFor="partial-shade">
+          <label>
             <input
               id="partial-shade"
               type="radio"
@@ -76,7 +76,7 @@ export default function PlantForm({ onAddPlants, setDisplayForm }) {
             />
             partial shade
           </label>
-          <label htmlFor="full-sun">
+          <label>
             <input
               id="full-sun"
               type="radio"
@@ -90,7 +90,7 @@ export default function PlantForm({ onAddPlants, setDisplayForm }) {
 
         <fieldset>
           <legend>Water Needs</legend>
-          <label htmlFor="low">
+          <label>
             <input
               id="low"
               type="radio"
@@ -101,7 +101,7 @@ export default function PlantForm({ onAddPlants, setDisplayForm }) {
             />
             low
           </label>
-          <label htmlFor="medium">
+          <label>
             <input
               id="medium"
               type="radio"
@@ -111,7 +111,7 @@ export default function PlantForm({ onAddPlants, setDisplayForm }) {
             />
             medium
           </label>
-          <label htmlFor="high">
+          <label>
             <input
               id="high"
               type="radio"
@@ -125,7 +125,7 @@ export default function PlantForm({ onAddPlants, setDisplayForm }) {
 
         <fieldset>
           <legend>Fertiliser Season</legend>
-          <label htmlFor="spring">
+          <label>
             <input
               type="checkbox"
               name="fertiliserSeason"
@@ -135,7 +135,7 @@ export default function PlantForm({ onAddPlants, setDisplayForm }) {
             />
             Spring
           </label>
-          <label htmlFor="summer">
+          <label>
             <input
               type="checkbox"
               name="fertiliserSeason"
@@ -145,7 +145,7 @@ export default function PlantForm({ onAddPlants, setDisplayForm }) {
             />
             Summer
           </label>
-          <label htmlFor="fall">
+          <label>
             <input
               type="checkbox"
               name="fertiliserSeason"
@@ -155,7 +155,7 @@ export default function PlantForm({ onAddPlants, setDisplayForm }) {
             />
             Fall
           </label>
-          <label htmlFor="winter">
+          <label>
             <input
               type="checkbox"
               name="fertiliserSeason"
