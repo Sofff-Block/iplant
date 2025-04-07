@@ -27,14 +27,9 @@ export default function HomePage({
               name={plant.name}
               image={plant.imageUrl}
               botanicalName={plant.botanicalName}
-              onToggleOwned={onToggleOwned}
+              // onToggleOwned={onToggleOwned}
               ownedPlantsIds={ownedPlantsIds}
             />
-            <BookmarkButton
-              plantId={plant.id}
-              onToggleOwned={onToggleOwned}
-              ownedPlantsIds={ownedPlantsIds}
-            ></BookmarkButton>
           </li>
         ))}
       </PlantList>

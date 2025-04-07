@@ -2,7 +2,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import Flower from "@/public/flower.svg";
 import House from "@/public/house.svg";
-import AddButton from "@/public/badge-plus.svg";
+import AddPlantIcon from "@/public/badge-plus.svg";
 
 export default function Navigation({ setDisplayForm }) {
   return (
@@ -15,7 +15,7 @@ export default function Navigation({ setDisplayForm }) {
         onClick={() => setDisplayForm(true)}
         aria-label="Add a new plant"
       >
-        <AddButton />
+        <AddPlantIcon />
       </StyledAddLink>
       <StyledLink href="/my-plants" aria-label="Link to my plants page">
         <Flower />
@@ -40,14 +40,14 @@ const StyledAddLink = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: darkmagenta;
+  background-color: hotpink;
   color: white;
   width: 40px;
   height: 40px;
   text-align: center;
   border-radius: 50px;
   &:hover {
-    background-color: hotpink;
+    color: darkmagenta;
   }
 `;
 
