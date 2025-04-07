@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { uid } from "uid";
 
-export default function PlantForm({ onAddPlants, setDisplayForm }) {
+export default function PlantForm({ onAddPlants }) {
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -20,7 +20,7 @@ export default function PlantForm({ onAddPlants, setDisplayForm }) {
     };
     onAddPlants(newPlant);
     event.target.reset();
-    setDisplayForm(false);
+    // setDisplayForm(false);
   }
 
   return (

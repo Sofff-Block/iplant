@@ -3,9 +3,11 @@ import GlobalStyle from "../styles";
 import { useEffect, useState } from "react";
 import plants from "@/assets/plants";
 import useLocalStorageState from "use-local-storage-state";
+import { useRouter } from "next/navigation";
 
 export default function App({ Component, pageProps }) {
   const [hasMounted, setHasMounted] = useState(false);
+  const router = useRouter();
   const [displayForm, setDisplayForm] = useState(false);
   const [ownedPlantsIds, setOwnedPlantsIds] = useLocalStorageState(
     "ownedPlantsIds",
@@ -22,6 +24,7 @@ export default function App({ Component, pageProps }) {
 
   function handleAddPlants(newPlant) {
     setInitialPlants([newPlant, ...initialPlants]);
+    router.push("/");
   }
 
   function handleToggleOwned(plantId) {

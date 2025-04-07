@@ -1,6 +1,4 @@
-import BookmarkButton from "@/components/BookmarkButton";
 import PlantCard from "@/components/PlantCard";
-import PlantForm from "@/components/PlantForm";
 import styled from "styled-components";
 
 export default function HomePage({
@@ -8,26 +6,21 @@ export default function HomePage({
   onToggleOwned,
   ownedPlantsIds,
   onAddPlants,
-  displayForm,
-  setDisplayForm,
 }) {
   return (
     <div>
       <h1>{"iPlan{t}"}</h1>
-      {displayForm ? (
-        <PlantForm onAddPlants={onAddPlants} setDisplayForm={setDisplayForm} />
-      ) : (
-        ""
-      )}
+
       <PlantList>
         {plants.map((plant) => (
           <li key={plant.id}>
             <PlantCard
+              onAddPlants={onAddPlants}
               id={plant.id}
               name={plant.name}
               image={plant.imageUrl}
               botanicalName={plant.botanicalName}
-              // onToggleOwned={onToggleOwned}
+              onToggleOwned={onToggleOwned}
               ownedPlantsIds={ownedPlantsIds}
             />
           </li>

@@ -11,9 +11,8 @@ export default function Navigation({ setDisplayForm }) {
         <House />
       </StyledLink>
       <StyledAddLink
-        href={"/"}
-        onClick={() => setDisplayForm(true)}
-        aria-label="Add a new plant"
+        href="/create"
+        aria-label="Link to create plants form page"
       >
         <AddPlantIcon />
       </StyledAddLink>
