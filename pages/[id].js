@@ -46,6 +46,7 @@ export default function PlantDetails({ plants }) {
       <LightNeed lightNeed={lightNeed} />
       <p>fertiliser season:</p>
       <FertiliserSeason season={fertiliserSeason} />
+      <button>Delete</button>
     </>
   );
 }
