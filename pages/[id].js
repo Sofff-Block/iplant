@@ -10,7 +10,6 @@ import Link from "next/link";
 export default function PlantDetails({ plants }) {
   const router = useRouter();
   const { id } = router.query;
-console.log(router);
   const plant = plants.find((plant) => plant.id === id);
   if (!plant) return <h1>Plant not found.</h1>;
 

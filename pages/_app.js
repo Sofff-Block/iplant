@@ -40,8 +40,6 @@ export default function App({ Component, pageProps }) {
 
   if (!hasMounted) return null;
 
-  console.log(router);
-
   return (
     <>
       <GlobalStyle />
@@ -56,12 +54,12 @@ export default function App({ Component, pageProps }) {
         {...pageProps}
       />
 
-      <Navigation router={router.query} setDisplayForm={setDisplayForm} />
+      <Navigation setDisplayForm={setDisplayForm} />
     </>
   );
 }
 
 const StyledLogo = styled(IPlantLogo)`
-width: 150px;
-margin-bottom: 20px;
+  width: 150px;
+  margin-bottom: 20px;
 `;
