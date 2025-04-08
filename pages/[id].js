@@ -8,7 +8,7 @@ import FertiliserSeason from "@/components/icons/FertiliserSeason";
 import Link from "next/link";
 import ConfirmationPopover from "@/components/ConfirmationPopover";
 
-export default function PlantDetails({ plants }) {
+export default function PlantDetails({ plants, onDeletePlant }) {
   const router = useRouter();
   const { id } = router.query;
   const plant = plants.find((plant) => plant.id === id);
@@ -48,7 +48,7 @@ export default function PlantDetails({ plants }) {
       <p>fertiliser season:</p>
       <FertiliserSeason season={fertiliserSeason} />
       <button popoverTarget="my-popover">Delete</button>
-      <ConfirmationPopover />
+      <ConfirmationPopover onDeletePlant={onDeletePlant} plantId={id}/>
     </>
   );
 }
