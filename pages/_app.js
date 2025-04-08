@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import plants from "@/assets/plants";
 import useLocalStorageState from "use-local-storage-state";
 import { useRouter } from "next/navigation";
+import IPlantLogo from "@/public/iplant-logo.svg";
+import styled from "styled-components";
 
 export default function App({ Component, pageProps }) {
-  const [hasMounted, setHasMounted] = useState(false);
   const router = useRouter();
+  const [hasMounted, setHasMounted] = useState(false);
   const [displayForm, setDisplayForm] = useState(false);
   const [ownedPlantsIds, setOwnedPlantsIds] = useLocalStorageState(
     "ownedPlantsIds",
@@ -41,6 +43,7 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
+      <StyledLogo />
       <Component
         displayForm={displayForm}
         setDisplayForm={setDisplayForm}
@@ -50,7 +53,13 @@ export default function App({ Component, pageProps }) {
         ownedPlantsIds={ownedPlantsIds}
         {...pageProps}
       />
+
       <Navigation setDisplayForm={setDisplayForm} />
     </>
   );
 }
+
+const StyledLogo = styled(IPlantLogo)`
+width: 150px;
+margin-bottom: 20px;
+`;

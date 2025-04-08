@@ -36,15 +36,14 @@ export default function PlantCard({
 }
 
 const PlantImageWrapper = styled.div`
-  width: 150px;
+  width: 100%;
   height: 200px;
   position: relative;
-  border: 2px solid black;
 `;
 
 const PlantCardWrapper = styled.div`
   display: flex;
-  border: 2px solid purple;
+  border: 1px solid black;
   width: 150px;
   text-align: center;
 

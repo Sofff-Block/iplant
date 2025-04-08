@@ -8,9 +8,7 @@ export default function HomePage({
   onAddPlants,
 }) {
   return (
-    <div>
-      <h1>{"iPlan{t}"}</h1>
-
+    <>
       <PlantList>
         {plants.map((plant) => (
           <li key={plant.id}>
@@ -26,7 +24,7 @@ export default function HomePage({
           </li>
         ))}
       </PlantList>
-    </div>
+    </>
   );
 }
 

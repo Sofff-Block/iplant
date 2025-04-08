@@ -32,6 +32,7 @@ const StyledNav = styled.nav`
   justify-content: space-evenly;
   background-color: hotpink;
   align-items: center;
+  margin-inline: -20px;
 `;
 
 const StyledAddLink = styled(Link)`
