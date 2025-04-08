@@ -40,6 +40,8 @@ export default function App({ Component, pageProps }) {
 
   if (!hasMounted) return null;
 
+  console.log(router);
+
   return (
     <>
       <GlobalStyle />
@@ -54,7 +56,7 @@ export default function App({ Component, pageProps }) {
         {...pageProps}
       />
 
-      <Navigation setDisplayForm={setDisplayForm} />
+      <Navigation router={router.query} setDisplayForm={setDisplayForm} />
     </>
   );
 }

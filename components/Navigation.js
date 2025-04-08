@@ -3,20 +3,32 @@ import styled from "styled-components";
 import Flower from "@/public/flower.svg";
 import House from "@/public/house.svg";
 import AddPlantIcon from "@/public/badge-plus.svg";
+import { useRouter } from "next/router";
 
 export default function Navigation() {
+  const router = useRouter();
+  const route = router.route;
   return (
     <StyledNav>
-      <StyledLink href="/" aria-label="Link to homepage">
+      <StyledLink
+        $isActive={route === "/"}
+        href="/"
+        aria-label="Link to homepage"
+      >
         <House />
       </StyledLink>
-      <StyledAddLink
+      <StyledLink
+        $isActive={route === "/create"}
         href="/create"
         aria-label="Link to create plants form page"
       >
         <AddPlantIcon />
-      </StyledAddLink>
-      <StyledLink href="/my-plants" aria-label="Link to my plants page">
+      </StyledLink>
+      <StyledLink
+        $isActive={route === "/my-plants"}
+        href="/my-plants"
+        aria-label="Link to my plants page"
+      >
         <Flower />
       </StyledLink>
     </StyledNav>
@@ -35,25 +47,9 @@ const StyledNav = styled.nav`
   margin-inline: -20px;
 `;
 
-const StyledAddLink = styled(Link)`
-  all: unset;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: hotpink;
-  color: white;
-  width: 40px;
-  height: 40px;
-  text-align: center;
-  border-radius: 50px;
-  &:hover {
-    color: darkmagenta;
-  }
-`;
-
 const StyledLink = styled(Link)`
   all: unset;
-  color: white;
+  color: ${({ $isActive }) => ($isActive ? "darkmagenta" : "white")};
   &:hover {
     color: darkmagenta;
   }
