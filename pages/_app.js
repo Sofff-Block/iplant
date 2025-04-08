@@ -1,10 +1,33 @@
 import Navigation from "@/components/Navigation";
 import GlobalStyle from "../styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import plants from "@/assets/plants";
+import useLocalStorageState from "use-local-storage-state";
+import { useRouter } from "next/navigation";
+import IPlantLogo from "@/public/iplant-logo.svg";
+import styled from "styled-components";
 
 export default function App({ Component, pageProps }) {
-  const [ownedPlantsIds, setOwnedPlantsIds] = useState([]);
+  const router = useRouter();
+  const [hasMounted, setHasMounted] = useState(false);
+  const [displayForm, setDisplayForm] = useState(false);
+  const [ownedPlantsIds, setOwnedPlantsIds] = useLocalStorageState(
+    "ownedPlantsIds",
+    { defaultValue: [] }
+  );
+  const [initialPlants, setInitialPlants] = useLocalStorageState(
+    "initialPlants",
+    { defaultValue: plants }
+  );
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  function handleAddPlants(newPlant) {
+    setInitialPlants([newPlant, ...initialPlants]);
+    router.push("/");
+  }
 
   function handleToggleOwned(plantId) {
     if (ownedPlantsIds.includes(plantId)) {
@@ -15,16 +38,28 @@ export default function App({ Component, pageProps }) {
     }
   }
 
+  if (!hasMounted) return null;
+
   return (
     <>
       <GlobalStyle />
+      <StyledLogo />
       <Component
+        displayForm={displayForm}
+        setDisplayForm={setDisplayForm}
+        onAddPlants={handleAddPlants}
         onToggleOwned={handleToggleOwned}
-        plants={plants}
+        plants={initialPlants}
         ownedPlantsIds={ownedPlantsIds}
         {...pageProps}
       />
-      <Navigation />
+
+      <Navigation setDisplayForm={setDisplayForm} />
     </>
   );
 }
+
+const StyledLogo = styled(IPlantLogo)`
+  width: 150px;
+  margin-bottom: 20px;
+`;

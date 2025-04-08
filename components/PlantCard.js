@@ -3,7 +3,14 @@ import Link from "next/link";
 import styled from "styled-components";
 import BookmarkButton from "./BookmarkButton";
 
-export default function PlantCard({ image, name, botanicalName, id, onToggleOwned, ownedPlantsIds }) {
+export default function PlantCard({
+  image,
+  name,
+  botanicalName,
+  id,
+  onToggleOwned,
+  ownedPlantsIds,
+}) {
   return (
     <PlantCardWrapper>
       <Link href={`/${id}`}>
@@ -14,26 +21,29 @@ export default function PlantCard({ image, name, botanicalName, id, onToggleOwne
             src={image}
             fill="true"
             priority
-          ></StyledImage>
+          />
         </PlantImageWrapper>
       </Link>
       <h2>{name}</h2>
       <p>{botanicalName}</p>
-      <BookmarkButton plantId={id}  onToggleOwned={onToggleOwned} ownedPlantsIds={ownedPlantsIds}></BookmarkButton>
+      <BookmarkButton
+        plantId={id}
+        onToggleOwned={onToggleOwned}
+        ownedPlantsIds={ownedPlantsIds}
+      />
     </PlantCardWrapper>
   );
 }
 
 const PlantImageWrapper = styled.div`
-  width: 150px;
+  width: 100%;
   height: 200px;
   position: relative;
-  border: 2px solid black;
 `;
 
 const PlantCardWrapper = styled.div`
   display: flex;
-  border: 2px solid purple;
+  border: 1px solid black;
   width: 150px;
   text-align: center;
 

@@ -1,4 +1,3 @@
-import plants from "@/assets/plants.js";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import styled from "styled-components";
@@ -8,10 +7,9 @@ import LightNeed from "@/components/icons/LightNeed";
 import FertiliserSeason from "@/components/icons/FertiliserSeason";
 import Link from "next/link";
 
-export default function PlantDetails() {
+export default function PlantDetails({ plants }) {
   const router = useRouter();
   const { id } = router.query;
-
   const plant = plants.find((plant) => plant.id === id);
   if (!plant) return <h1>Plant not found.</h1>;
 
