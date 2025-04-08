@@ -1,4 +1,5 @@
 import PlantCard from "@/components/PlantCard";
+import Link from "next/link";
 import styled from "styled-components";
 
 export default function HomePage({
@@ -7,6 +8,13 @@ export default function HomePage({
   ownedPlantsIds,
   onAddPlants,
 }) {
+  if (plants.length === 0) {
+    return (
+    <>
+    <h1>Nothing here yet</h1>
+    <Link href="/create">Add your first plant here</Link>
+    </>
+  )}
   return (
     <>
       <PlantList>

@@ -16,7 +16,3 @@ export default function ConfirmationPopover({ onDeletePlant, plantId }) {
     </div>
   );
 }
-
-const StyledPopoverWrapper = styled.div`
-  background-color: lightgreen;
-`;

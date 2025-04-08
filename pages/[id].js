@@ -47,8 +47,8 @@ export default function PlantDetails({ plants, onDeletePlant }) {
       <LightNeed lightNeed={lightNeed} />
       <p>fertiliser season:</p>
       <FertiliserSeason season={fertiliserSeason} />
-      <button popoverTarget="my-popover">Delete</button>
-      <ConfirmationPopover onDeletePlant={onDeletePlant} plantId={id}/>
+      <button popovertarget="my-popover">Delete</button>
+      <ConfirmationPopover onDeletePlant={onDeletePlant} plantId={id} />
     </>
   );
 }
