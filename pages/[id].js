@@ -6,6 +6,7 @@ import WaterNeed from "@/components/icons/WaterNeed";
 import LightNeed from "@/components/icons/LightNeed";
 import FertiliserSeason from "@/components/icons/FertiliserSeason";
 import Link from "next/link";
+import ConfirmationPopover from "@/components/ConfirmationPopover";
 
 export default function PlantDetails({ plants }) {
   const router = useRouter();
@@ -46,7 +47,8 @@ export default function PlantDetails({ plants }) {
       <LightNeed lightNeed={lightNeed} />
       <p>fertiliser season:</p>
       <FertiliserSeason season={fertiliserSeason} />
-      <button>Delete</button>
+      <button popoverTarget="my-popover">Delete</button>
+      <ConfirmationPopover />
     </>
   );
 }
