@@ -41,6 +41,7 @@ export default function App({ Component, pageProps }) {
   function handleDeletePlant(id) {
     const updatedPlants = initialPlants.filter((plant) => plant.id !== id);
     setInitialPlants([...updatedPlants]);
+    router.push("/");
   }
 
   if (!hasMounted) return null;
