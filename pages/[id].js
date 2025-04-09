@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import styled from "styled-components";
@@ -6,9 +7,10 @@ import WaterNeed from "@/components/icons/WaterNeed";
 import LightNeed from "@/components/icons/LightNeed";
 import FertiliserSeason from "@/components/icons/FertiliserSeason";
 import Link from "next/link";
-import ConfirmationPopover from "@/components/ConfirmationPopover";
+import ConfirmationModal from "@/components/ConfirmationModal";
 
 export default function PlantDetails({ plants, onDeletePlant }) {
+  const [isVisible, setIsVisible] = useState(false);
   const router = useRouter();
   const { id } = router.query;
   const plant = plants.find((plant) => plant.id === id);
@@ -47,8 +49,13 @@ export default function PlantDetails({ plants, onDeletePlant }) {
       <LightNeed lightNeed={lightNeed} />
       <p>fertiliser season:</p>
       <FertiliserSeason season={fertiliserSeason} />
-      <button popovertarget="my-popover">Delete</button>
-      <ConfirmationPopover onDeletePlant={onDeletePlant} plantId={id} />
+      <button onClick={() => setIsVisible(true)}>Delete</button>
+      <ConfirmationModal
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+        onDeletePlant={onDeletePlant}
+        plantId={id}
+      />
     </>
   );
 }
