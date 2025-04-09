@@ -13,6 +13,7 @@ export default function App({ Component, pageProps }) {
   const [displayForm, setDisplayForm] = useState(false);
   const [filteredPlants, setFilteredPlants] = useState([]);
   const [isFilter, setIsFilter] = useState(false)
+  const [isActive, setIsActive] = useState("")
   const [ownedPlantsIds, setOwnedPlantsIds] = useLocalStorageState(
     "ownedPlantsIds",
     { defaultValue: [] }
@@ -46,6 +47,7 @@ export default function App({ Component, pageProps }) {
       (plant) => plant.lightNeed === plantNeed
     );
     setFilteredPlants(filterPlants);
+    setIsActive(plantNeed)
     setIsFilter(true)
   }
 
@@ -66,6 +68,8 @@ export default function App({ Component, pageProps }) {
         filteredPlants={filteredPlants}
         isFilter={isFilter}
         setIsFilter={setIsFilter}
+        isActive={isActive}
+        setIsActive={setIsActive}
         {...pageProps}
       />
 

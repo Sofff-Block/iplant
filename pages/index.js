@@ -10,11 +10,16 @@ export default function HomePage({
   onFilterPlants,
   filteredPlants,
   isFilter,
-  setIsFilter
+  setIsFilter,
+  isActive,
+  setIsActive
 }) {
+  if (isFilter && filteredPlants.lenght === 0) {
+    return <p>No plants match the filter criteria</p>;
+  }
   return (
     <>
-      <PlantFilter setIsFilter={setIsFilter} onFilterPlants={onFilterPlants} />
+      <PlantFilter setIsFilter={setIsFilter} onFilterPlants={onFilterPlants} isActive={isActive} setIsActive={setIsActive} />
       {isFilter ? (
         <PlantList>
           {filteredPlants.map((plant) => (
