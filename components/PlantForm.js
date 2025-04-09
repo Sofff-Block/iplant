@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { uid } from "uid";
 import { useRouter } from "next/navigation";
 
-export default function PlantForm({ onAddPlants, $isEdit, editPlant }) {
+export default function PlantForm({ onSubmit, $isEdit, editPlant }) {
   const router = useRouter();
   function handleSubmit(event) {
     event.preventDefault();
@@ -10,17 +10,18 @@ export default function PlantForm({ onAddPlants, $isEdit, editPlant }) {
     const data = Object.fromEntries(formData);
     const randomId = uid();
     const newPlant = {
-      id: `${randomId}`,
+      id: $isEdit ? editPlant?.id : `${randomId}`,
       name: data.name,
       botanicalName: data.botanicalName,
-      imageUrl:
-        "https://images.pexels.com/photos/2587313/pexels-photo-2587313.jpeg?auto=compress&cs=tinysrgb&w=1600",
+      imageUrl: $isEdit
+        ? editPlant?.imageUrl
+        : "https://images.pexels.com/photos/2587313/pexels-photo-2587313.jpeg?auto=compress&cs=tinysrgb&w=1600",
       waterNeed: data.waterNeed,
       lightNeed: data.lightNeed,
       fertiliserSeason: formData.getAll("fertiliserSeason"),
       description: data.description,
     };
-    onAddPlants(newPlant);
+    onSubmit(newPlant, editPlant?.id);
     event.target.reset();
   }
 
