@@ -1,4 +1,4 @@
-import PlantForm from "@/components/PlantForm";
+import PlantForm from "@/components/PlantForm/PlantForm";
 
 export default function CreatePlant({ onAddPlants, setDisplayForm }) {
   return (
