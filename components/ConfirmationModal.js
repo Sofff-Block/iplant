@@ -20,6 +20,18 @@ export default function ConfirmationModal({
 }
 
 const StyledConfirmationWrapper = styled.div`
-  background-color: lightgreen;
-  display: ${({ $isVisible }) => ($isVisible ? "block" : "none")};
+  background-color: black;
+  color:white;
+  visibility: ${({ $isVisible }) => ($isVisible ? "visible" : "hidden")};
+  position: fixed;
+  z-index:10;
+  top:240px;
+  left:20px;
+  right:20px;
+  font-size:0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap:10px;
+  text-align: center;
+  
 `;

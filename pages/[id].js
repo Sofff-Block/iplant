@@ -27,7 +27,7 @@ export default function PlantDetails({ plants, onDeletePlant }) {
   } = plant;
 
   return (
-    <>
+    <DetailPageWrapper>
       <Link href={"/"}>
         <BackArrow />
       </Link>
@@ -56,7 +56,7 @@ export default function PlantDetails({ plants, onDeletePlant }) {
         onDeletePlant={onDeletePlant}
         plantId={id}
       />
-    </>
+    </DetailPageWrapper>
   );
 }
 
@@ -65,3 +65,12 @@ const PlantImagelWrapper = styled.div`
   height: 300px;
   position: relative;
 `;
+
+
+const DetailPageWrapper = styled.div `
+
+display:flex;
+flex-direction: column;
+gap: 10px;
+
+`
