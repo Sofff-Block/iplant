@@ -11,6 +11,8 @@ export default function App({ Component, pageProps }) {
   const router = useRouter();
   const [hasMounted, setHasMounted] = useState(false);
   const [displayForm, setDisplayForm] = useState(false);
+  const [filteredPlants, setFilteredPlants] = useState([]);
+  const [isFilter, setIsFilter] = useState(false)
   const [ownedPlantsIds, setOwnedPlantsIds] = useLocalStorageState(
     "ownedPlantsIds",
     { defaultValue: [] }
@@ -19,6 +21,7 @@ export default function App({ Component, pageProps }) {
     "initialPlants",
     { defaultValue: plants }
   );
+
 
   useEffect(() => {
     setHasMounted(true);
@@ -38,6 +41,14 @@ export default function App({ Component, pageProps }) {
     }
   }
 
+  function handleFilterPlants(plantNeed) {
+    const filterPlants = initialPlants.filter(
+      (plant) => plant.lightNeed === plantNeed
+    );
+    setFilteredPlants(filterPlants);
+    setIsFilter(true)
+  }
+
   if (!hasMounted) return null;
 
   return (
@@ -51,6 +62,10 @@ export default function App({ Component, pageProps }) {
         onToggleOwned={handleToggleOwned}
         plants={initialPlants}
         ownedPlantsIds={ownedPlantsIds}
+        onFilterPlants={handleFilterPlants}
+        filteredPlants={filteredPlants}
+        isFilter={isFilter}
+        setIsFilter={setIsFilter}
         {...pageProps}
       />
 
