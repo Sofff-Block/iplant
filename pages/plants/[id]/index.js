@@ -25,7 +25,7 @@ export default function PlantDetails({ plants }) {
   } = plant;
 
   return (
-    <>
+    <PlantDetailWrapper>
       <Link href={"/"}>
         <BackArrow />
       </Link>
@@ -48,7 +48,7 @@ export default function PlantDetails({ plants }) {
       <p>fertiliser season:</p>
       <FertiliserSeason season={fertiliserSeason} />
       <button onClick={() => router.push(`/plants/${id}/edit`)}>Edit</button>
-    </>
+    </PlantDetailWrapper>
   );
 }
 
@@ -56,4 +56,10 @@ const PlantImagelWrapper = styled.div`
   width: 300px;
   height: 300px;
   position: relative;
+`;
+
+const PlantDetailWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 `;
