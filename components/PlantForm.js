@@ -27,7 +27,7 @@ export default function PlantForm({ onSubmit, $isEdit, editPlant }) {
 
   return (
     <>
-      <p>{$isEdit ? "Edit Plant" : "Create Plant"}</p>
+      <h1>{$isEdit ? "Edit Plant" : "Create Plant"}</h1>
       <StyledForm onSubmit={handleSubmit}>
         <label htmlFor="input-name">Plant Name</label>
         <input
@@ -181,10 +181,15 @@ export default function PlantForm({ onSubmit, $isEdit, editPlant }) {
             Winter
           </label>
         </fieldset>
-        <button onClick={() => router.push("/")} type="button">
+        <button
+          onClick={() =>
+            $isEdit ? router.push(`/plants/${editPlant?.id}`) : router.push("/")
+          }
+          type="button"
+        >
           Cancel
         </button>
-        <button type="submit">Submit</button>
+        <button type="submit">{$isEdit ? "Save Changes" : "Add Plant"}</button>
       </StyledForm>
     </>
   );
