@@ -13,7 +13,7 @@ export default function PlantCard({
 }) {
   return (
     <PlantCardWrapper>
-      <Link href={`/${id}`}>
+      <Link href={`/plants/${id}`}>
         <PlantImageWrapper>
           <StyledImage
             sizes="(max-width: 150px)"

@@ -10,6 +10,7 @@ import Link from "next/link";
 export default function PlantDetails({ plants }) {
   const router = useRouter();
   const { id } = router.query;
+
   const plant = plants.find((plant) => plant.id === id);
   if (!plant) return <h1>Plant not found.</h1>;
 
@@ -46,7 +47,7 @@ export default function PlantDetails({ plants }) {
       <LightNeed lightNeed={lightNeed} />
       <p>fertiliser season:</p>
       <FertiliserSeason season={fertiliserSeason} />
-      <button onClick={() => router.push("/edit")}>Edit</button>
+      <button onClick={() => router.push(`/plants/${id}/edit`)}>Edit</button>
     </>
   );
 }
