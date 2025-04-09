@@ -15,7 +15,19 @@ export default function HomePage({
   setIsActive,
 }) {
   if (isFilter && filteredPlants.length === 0) {
-    return <p>No plants match the filter criteria!</p>;
+    return (
+      <>
+        <p>No plants match the filter criteria!</p>
+        <button
+          onClick={() => {
+            setIsFilter(false);
+            setIsActive("");
+          }}
+        >
+          disable all filter
+        </button>
+      </>
+    );
   }
   return (
     <>
