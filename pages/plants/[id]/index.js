@@ -50,6 +50,7 @@ export default function PlantDetails({ plants, onDeletePlant }) {
       <LightNeed lightNeed={lightNeed} />
       <p>fertiliser season:</p>
       <FertiliserSeason season={fertiliserSeason} />
+      <button onClick={() => router.push(`/plants/${id}/edit`)}>Edit</button>
       <button onClick={() => setIsVisible(true)}>Delete</button>
       <ConfirmationModal
         isVisible={isVisible}
@@ -67,11 +68,8 @@ const PlantImagelWrapper = styled.div`
   position: relative;
 `;
 
-
-const DetailPageWrapper = styled.div `
-
-display:flex;
-flex-direction: column;
-gap: 10px;
-
-`
+const DetailPageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
