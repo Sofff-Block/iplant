@@ -29,6 +29,12 @@ export default function App({ Component, pageProps }) {
     router.push("/");
   }
 
+  function handleEditPlant(updatedPlant, plantId) {
+    const updatePlants = plants.filter((plant) => plant.id !== plantId);
+    setInitialPlants([updatedPlant, ...updatePlants]);
+    router.push(`/plants/${plantId}`)
+  }
+
   function handleToggleOwned(plantId) {
     if (ownedPlantsIds.includes(plantId)) {
       const updateOwnPlants = ownedPlantsIds.filter((id) => id !== plantId);
@@ -55,6 +61,7 @@ export default function App({ Component, pageProps }) {
         setDisplayForm={setDisplayForm}
         onAddPlants={handleAddPlants}
         onToggleOwned={handleToggleOwned}
+        onEditPlant={handleEditPlant}
         plants={initialPlants}
         ownedPlantsIds={ownedPlantsIds}
         onDeletePlant={handleDeletePlant}

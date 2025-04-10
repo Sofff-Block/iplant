@@ -13,6 +13,7 @@ export default function PlantDetails({ plants, onDeletePlant }) {
   const [isVisible, setIsVisible] = useState(false);
   const router = useRouter();
   const { id } = router.query;
+
   const plant = plants.find((plant) => plant.id === id);
   if (!plant) return <h1>Plant not found.</h1>;
 
