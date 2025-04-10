@@ -10,10 +10,6 @@ import styled from "styled-components";
 export default function App({ Component, pageProps }) {
   const router = useRouter();
   const [hasMounted, setHasMounted] = useState(false);
-  const [displayForm, setDisplayForm] = useState(false);
-  const [filteredPlants, setFilteredPlants] = useState([]);
-  const [isFilter, setIsFilter] = useState(false)
-  const [isActive, setIsActive] = useState("")
   const [ownedPlantsIds, setOwnedPlantsIds] = useLocalStorageState(
     "ownedPlantsIds",
     { defaultValue: [] }
@@ -22,8 +18,11 @@ export default function App({ Component, pageProps }) {
     "initialPlants",
     { defaultValue: plants }
   );
-
-
+  const [activeFilter, setActiveFilter] = useState("");
+  const filtered = activeFilter
+    ? initialPlants.filter((plant) => plant.lightNeed === activeFilter)
+    : initialPlants;
+  
   useEffect(() => {
     setHasMounted(true);
   }, []);
@@ -43,12 +42,11 @@ export default function App({ Component, pageProps }) {
   }
 
   function handleFilterPlants(plantNeed) {
-    const filterPlants = initialPlants.filter(
-      (plant) => plant.lightNeed === plantNeed
-    );
-    setFilteredPlants(filterPlants);
-    setIsActive(plantNeed)
-    setIsFilter(true)
+    setActiveFilter(plantNeed);
+  }
+
+  function handleClearFilter() {
+    setActiveFilter("");
   }
 
   if (!hasMounted) return null;
@@ -58,22 +56,17 @@ export default function App({ Component, pageProps }) {
       <GlobalStyle />
       <StyledLogo />
       <Component
-        displayForm={displayForm}
-        setDisplayForm={setDisplayForm}
         onAddPlants={handleAddPlants}
         onToggleOwned={handleToggleOwned}
-        plants={initialPlants}
+        plants={filtered}
         ownedPlantsIds={ownedPlantsIds}
         onFilterPlants={handleFilterPlants}
-        filteredPlants={filteredPlants}
-        isFilter={isFilter}
-        setIsFilter={setIsFilter}
-        isActive={isActive}
-        setIsActive={setIsActive}
+        activeFilter={activeFilter}
+        onClearFilter={handleClearFilter}
         {...pageProps}
       />
 
-      <Navigation setDisplayForm={setDisplayForm} />
+      <Navigation />
     </>
   );
 }

@@ -2,35 +2,33 @@ import styled from "styled-components";
 
 export default function PlantFilter({
   onFilterPlants,
-  setIsFilter,
-  isActive,
-  setIsActive,
+  activeFilter,
+  onClearFilter,
 }) {
   return (
     <PlantFilterWrapper>
       <FilterButton
-        $isActive={isActive === "Full Shade"}
+        $isActive={activeFilter === "Full Shade"}
         onClick={() => onFilterPlants("Full Shade")}
       >
         Full Shade
       </FilterButton>
       <FilterButton
-        $isActive={isActive === "Partial Shade"}
+        $isActive={activeFilter === "Partial Shade"}
         onClick={() => onFilterPlants("Partial Shade")}
       >
         Partial Shade
       </FilterButton>
       <FilterButton
-        $isActive={isActive === "Full Sun"}
+        $isActive={activeFilter === "Full Sun"}
         onClick={() => onFilterPlants("Full Sun")}
       >
         Full Sun
       </FilterButton>
       <ClearButton
-        $isActive={isActive.length > 0}
+        $isActive={activeFilter.length > 0}
         onClick={() => {
-          setIsFilter(false);
-          setIsActive("");
+          onClearFilter();
         }}
       >
         clear

@@ -1,9 +1,9 @@
 import PlantForm from "@/components/PlantForm";
 
-export default function CreatePlant({ onAddPlants, setDisplayForm }) {
+export default function CreatePlant({ onAddPlants }) {
   return (
     <>
-      <PlantForm onAddPlants={onAddPlants} setDisplayForm={setDisplayForm} />
+      <PlantForm onAddPlants={onAddPlants}  />
     </>
   );
 }

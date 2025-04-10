@@ -8,20 +8,16 @@ export default function HomePage({
   ownedPlantsIds,
   onAddPlants,
   onFilterPlants,
-  filteredPlants,
-  isFilter,
-  setIsFilter,
-  isActive,
-  setIsActive,
+  activeFilter,
+  onClearFilter,
 }) {
-  if (isFilter && filteredPlants.length === 0) {
+  if (plants.length === 0) {
     return (
       <>
         <p>No plants match the filter criteria!</p>
         <button
           onClick={() => {
-            setIsFilter(false);
-            setIsActive("");
+            onClearFilter()
           }}
         >
           disable all filter
@@ -32,28 +28,11 @@ export default function HomePage({
   return (
     <>
       <PlantFilter
-        setIsFilter={setIsFilter}
+        onClearFilter={onClearFilter}
         onFilterPlants={onFilterPlants}
-        isActive={isActive}
-        setIsActive={setIsActive}
+        activeFilter={activeFilter}
       />
-      {isFilter ? (
-        <PlantList>
-          {filteredPlants.map((plant) => (
-            <li key={plant.id}>
-              <PlantCard
-                onAddPlants={onAddPlants}
-                id={plant.id}
-                name={plant.name}
-                image={plant.imageUrl}
-                botanicalName={plant.botanicalName}
-                onToggleOwned={onToggleOwned}
-                ownedPlantsIds={ownedPlantsIds}
-              />
-            </li>
-          ))}
-        </PlantList>
-      ) : (
+      
         <PlantList>
           {plants.map((plant) => (
             <li key={plant.id}>
@@ -69,7 +48,7 @@ export default function HomePage({
             </li>
           ))}
         </PlantList>
-      )}
+
     </>
   );
 }
