@@ -10,7 +10,6 @@ import styled from "styled-components";
 export default function App({ Component, pageProps }) {
   const router = useRouter();
   const [hasMounted, setHasMounted] = useState(false);
-  const [displayForm, setDisplayForm] = useState(false);
   const [ownedPlantsIds, setOwnedPlantsIds] = useLocalStorageState(
     "ownedPlantsIds",
     { defaultValue: [] }
@@ -19,7 +18,11 @@ export default function App({ Component, pageProps }) {
     "initialPlants",
     { defaultValue: plants }
   );
-
+  const [activeFilter, setActiveFilter] = useState("");
+  const filtered = activeFilter
+    ? initialPlants.filter((plant) => plant.lightNeed === activeFilter)
+    : initialPlants;
+  
   useEffect(() => {
     setHasMounted(true);
   }, []);
@@ -44,6 +47,14 @@ export default function App({ Component, pageProps }) {
     }
   }
 
+  function handleFilterPlants(plantNeed) {
+    setActiveFilter(plantNeed);
+  }
+
+  function handleClearFilter() {
+    setActiveFilter("");
+  }
+  
   function handleDeletePlant(id) {
     const updatedPlants = initialPlants.filter((plant) => plant.id !== id);
     setInitialPlants([...updatedPlants]);
@@ -57,18 +68,19 @@ export default function App({ Component, pageProps }) {
       <GlobalStyle />
       <StyledLogo />
       <Component
-        displayForm={displayForm}
-        setDisplayForm={setDisplayForm}
         onAddPlants={handleAddPlants}
         onToggleOwned={handleToggleOwned}
-        onEditPlant={handleEditPlant}
-        plants={initialPlants}
+        plants={filtered}
         ownedPlantsIds={ownedPlantsIds}
+        onFilterPlants={handleFilterPlants}
+        activeFilter={activeFilter}
+        onClearFilter={handleClearFilter}
+        onEditPlant={handleEditPlant}
         onDeletePlant={handleDeletePlant}
         {...pageProps}
       />
 
-      <Navigation setDisplayForm={setDisplayForm} />
+      <Navigation />
     </>
   );
 }

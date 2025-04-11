@@ -41,9 +41,9 @@ const StyledNav = styled.nav`
   width: 100%;
   padding: 1rem;
   display: flex;
-  justify-content: space-evenly;
-  background-color: hotpink;
+  justify-content: space-around;
   align-items: center;
+  background-color: hotpink;
   margin-inline: -20px;
 `;
 

@@ -1,4 +1,5 @@
 import PlantCard from "@/components/PlantCard";
+import PlantFilter from "@/components/PlantFilter";
 import Link from "next/link";
 import styled from "styled-components";
 
@@ -7,16 +8,34 @@ export default function HomePage({
   onToggleOwned,
   ownedPlantsIds,
   onAddPlants,
+  onFilterPlants,
+  activeFilter,
+  onClearFilter,
 }) {
-  if (plants.length === 0) {
+  if (plants.length === 0 && activeFilter) {
     return (
+      <>
+        <p>No plants match the filter criteria!</p>
+        <button onClick={onClearFilter}>disable all filter</button>
+      </>
+    );
+  } else if (plants.length === 0){
+return (
     <>
     <h1>Nothing here yet</h1>
     <Link href="/create">Add your first plant here</Link>
     </>
-  )}
+);
+  }
+
   return (
     <>
+      <PlantFilter
+        onClearFilter={onClearFilter}
+        onFilterPlants={onFilterPlants}
+        activeFilter={activeFilter}
+      />
+
       <PlantList>
         {plants.map((plant) => (
           <li key={plant.id}>
