@@ -1,26 +1,39 @@
 import { useState } from "react";
+import PlantCard from "./PlantCard";
 
 export default function SearchBar({ plants }) {
-  // const [query, setQuery] = useState("");
-
-  function handleSearch(event) {
-    event.preventDefault();
-    const query = event.target.elements.query.value;
-    const result = plants.filter((plant) => plant.name.includes(query));
-    console.log("result: ", result);
-  }
+  const [query, setQuery] = useState("");
+  const filteredPlants = plants.filter((plant) =>
+    plant.name.toLowerCase().includes(query.toLowerCase())
+  );
 
   return (
-    <form onChange={(event) => handleSearch(event)}>
-      <label htmlFor="search-bar">
-        <input
-          id="search-bar"
-          name="query"
-          type="text"
-          placeholder="Search plant..."
-        />
-        <button type="submit">search</button>
-      </label>
-    </form>
+    <div>
+      <input
+        type="text"
+        placeholder="Pflanze suchen..."
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
+
+      <ul>
+        {filteredPlants.length > 0 ? (
+          filteredPlants.map((plant) => (
+            <li key={plant.id}>
+              <PlantCard
+                id={plant.id}
+                name={plant.name}
+                image={plant.imageUrl}
+                botanicalName={plant.botanicalName}
+              />
+            </li>
+          ))
+        ) : (
+          <li>Keine Treffer</li>
+        )}
+      </ul>
+    </div>
   );
+}
+{
 }
