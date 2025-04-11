@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import styled from "styled-components";
@@ -6,10 +7,13 @@ import WaterNeed from "@/components/icons/WaterNeed";
 import LightNeed from "@/components/icons/LightNeed";
 import FertiliserSeason from "@/components/icons/FertiliserSeason";
 import Link from "next/link";
+import ConfirmationModal from "@/components/ConfirmationModal";
 
-export default function PlantDetails({ plants }) {
+export default function PlantDetails({ plants, onDeletePlant }) {
+  const [isVisible, setIsVisible] = useState(false);
   const router = useRouter();
   const { id } = router.query;
+
   const plant = plants.find((plant) => plant.id === id);
   if (!plant) return <h1>Plant not found.</h1>;
 
@@ -24,7 +28,7 @@ export default function PlantDetails({ plants }) {
   } = plant;
 
   return (
-    <>
+    <DetailPageWrapper>
       <Link href={"/"}>
         <BackArrow />
       </Link>
@@ -46,7 +50,15 @@ export default function PlantDetails({ plants }) {
       <LightNeed lightNeed={lightNeed} />
       <p>fertiliser season:</p>
       <FertiliserSeason season={fertiliserSeason} />
-    </>
+      <button onClick={() => router.push(`/plants/${id}/edit`)}>Edit</button>
+      <button onClick={() => setIsVisible(true)}>Delete</button>
+      <ConfirmationModal
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+        onDeletePlant={onDeletePlant}
+        plantId={id}
+      />
+    </DetailPageWrapper>
   );
 }
 
@@ -54,4 +66,10 @@ const PlantImagelWrapper = styled.div`
   width: 300px;
   height: 300px;
   position: relative;
+`;
+
+const DetailPageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `;
