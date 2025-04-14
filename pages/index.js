@@ -2,7 +2,10 @@ import PlantCard from "@/components/PlantCard";
 import PlantFilter from "@/components/PlantFilter";
 import SearchBar from "@/components/PlantSearch";
 import Link from "next/link";
+import { useMemo } from "react";
+import { useState } from "react";
 import styled from "styled-components";
+import Fuse from "fuse.js";
 
 export default function HomePage({
   plants,
@@ -13,6 +16,17 @@ export default function HomePage({
   activeFilter,
   onClearFilter,
 }) {
+  const [query, setQuery] = useState("");
+
+  const searchPlants = useMemo(() => {
+    if (!query) return plants;
+    const fuseInstance = new Fuse(plants, {
+      keys: ["name", "botanicalName"],
+      threshold: 0.5,
+    });
+    const results = fuseInstance.search(query);
+    return results.map((result) => result.item);
+  }, [query, plants]);
   if (plants.length === 0 && activeFilter) {
     return (
       <>
@@ -31,7 +45,7 @@ export default function HomePage({
 
   return (
     <>
-      <SearchBar plants={plants} />
+      <SearchBar query={query} setQuery={setQuery} />
       <PlantFilter
         onClearFilter={onClearFilter}
         onFilterPlants={onFilterPlants}
@@ -39,7 +53,7 @@ export default function HomePage({
       />
 
       <PlantList>
-        {plants.map((plant) => (
+        {searchPlants.map((plant) => (
           <li key={plant.id}>
             <PlantCard
               onAddPlants={onAddPlants}
