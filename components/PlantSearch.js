@@ -1,11 +1,18 @@
-import { useState } from "react";
-import PlantCard from "./PlantCard";
+import { useState, useMemo } from "react";
+import Fuse from "fuse.js";
 
 export default function SearchBar({ plants }) {
   const [query, setQuery] = useState("");
-  const filteredPlants = plants.filter((plant) =>
-    plant.name.toLowerCase().includes(query.toLowerCase())
-  );
+
+  const searchPlants = useMemo(() => {
+    if (!query) return plants;
+    const fuseInstance = new Fuse(plants, {
+      keys: ["name", "botanicalName"],
+      threshold: 0.5,
+    });
+    const results = fuseInstance.search(query);
+    return results.map((result) => result.item);
+  }, [query, plants]);
 
   return (
     <div>
@@ -15,25 +22,13 @@ export default function SearchBar({ plants }) {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
-
       <ul>
-        {filteredPlants.length > 0 ? (
-          filteredPlants.map((plant) => (
-            <li key={plant.id}>
-              <PlantCard
-                id={plant.id}
-                name={plant.name}
-                image={plant.imageUrl}
-                botanicalName={plant.botanicalName}
-              />
-            </li>
-          ))
-        ) : (
-          <li>Keine Treffer</li>
-        )}
+        {searchPlants.map((item) => (
+          <li key={item.id}>
+            {item.name} — {item.botanicalName}
+          </li>
+        ))}
       </ul>
     </div>
   );
-}
-{
 }
