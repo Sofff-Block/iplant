@@ -5,7 +5,7 @@ export default function SearchBar({ query, setQuery }) {
     <SearchBarWrapper>
       <input
         type="text"
-        placeholder="Pflanze suchen..."
+        placeholder="Search plants..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
