@@ -10,5 +10,6 @@ export default async function handler(request, response) {
     return;
   } else {
     response.status(405).json({ status: "Method not allowed." });
+    return;
   }
 }

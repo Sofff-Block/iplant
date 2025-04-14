@@ -6,6 +6,9 @@ import useLocalStorageState from "use-local-storage-state";
 import { useRouter } from "next/navigation";
 import IPlantLogo from "@/public/iplant-logo.svg";
 import styled from "styled-components";
+import useSWR from "swr";
+
+// const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -14,15 +17,22 @@ export default function App({ Component, pageProps }) {
     "ownedPlantsIds",
     { defaultValue: [] }
   );
-  const [initialPlants, setInitialPlants] = useLocalStorageState(
-    "initialPlants",
-    { defaultValue: plants }
-  );
+  // const [initialPlants, setInitialPlants] = useLocalStorageState(
+  //   "initialPlants",
+  //   { defaultValue: plants }
+  // );
+  const {
+    data: initialPlants,
+    isLoading,
+    error,
+  } = useSWR("/api/plants", { fallbackData: [] });
+
   const [activeFilter, setActiveFilter] = useState("");
+
   const filtered = activeFilter
     ? initialPlants.filter((plant) => plant.lightNeed === activeFilter)
     : initialPlants;
-  
+
   useEffect(() => {
     setHasMounted(true);
   }, []);
@@ -35,7 +45,7 @@ export default function App({ Component, pageProps }) {
   function handleEditPlant(updatedPlant, plantId) {
     const updatePlants = plants.filter((plant) => plant.id !== plantId);
     setInitialPlants([updatedPlant, ...updatePlants]);
-    router.push(`/plants/${plantId}`)
+    router.push(`/plants/${plantId}`);
   }
 
   function handleToggleOwned(plantId) {
@@ -54,7 +64,7 @@ export default function App({ Component, pageProps }) {
   function handleClearFilter() {
     setActiveFilter("");
   }
-  
+
   function handleDeletePlant(id) {
     const updatedPlants = initialPlants.filter((plant) => plant.id !== id);
     setInitialPlants([...updatedPlants]);
@@ -62,6 +72,8 @@ export default function App({ Component, pageProps }) {
   }
 
   if (!hasMounted) return null;
+  if (error) return <p>failed to load</p>;
+  if (isLoading) return <p>loading...</p>;
 
   return (
     <>
