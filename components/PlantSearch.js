@@ -1,7 +1,8 @@
-import ClearSearch from "@/public/search-x.svg";
+import ClearSearch from "@/public/x.svg";
+import styled from "styled-components";
 export default function SearchBar({ query, setQuery }) {
   return (
-    <div>
+    <SearchBarWrapper>
       <input
         type="text"
         placeholder="Pflanze suchen..."
@@ -11,6 +12,12 @@ export default function SearchBar({ query, setQuery }) {
       <button onClick={() => setQuery("")}>
         <ClearSearch />
       </button>
-    </div>
+    </SearchBarWrapper>
   );
 }
+
+const SearchBarWrapper = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+`;
