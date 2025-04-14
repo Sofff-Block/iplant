@@ -27,14 +27,14 @@ export default function HomePage({
     const results = fuseInstance.search(query);
     return results.map((result) => result.item);
   }, [query, plants]);
-  if (plants.length === 0 && activeFilter) {
+  if (searchPlants.length === 0 && activeFilter) {
     return (
       <>
         <p>No plants match the filter criteria!</p>
         <button onClick={onClearFilter}>disable all filter</button>
       </>
     );
-  } else if (plants.length === 0) {
+  } else if (searchPlants.length === 0) {
     return (
       <>
         <h1>Nothing here yet</h1>
