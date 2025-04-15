@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { uid } from "uid";
 import { useRouter } from "next/navigation";
 import LightNeedFieldset from "./LightNeedFieldset";
 import WaterNeedFieldset from "./WaterNeedFieldset";
@@ -8,24 +7,25 @@ import FertiliserSeasonFieldset from "./FertiliserSeasonFieldset";
 export default function PlantForm({ onSubmit, isEdit, editPlant }) {
   const router = useRouter();
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    const randomId = uid();
-    const newPlant = {
-      id: isEdit ? editPlant.id : `${randomId}`,
-      name: data.name,
-      botanicalName: data.botanicalName,
-      imageUrl: isEdit
-        ? editPlant.imageUrl
-        : "https://images.pexels.com/photos/2587313/pexels-photo-2587313.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      waterNeed: data.waterNeed,
-      lightNeed: data.lightNeed,
-      fertiliserSeason: formData.getAll("fertiliserSeason"),
-      description: data.description,
-    };
-    onSubmit(newPlant, editPlant?.id);
+    // const randomId = uid();
+    // const newPlant = {
+    //   id: isEdit ? editPlant.id : `${randomId}`,
+    //   name: data.name,
+    //   botanicalName: data.botanicalName,
+    //   imageUrl: isEdit
+    //     ? editPlant.imageUrl
+    //     : "https://images.pexels.com/photos/2587313/pexels-photo-2587313.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    //   waterNeed: data.waterNeed,
+    //   lightNeed: data.lightNeed,
+    //   fertiliserSeason: formData.getAll("fertiliserSeason"),
+    //   description: data.description,
+    // };
+    await onSubmit(data, editPlant?.id);
+
     event.target.reset();
   }
 

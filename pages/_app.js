@@ -23,8 +23,14 @@ export default function App({ Component, pageProps }) {
     setHasMounted(true);
   }, []);
 
-  function handleAddPlants(newPlant) {
-    setInitialPlants([newPlant, ...initialPlants]);
+  async function handleAddPlants(newPlant) {
+    const response = await fetch("/api/plants", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newPlant),
+    });
     router.push("/");
   }
 
