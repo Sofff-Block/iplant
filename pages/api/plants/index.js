@@ -7,8 +7,10 @@ export default async function handler(request, response) {
   if (request.method === "GET") {
     const plants = await Plant.find();
     response.status(200).json(plants);
+    console.log(plants);
     return;
   } else {
+    console.log("not working");
     response.status(405).json({ status: "Method not allowed." });
     return;
   }

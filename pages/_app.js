@@ -1,19 +1,18 @@
 import Navigation from "@/components/Navigation";
 import GlobalStyle from "../styles";
 import { useEffect, useState } from "react";
-import plants from "@/assets/plants";
 import useLocalStorageState from "use-local-storage-state";
 import { useRouter } from "next/navigation";
 import IPlantLogo from "@/public/iplant-logo.svg";
 import styled from "styled-components";
-import useSWR from "swr";
+import useSWR, { SWRConfig } from "swr";
 
-// const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcher = (url) => fetch(url).then((response) => response.json());
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
-  const [hasMounted, setHasMounted] = useState(false);
-  const [ownedPlantsIds, setOwnedPlantsIds] = useLocalStorageState(
+  // const [hasMounted, setHasMounted] = useState(false);
+  const [ownedPlantsIds, setOwnedPlantsIds] = useState(
     "ownedPlantsIds",
     { defaultValue: [] }
   );
@@ -25,7 +24,7 @@ export default function App({ Component, pageProps }) {
     data: initialPlants,
     isLoading,
     error,
-  } = useSWR("/api/plants", { fallbackData: [] });
+  } = useSWR("/api/plants", fetcher);
 
   const [activeFilter, setActiveFilter] = useState("");
 
@@ -33,9 +32,9 @@ export default function App({ Component, pageProps }) {
     ? initialPlants.filter((plant) => plant.lightNeed === activeFilter)
     : initialPlants;
 
-  useEffect(() => {
-    setHasMounted(true);
-  }, []);
+  // useEffect(() => {
+  //   setHasMounted(true);
+  // }, []);
 
   function handleAddPlants(newPlant) {
     setInitialPlants([newPlant, ...initialPlants]);
@@ -71,7 +70,7 @@ export default function App({ Component, pageProps }) {
     router.push("/");
   }
 
-  if (!hasMounted) return null;
+  //if (!hasMounted) return null;
   if (error) return <p>failed to load</p>;
   if (isLoading) return <p>loading...</p>;
 

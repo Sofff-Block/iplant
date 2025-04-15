@@ -38,10 +38,10 @@ return (
 
       <PlantList>
         {plants.map((plant) => (
-          <li key={plant.id}>
+          <li key={plant._id}>
             <PlantCard
               onAddPlants={onAddPlants}
-              id={plant.id}
+              id={plant._id}
               name={plant.name}
               image={plant.imageUrl}
               botanicalName={plant.botanicalName}

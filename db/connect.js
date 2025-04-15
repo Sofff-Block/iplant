@@ -7,7 +7,7 @@ if (!MONGODB_URI) {
     "Please define the MONGODB_URI environment variable inside .env.local"
   );
 }
-
+console.log(process.env.MONGODB_URI);
 let cached = global.mongoose;
 
 if (!cached) {
