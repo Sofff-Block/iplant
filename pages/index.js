@@ -1,43 +1,63 @@
 import PlantCard from "@/components/PlantCard";
 import PlantFilter from "@/components/PlantFilter";
 import Link from "next/link";
+import { useState } from "react";
 import styled from "styled-components";
+import useSWR from "swr";
 
 export default function HomePage({
-  plants,
   onToggleOwned,
   ownedPlantsIds,
   onAddPlants,
-  onFilterPlants,
-  activeFilter,
   onClearFilter,
 }) {
+const { data: plants, isLoading, error } = useSWR("/api/plants");
+
+
+  const [activeFilter, setActiveFilter] = useState("");
+
+  const filtered = activeFilter
+    ? plants.filter((plant) => plant.lightNeed === activeFilter)
+    : plants;
+
+    function handleFilterPlants(plantNeed) {
+      setActiveFilter(plantNeed);
+    }
+
+    function handleClearFilter() {
+      setActiveFilter("");
+    }
+
+  if (error) return <p>failed to load</p>;
+  if (isLoading) return <p>loading...</p>;
+
   if (plants.length === 0 && activeFilter) {
     return (
       <>
         <p>No plants match the filter criteria!</p>
-        <button onClick={onClearFilter}>disable all filter</button>
+        <button onClick={handleClearFilter}>disable all filter</button>
       </>
     );
-  } else if (plants.length === 0){
-return (
-    <>
-    <h1>Nothing here yet</h1>
-    <Link href="/create">Add your first plant here</Link>
-    </>
-);
+  } else 
+  if (plants.length === 0) {
+    return (
+      <>
+        <h1>Nothing here yet</h1>
+        <Link href="/create">Add your first plant here</Link>
+      </>
+    );
   }
 
   return (
     <>
       <PlantFilter
-        onClearFilter={onClearFilter}
-        onFilterPlants={onFilterPlants}
+        onClearFilter={handleClearFilter}
+        onFilterPlants={handleFilterPlants}
         activeFilter={activeFilter}
       />
 
       <PlantList>
-        {plants.map((plant) => (
+        {filtered.map((plant) => (
           <li key={plant._id}>
             <PlantCard
               onAddPlants={onAddPlants}

@@ -11,30 +11,18 @@ const fetcher = (url) => fetch(url).then((response) => response.json());
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
-  // const [hasMounted, setHasMounted] = useState(false);
-  const [ownedPlantsIds, setOwnedPlantsIds] = useState(
+  const [hasMounted, setHasMounted] = useState(false);
+  const [ownedPlantsIds, setOwnedPlantsIds] = useLocalStorageState(
     "ownedPlantsIds",
-    { defaultValue: [] }
+    {
+      defaultValue: [],
+    }
   );
-  // const [initialPlants, setInitialPlants] = useLocalStorageState(
-  //   "initialPlants",
-  //   { defaultValue: plants }
-  // );
-  const {
-    data: initialPlants,
-    isLoading,
-    error,
-  } = useSWR("/api/plants", fetcher);
 
-  const [activeFilter, setActiveFilter] = useState("");
 
-  const filtered = activeFilter
-    ? initialPlants.filter((plant) => plant.lightNeed === activeFilter)
-    : initialPlants;
-
-  // useEffect(() => {
-  //   setHasMounted(true);
-  // }, []);
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
 
   function handleAddPlants(newPlant) {
     setInitialPlants([newPlant, ...initialPlants]);
@@ -56,13 +44,6 @@ export default function App({ Component, pageProps }) {
     }
   }
 
-  function handleFilterPlants(plantNeed) {
-    setActiveFilter(plantNeed);
-  }
-
-  function handleClearFilter() {
-    setActiveFilter("");
-  }
 
   function handleDeletePlant(id) {
     const updatedPlants = initialPlants.filter((plant) => plant.id !== id);
@@ -70,29 +51,23 @@ export default function App({ Component, pageProps }) {
     router.push("/");
   }
 
-  //if (!hasMounted) return null;
-  if (error) return <p>failed to load</p>;
-  if (isLoading) return <p>loading...</p>;
+  if (!hasMounted) return null;
 
   return (
-    <>
+    <SWRConfig value={{ fetcher }}>
       <GlobalStyle />
       <StyledLogo />
       <Component
         onAddPlants={handleAddPlants}
         onToggleOwned={handleToggleOwned}
-        plants={filtered}
         ownedPlantsIds={ownedPlantsIds}
-        onFilterPlants={handleFilterPlants}
-        activeFilter={activeFilter}
-        onClearFilter={handleClearFilter}
         onEditPlant={handleEditPlant}
         onDeletePlant={handleDeletePlant}
         {...pageProps}
       />
 
       <Navigation />
-    </>
+    </SWRConfig>
   );
 }
 
