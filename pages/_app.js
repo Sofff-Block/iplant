@@ -31,6 +31,11 @@ export default function App({ Component, pageProps }) {
       },
       body: JSON.stringify(newPlant),
     });
+
+    if (!response.ok) {
+      console.error(response.status);
+      return;
+    }
     router.push("/");
   }
 
