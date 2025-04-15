@@ -5,7 +5,7 @@ import useLocalStorageState from "use-local-storage-state";
 import { useRouter } from "next/navigation";
 import IPlantLogo from "@/public/iplant-logo.svg";
 import styled from "styled-components";
-import useSWR, { SWRConfig } from "swr";
+import { SWRConfig } from "swr";
 
 const fetcher = (url) => fetch(url).then((response) => response.json());
 
@@ -18,7 +18,6 @@ export default function App({ Component, pageProps }) {
       defaultValue: [],
     }
   );
-
 
   useEffect(() => {
     setHasMounted(true);
@@ -43,7 +42,6 @@ export default function App({ Component, pageProps }) {
       setOwnedPlantsIds([plantId, ...ownedPlantsIds]);
     }
   }
-
 
   function handleDeletePlant(id) {
     const updatedPlants = initialPlants.filter((plant) => plant.id !== id);

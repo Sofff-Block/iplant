@@ -8,7 +8,7 @@ const plantsSchema = new Schema({
   imageUrl: { type: String },
   waterNeed: { type: String, required: true },
   lightNeed: { type: String, required: true },
-  fertiliserSeason: {type: [String], default: []},
+  fertiliserSeason: { type: [String], default: [] },
   description: { type: String },
 });
 

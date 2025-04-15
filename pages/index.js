@@ -9,10 +9,8 @@ export default function HomePage({
   onToggleOwned,
   ownedPlantsIds,
   onAddPlants,
-  onClearFilter,
 }) {
-const { data: plants, isLoading, error } = useSWR("/api/plants");
-
+  const { data: plants, isLoading, error } = useSWR("/api/plants");
 
   const [activeFilter, setActiveFilter] = useState("");
 
@@ -20,13 +18,13 @@ const { data: plants, isLoading, error } = useSWR("/api/plants");
     ? plants.filter((plant) => plant.lightNeed === activeFilter)
     : plants;
 
-    function handleFilterPlants(plantNeed) {
-      setActiveFilter(plantNeed);
-    }
+  function handleFilterPlants(plantNeed) {
+    setActiveFilter(plantNeed);
+  }
 
-    function handleClearFilter() {
-      setActiveFilter("");
-    }
+  function handleClearFilter() {
+    setActiveFilter("");
+  }
 
   if (error) return <p>failed to load</p>;
   if (isLoading) return <p>loading...</p>;
@@ -38,8 +36,7 @@ const { data: plants, isLoading, error } = useSWR("/api/plants");
         <button onClick={handleClearFilter}>disable all filter</button>
       </>
     );
-  } else 
-  if (plants.length === 0) {
+  } else if (plants.length === 0) {
     return (
       <>
         <h1>Nothing here yet</h1>
