@@ -5,7 +5,7 @@ export default function FertiliserSeason({ season }) {
     <SeasonWrapper>
       <StyledSeason $isSeason={season.includes("Spring")}>Spring</StyledSeason>
       <StyledSeason $isSeason={season.includes("Summer")}>Summer</StyledSeason>
-      <StyledSeason $isSeason={season.includes("Fall")}>Autumn</StyledSeason>
+      <StyledSeason $isSeason={season.includes("Fall")}>Fall</StyledSeason>
       <StyledSeason $isSeason={season.includes("Winter")}>Winter</StyledSeason>
     </SeasonWrapper>
   );

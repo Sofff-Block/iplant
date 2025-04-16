@@ -24,6 +24,7 @@ export default function App({ Component, pageProps }) {
   }, []);
 
   async function handleAddPlants(newPlant) {
+    console.log(newPlant);
     const response = await fetch("/api/plants", {
       method: "POST",
       headers: {
@@ -39,10 +40,21 @@ export default function App({ Component, pageProps }) {
     router.push("/");
   }
 
-  function handleEditPlant(updatedPlant, plantId) {
-    const updatePlants = plants.filter((plant) => plant.id !== plantId);
-    setInitialPlants([updatedPlant, ...updatePlants]);
-    router.push(`/plants/${plantId}`);
+  async function handleEditPlant(updatedPlant, id) {
+    const response = await fetch(`/api/plants/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedPlant),
+    });
+
+    if (!response.ok) {
+      console.error(response.status);
+      return;
+    }
+
+    router.push(`/plants/${id}`);
   }
 
   function handleToggleOwned(plantId) {

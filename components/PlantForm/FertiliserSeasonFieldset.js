@@ -1,8 +1,43 @@
-export default function FertiliserSeasonFieldset({editPlant}) {
-    return (
-<fieldset>
-          <legend>Fertiliser Season</legend>
-          <label>
+import { useState } from "react";
+
+export default function FertiliserSeasonFieldset({
+  editPlant,
+  onToggle,
+  fertiliserSeason,
+  setFertiliserSeason,
+}) {
+  // const [fertiliserSeason, setFertiliserSeason] = useState(
+  //   editPlant?.fertiliserSeason || []
+  // );
+
+  // function toggleSeason(season) {
+  //   setFertiliserSeason((prev) =>
+  //     prev.includes(season)
+  //       ? prev.filter((s) => s !== season)
+  //       : [...prev, season]
+  //   );
+
+  //   console.log(fertiliserSeason);
+  // }
+
+  return (
+    <fieldset>
+      <legend>Fertiliser Season</legend>
+      {["Spring", "Summer", "Fall", "Winter"].map((season) => (
+        <label key={season}>
+          <input
+            type="checkbox"
+            name="fertiliserSeason"
+            value={season}
+            checked={fertiliserSeason.includes(season)}
+            onChange={() => onToggle(season)}
+          />
+          {season}
+        </label>
+      ))}
+
+      {/* <label>
+          
             <input
               type="checkbox"
               name="fertiliserSeason"
@@ -11,6 +46,7 @@ export default function FertiliserSeasonFieldset({editPlant}) {
               aria-label="Your plant needs fertiliser in spring"
               defaultChecked={editPlant?.fertiliserSeason.includes("Spring")}
             />
+            
             Spring
           </label>
           <label>
@@ -45,7 +81,7 @@ export default function FertiliserSeasonFieldset({editPlant}) {
               defaultChecked={editPlant?.fertiliserSeason.includes("Winter")}
             />
             Winter
-          </label>
-        </fieldset>
-    );
+          </label> */}
+    </fieldset>
+  );
 }

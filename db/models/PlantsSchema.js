@@ -11,7 +11,12 @@ const plantsSchema = new Schema({
   },
   waterNeed: { type: String, required: true },
   lightNeed: { type: String, required: true },
-  fertiliserSeason: { type: [String], default: [] },
+  fertiliserSeason: {
+    type: [String],
+    enum: ["Spring", "Summer", "Fall", "Winter"],
+    default: [],
+  },
+
   description: { type: String },
   isOwned: { type: Boolean, default: false },
 });
