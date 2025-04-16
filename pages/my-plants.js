@@ -3,12 +3,15 @@ import { PlantList } from ".";
 import useSWR from "swr";
 
 export default function MyPlants({ ownedPlantsIds, onToggleOwned }) {
-  const { data: plants } = useSWR("/api/plants");
+  const { data: plants, error, isLoading } = useSWR("/api/plants");
   const myPlants = plants.filter((plant) => ownedPlantsIds.includes(plant._id));
 
   if (myPlants.length === 0) {
     return <p>You don&apos;t own any plants yet!</p>;
   }
+
+  if (error) return <p>failed to load</p>;
+  if (isLoading) return <p>loading...</p>;
   return (
     <>
       <h1>Welcome to your Plants!</h1>

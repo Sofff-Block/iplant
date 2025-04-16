@@ -29,14 +29,14 @@ export default function HomePage({
   if (error) return <p>failed to load</p>;
   if (isLoading) return <p>loading...</p>;
 
-  if (plants.length === 0 && activeFilter) {
+  if (filtered.length === 0 && activeFilter) {
     return (
       <>
         <p>No plants match the filter criteria!</p>
         <button onClick={handleClearFilter}>disable all filter</button>
       </>
     );
-  } else if (plants.length === 0) {
+  } else if (filtered.length === 0) {
     return (
       <>
         <h1>Nothing here yet</h1>
