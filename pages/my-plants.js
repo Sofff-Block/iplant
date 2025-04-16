@@ -9,6 +9,9 @@ export default function MyPlants({ onToggleOwned }) {
   if (myPlants.length === 0) {
     return <p>You don&apos;t own any plants yet!</p>;
   }
+
+  if (error) return <p>failed to load</p>;
+  if (isLoading) return <p>loading...</p>;
   return (
     <>
       <h1>Welcome to your Plants!</h1>
