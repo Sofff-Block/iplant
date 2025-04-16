@@ -9,7 +9,6 @@ export default function PlantCard({
   botanicalName,
   id,
   onToggleOwned,
-  ownedPlantsIds,
   owned,
 }) {
   return (
@@ -30,7 +29,6 @@ export default function PlantCard({
       <BookmarkButton
         plantId={id}
         onToggleOwned={onToggleOwned}
-        ownedPlantsIds={ownedPlantsIds}
         owned={owned}
       />
     </PlantCardWrapper>

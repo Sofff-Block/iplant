@@ -2,7 +2,7 @@ import PlantCard from "@/components/PlantCard";
 import { PlantList } from ".";
 import useSWR from "swr";
 
-export default function MyPlants({ ownedPlantsIds, onToggleOwned }) {
+export default function MyPlants({ onToggleOwned }) {
   const { data: plants } = useSWR("/api/plants");
   const myPlants = plants.filter((plant) => plant.isOwned === true);
 
@@ -21,7 +21,6 @@ export default function MyPlants({ ownedPlantsIds, onToggleOwned }) {
               image={plant.imageUrl}
               botanicalName={plant.botanicalName}
               onToggleOwned={onToggleOwned}
-              ownedPlantsIds={ownedPlantsIds}
               owned={plant.isOwned}
             />
           </li>

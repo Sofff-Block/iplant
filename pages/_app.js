@@ -10,18 +10,7 @@ const fetcher = (url) => fetch(url).then((response) => response.json());
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
-  const [hasMounted, setHasMounted] = useState(false);
   const [owned, setOwned] = useState(false);
-  const [ownedPlantsIds, setOwnedPlantsIds] = useLocalStorageState(
-    "ownedPlantsIds",
-    {
-      defaultValue: [],
-    }
-  );
-
-  useEffect(() => {
-    setHasMounted(true);
-  }, []);
 
   async function handleAddPlants(newPlant) {
     console.log(newPlant);
@@ -79,8 +68,6 @@ export default function App({ Component, pageProps }) {
     router.push("/");
   }
 
-  if (!hasMounted) return null;
-
   return (
     <SWRConfig value={{ fetcher }}>
       <GlobalStyle />
@@ -88,7 +75,6 @@ export default function App({ Component, pageProps }) {
       <Component
         onAddPlants={handleAddPlants}
         onToggleOwned={handleToggleOwned}
-        ownedPlantsIds={ownedPlantsIds}
         onEditPlant={handleEditPlant}
         onDeletePlant={handleDeletePlant}
         owned={owned}
