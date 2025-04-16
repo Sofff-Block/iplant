@@ -5,13 +5,13 @@ import useLocalStorageState from "use-local-storage-state";
 import { useRouter } from "next/router";
 import IPlantLogo from "@/public/iplant-logo.svg";
 import styled from "styled-components";
-import { SWRConfig } from "swr";
-
+import { SWRConfig, mutate } from "swr";
 const fetcher = (url) => fetch(url).then((response) => response.json());
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
   const [hasMounted, setHasMounted] = useState(false);
+  const [owned, setOwned] = useState(false);
   const [ownedPlantsIds, setOwnedPlantsIds] = useLocalStorageState(
     "ownedPlantsIds",
     {
@@ -57,12 +57,19 @@ export default function App({ Component, pageProps }) {
     router.push(`/plants/${id}`);
   }
 
-  function handleToggleOwned(plantId) {
-    if (ownedPlantsIds.includes(plantId)) {
-      const updateOwnPlants = ownedPlantsIds.filter((id) => id !== plantId);
-      setOwnedPlantsIds(updateOwnPlants);
-    } else {
-      setOwnedPlantsIds([plantId, ...ownedPlantsIds]);
+  async function handleToggleOwned(id) {
+    setOwned(!owned);
+    try {
+      const response = await fetch(`/api/plants/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ isOwned: owned }),
+      });
+
+      if (!response.ok) throw new Error("Failed to toggle");
+      mutate("/api/plants");
+    } catch (error) {
+      console.error(error);
     }
   }
 
@@ -84,6 +91,7 @@ export default function App({ Component, pageProps }) {
         ownedPlantsIds={ownedPlantsIds}
         onEditPlant={handleEditPlant}
         onDeletePlant={handleDeletePlant}
+        owned={owned}
         {...pageProps}
       />
 

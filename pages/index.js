@@ -64,6 +64,7 @@ export default function HomePage({
               botanicalName={plant.botanicalName}
               onToggleOwned={onToggleOwned}
               ownedPlantsIds={ownedPlantsIds}
+              owned={plant.isOwned}
             />
           </li>
         ))}

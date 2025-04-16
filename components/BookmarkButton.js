@@ -5,10 +5,11 @@ export default function BookmarkButton({
   plantId,
   onToggleOwned,
   ownedPlantsIds,
+  owned,
 }) {
   return (
     <button onClick={() => onToggleOwned(plantId)}>
-      <StyledBookmark $isOwned={ownedPlantsIds.includes(plantId)} />
+      <StyledBookmark $isOwned={owned} />
     </button>
   );
 }

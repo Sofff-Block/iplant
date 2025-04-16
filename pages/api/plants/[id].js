@@ -7,7 +7,7 @@ export default async function handler(request, response) {
 
   switch (request.method) {
     case "GET":
-      const plant = await Plant.findById(id);
+      const plant = await Plant.findById(id).populate("isOwned");
       response.status(200).json(plant);
       break;
 
@@ -18,6 +18,15 @@ export default async function handler(request, response) {
       response
         .status(201)
         .json({ status: "The plant was successfully updated 🌱." });
+      break;
+    case "PATCH":
+      const partialUpdate = request.body; // z.B. { isOwned: true }
+      const ownedPlant = await Plant.findByIdAndUpdate(id, partialUpdate, {
+        new: true,
+      });
+
+      response.status(201).json({ status: "Plant updated", plant: ownedPlant });
+
     default:
       response.status(405).json({ status: "method not allowed." });
       break;

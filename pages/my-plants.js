@@ -4,7 +4,7 @@ import useSWR from "swr";
 
 export default function MyPlants({ ownedPlantsIds, onToggleOwned }) {
   const { data: plants } = useSWR("/api/plants");
-  const myPlants = plants.filter((plant) => ownedPlantsIds.includes(plant._id));
+  const myPlants = plants.filter((plant) => plant.isOwned === true);
 
   if (myPlants.length === 0) {
     return <p>You don&apos;t own any plants yet!</p>;
@@ -22,6 +22,7 @@ export default function MyPlants({ ownedPlantsIds, onToggleOwned }) {
               botanicalName={plant.botanicalName}
               onToggleOwned={onToggleOwned}
               ownedPlantsIds={ownedPlantsIds}
+              owned={plant.isOwned}
             />
           </li>
         ))}

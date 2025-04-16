@@ -10,6 +10,7 @@ export default function PlantCard({
   id,
   onToggleOwned,
   ownedPlantsIds,
+  owned,
 }) {
   return (
     <PlantCardWrapper>
@@ -30,6 +31,7 @@ export default function PlantCard({
         plantId={id}
         onToggleOwned={onToggleOwned}
         ownedPlantsIds={ownedPlantsIds}
+        owned={owned}
       />
     </PlantCardWrapper>
   );
