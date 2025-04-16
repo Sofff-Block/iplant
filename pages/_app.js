@@ -62,9 +62,15 @@ export default function App({ Component, pageProps }) {
     }
   }
 
-  function handleDeletePlant(id) {
-    const updatedPlants = initialPlants.filter((plant) => plant.id !== id);
-    setInitialPlants([...updatedPlants]);
+  async function handleDeletePlant(id) {
+    const response = await fetch(`/api/plants/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      console.error(response.status);
+      return;
+    }
     router.push("/");
   }
 

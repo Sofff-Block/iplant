@@ -20,12 +20,18 @@ export default async function handler(request, response) {
         .json({ status: "The plant was successfully updated 🌱." });
       break;
     case "PATCH":
-      const partialUpdate = request.body; // z.B. { isOwned: true }
+      const partialUpdate = request.body;
       const ownedPlant = await Plant.findByIdAndUpdate(id, partialUpdate, {
         new: true,
       });
 
       response.status(201).json({ status: "Plant updated", plant: ownedPlant });
+      break;
+
+    case "DELETE":
+      await Plant.findByIdAndDelete(id);
+
+      response.status(200).json({ status: "Plant was successfully deleted" });
 
     default:
       response.status(405).json({ status: "method not allowed." });
