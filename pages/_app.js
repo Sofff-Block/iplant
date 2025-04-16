@@ -1,7 +1,6 @@
 import Navigation from "@/components/Navigation";
 import GlobalStyle from "../styles";
-import { useEffect, useState } from "react";
-import useLocalStorageState from "use-local-storage-state";
+import { useState } from "react";
 import { useRouter } from "next/router";
 import IPlantLogo from "@/public/iplant-logo.svg";
 import styled from "styled-components";
@@ -42,7 +41,6 @@ export default function App({ Component, pageProps }) {
       console.error(response.status);
       return;
     }
-
     router.push(`/plants/${id}`);
   }
 

@@ -17,9 +17,8 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
         ? prev.filter((s) => s !== season)
         : [...prev, season]
     );
-
-    console.log(fertiliserSeason);
   }
+
   async function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -31,8 +30,9 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
       waterNeed: data.waterNeed,
       fertiliserSeason: fertiliserSeason,
       description: data.description,
-      imageUrl:
-        isEdit ? editPlant?.imageUrl : "https://images.pexels.com/photos/2587313/pexels-photo-2587313.jpeg?auto=compress&cs=tinysrgb&w=1600",
+      imageUrl: isEdit
+        ? editPlant?.imageUrl
+        : "https://images.pexels.com/photos/2587313/pexels-photo-2587313.jpeg?auto=compress&cs=tinysrgb&w=1600",
     };
 
     await onSubmit(newPlant, editPlant?._id);

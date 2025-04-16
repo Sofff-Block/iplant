@@ -5,11 +5,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import useSWR from "swr";
 
-export default function HomePage({
-  onToggleOwned,
-  ownedPlantsIds,
-  onAddPlants,
-}) {
+export default function HomePage({ onToggleOwned, onAddPlants }) {
   const { data: plants, isLoading, error } = useSWR("/api/plants");
 
   const [activeFilter, setActiveFilter] = useState("");

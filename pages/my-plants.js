@@ -3,7 +3,7 @@ import { PlantList } from ".";
 import useSWR from "swr";
 
 export default function MyPlants({ onToggleOwned }) {
-  const { data: plants } = useSWR("/api/plants");
+  const { data: plants, error, isLoading } = useSWR("/api/plants");
   const myPlants = plants.filter((plant) => plant.isOwned === true);
 
   if (myPlants.length === 0) {

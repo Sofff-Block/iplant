@@ -46,7 +46,6 @@ const PlantCardWrapper = styled.div`
   border: 1px solid black;
   width: 150px;
   text-align: center;
-
   flex-direction: column;
 `;
 
