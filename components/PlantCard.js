@@ -8,8 +8,8 @@ export default function PlantCard({
   name,
   botanicalName,
   id,
-  onToggleOwned = "",
-  ownedPlantsIds = "",
+  onToggleOwned,
+  ownedPlantsIds,
 }) {
   return (
     <PlantCardWrapper>
