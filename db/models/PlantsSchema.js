@@ -1,10 +1,9 @@
 import mongoose from "mongoose";
-
 const { Schema } = mongoose;
 
 const plantsSchema = new Schema({
   name: { type: String, required: true },
-  botanicalName: { type: String, required: true },
+  botanicalName: { type: String },
   imageUrl: {
     type: String,
     default:
@@ -14,6 +13,7 @@ const plantsSchema = new Schema({
   lightNeed: { type: String, required: true },
   fertiliserSeason: { type: [String], default: [] },
   description: { type: String },
+  isOwned: { type: Boolean, default: false },
 });
 
 const Plant = mongoose.models.Plant || mongoose.model("Plant", plantsSchema);
