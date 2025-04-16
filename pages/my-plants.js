@@ -5,7 +5,8 @@ import useSWR from "swr";
 export default function MyPlants({ onToggleOwned }) {
   const { data: plants, error, isLoading } = useSWR("/api/plants");
   const myPlants = plants.filter((plant) => plant.isOwned === true);
-
+  if (!myPlants) return null;
+  
   if (myPlants.length === 0) {
     return <p>You don&apos;t own any plants yet!</p>;
   }
