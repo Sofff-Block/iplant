@@ -4,6 +4,7 @@ export default function PlantFilter({
   onFilterPlants,
   activeFilter,
   onClearFilter,
+
 }) {
   return (
     <PlantFilterWrapper>
@@ -25,7 +26,10 @@ export default function PlantFilter({
       >
         Full Sun
       </FilterButton>
-      <ClearButton $isActive={activeFilter.length > 0} onClick={onClearFilter}>
+      <ClearButton
+        $isActive={activeFilter.length > 0}
+        onClick={onClearFilter}
+      >
         clear
       </ClearButton>
     </PlantFilterWrapper>
