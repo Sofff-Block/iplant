@@ -30,9 +30,6 @@ export default function HomePage({
     setActiveFilter("");
   }
 
-  if (error) return <p>failed to load</p>;
-  if (isLoading) return <p>loading...</p>;
-
   const [query, setQuery] = useState("");
 
   const fuseInstance = useMemo(
@@ -48,7 +45,9 @@ export default function HomePage({
     query === ""
       ? plants
       : fuseInstance.search(query).map((result) => result.item);
-  
+
+    if (error) return <p>failed to load</p>;
+  if (isLoading) return <p>loading...</p>;
 
   return (
     <>
