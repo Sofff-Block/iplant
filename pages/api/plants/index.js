@@ -7,15 +7,16 @@ export default async function handler(request, response) {
   switch (request.method) {
     case "GET":
       const plants = await Plant.find();
-      response.status(200).json(plants);
-      break;
+      return response.status(200).json(plants);
 
     case "POST":
       const newPlant = request.body;
       await Plant.create(newPlant);
-      response.status(201).json({ status: "A new Plant was planted 🌱." });
+      return response
+        .status(201)
+        .json({ status: "A new Plant was planted 🌱." });
+
     default:
-      response.status(405).json({ status: "method not allowed." });
-      break;
+      return response.status(405).json({ status: "method not allowed." });
   }
 }
