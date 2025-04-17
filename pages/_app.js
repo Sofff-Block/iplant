@@ -1,6 +1,5 @@
 import Navigation from "@/components/Navigation";
 import GlobalStyle from "../styles";
-import { useState } from "react";
 import { useRouter } from "next/router";
 import IPlantLogo from "@/public/iplant-logo.svg";
 import styled from "styled-components";
@@ -9,7 +8,6 @@ const fetcher = (url) => fetch(url).then((response) => response.json());
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
-  const [owned, setOwned] = useState(false);
 
   async function handleAddPlants(newPlant) {
     console.log(newPlant);
@@ -93,7 +91,6 @@ export default function App({ Component, pageProps }) {
         onToggleOwned={handleToggleOwned}
         onEditPlant={handleEditPlant}
         onDeletePlant={handleDeletePlant}
-        owned={owned}
         {...pageProps}
       />
 
