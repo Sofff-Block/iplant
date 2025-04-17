@@ -7,7 +7,7 @@ export default async function handler(request, response) {
 
   switch (request.method) {
     case "GET": {
-      const plant = await Plant.findById(id).populate("isOwned");
+      const plant = await Plant.findById(id);
       return response.status(200).json(plant);
     }
 
@@ -15,7 +15,7 @@ export default async function handler(request, response) {
       const updatedPlant = request.body;
       await Plant.findByIdAndUpdate(id, updatedPlant);
       return response
-        .status(201)
+        .status(200)
         .json({ status: "The plant was successfully updated 🌱." });
     }
 

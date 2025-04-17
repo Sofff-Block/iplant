@@ -45,18 +45,30 @@ export default function App({ Component, pageProps }) {
   }
 
   async function handleToggleOwned(id) {
-    setOwned(!owned);
     try {
-      const response = await fetch(`/api/plants/${id}`, {
+      const response = await fetch(`/api/plants/${id}`);
+
+      if (!response.ok) {
+        console.error(response.status);
+        return;
+      }
+
+      const plant = await response.json();
+      const updatedOwned = !plant.isOwned;
+
+      const updatedPlant = await fetch(`/api/plants/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ isOwned: owned }),
+        body: JSON.stringify({ isOwned: updatedOwned }),
       });
 
-      if (!response.ok) throw new Error("Failed to toggle");
+      if (!updatedPlant.ok) {
+        console.error(response.status);
+        return;
+      }
       mutate("/api/plants");
     } catch (error) {
-      console.error(error);
+      console.error("Something went wrong.", error);
     }
   }
 

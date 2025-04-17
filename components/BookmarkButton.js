@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export default function BookmarkButton({ plantId, onToggleOwned, owned }) {
   return (
-    <button onClick={() => onToggleOwned(plantId)}>
+    <button onClick={() => onToggleOwned(plantId, owned)}>
       <StyledBookmark $isOwned={owned} />
     </button>
   );
