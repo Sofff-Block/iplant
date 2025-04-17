@@ -50,7 +50,6 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
           name="botanicalName"
           aria-label="Input for Plant Botanical Name"
           defaultValue={editPlant?.botanicalName}
-          required
         />
 
         <label htmlFor="description">Plant Description</label>

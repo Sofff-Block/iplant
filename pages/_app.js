@@ -1,28 +1,24 @@
 import Navigation from "@/components/Navigation";
 import GlobalStyle from "../styles";
 import { useEffect, useState } from "react";
-import plants from "@/assets/plants";
 import useLocalStorageState from "use-local-storage-state";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import IPlantLogo from "@/public/iplant-logo.svg";
 import styled from "styled-components";
+import { SWRConfig } from "swr";
+
+const fetcher = (url) => fetch(url).then((response) => response.json());
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
   const [hasMounted, setHasMounted] = useState(false);
   const [ownedPlantsIds, setOwnedPlantsIds] = useLocalStorageState(
     "ownedPlantsIds",
-    { defaultValue: [] }
+    {
+      defaultValue: [],
+    }
   );
-  const [initialPlants, setInitialPlants] = useLocalStorageState(
-    "initialPlants",
-    { defaultValue: plants }
-  );
-  const [activeFilter, setActiveFilter] = useState("");
-  const filtered = activeFilter
-    ? initialPlants.filter((plant) => plant.lightNeed === activeFilter)
-    : initialPlants;
-  
+
   useEffect(() => {
     setHasMounted(true);
   }, []);
@@ -35,7 +31,7 @@ export default function App({ Component, pageProps }) {
   function handleEditPlant(updatedPlant, plantId) {
     const updatePlants = plants.filter((plant) => plant.id !== plantId);
     setInitialPlants([updatedPlant, ...updatePlants]);
-    router.push(`/plants/${plantId}`)
+    router.push(`/plants/${plantId}`);
   }
 
   function handleToggleOwned(plantId) {
@@ -47,14 +43,6 @@ export default function App({ Component, pageProps }) {
     }
   }
 
-  function handleFilterPlants(plantNeed) {
-    setActiveFilter(plantNeed);
-  }
-
-  function handleClearFilter() {
-    setActiveFilter("");
-  }
-  
   function handleDeletePlant(id) {
     const updatedPlants = initialPlants.filter((plant) => plant.id !== id);
     setInitialPlants([...updatedPlants]);
@@ -64,24 +52,20 @@ export default function App({ Component, pageProps }) {
   if (!hasMounted) return null;
 
   return (
-    <>
+    <SWRConfig value={{ fetcher }}>
       <GlobalStyle />
       <StyledLogo />
       <Component
         onAddPlants={handleAddPlants}
         onToggleOwned={handleToggleOwned}
-        plants={filtered}
         ownedPlantsIds={ownedPlantsIds}
-        onFilterPlants={handleFilterPlants}
-        activeFilter={activeFilter}
-        onClearFilter={handleClearFilter}
         onEditPlant={handleEditPlant}
         onDeletePlant={handleDeletePlant}
         {...pageProps}
       />
 
       <Navigation />
-    </>
+    </SWRConfig>
   );
 }
 

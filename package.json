@@ -12,11 +12,16 @@
   "dependencies": {
     "eslint": "8.44.0",
     "eslint-config-next": "13.4.8",
+
+    "mongoose": "^8.13.2",
+
     "fuse.js": "^7.1.0",
+
     "next": "13.4.8",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "styled-components": "^6.0.2",
+    "swr": "^2.3.3",
     "uid": "^2.0.2",
     "use-local-storage-state": "^17.4.0"
   },

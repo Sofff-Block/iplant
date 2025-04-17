@@ -2,20 +2,34 @@ import PlantCard from "@/components/PlantCard";
 import PlantFilter from "@/components/PlantFilter";
 import SearchBar from "@/components/PlantSearch";
 import Link from "next/link";
-import { useMemo } from "react";
 import { useState } from "react";
 import styled from "styled-components";
+import useSWR from "swr";
+import { useMemo } from "react";
 import Fuse from "fuse.js";
 
 export default function HomePage({
-  plants,
   onToggleOwned,
   ownedPlantsIds,
   onAddPlants,
-  onFilterPlants,
-  activeFilter,
-  onClearFilter,
 }) {
+
+  const { data: plants, isLoading, error } = useSWR("/api/plants");
+
+  const [activeFilter, setActiveFilter] = useState("");
+
+  const filtered = activeFilter
+    ? plants.filter((plant) => plant.lightNeed === activeFilter)
+    : plants;
+
+  function handleFilterPlants(plantNeed) {
+    setActiveFilter(plantNeed);
+  }
+
+  function handleClearFilter() {
+    setActiveFilter("");
+  }
+
   const [query, setQuery] = useState("");
 
   const fuseInstance = useMemo(
@@ -26,20 +40,24 @@ export default function HomePage({
       }),
     [plants]
   );
-
-  const searchPlants =
+  
+    const searchPlants =
     query === ""
       ? plants
       : fuseInstance.search(query).map((result) => result.item);
+
+    if (error) return <p>failed to load</p>;
+  if (isLoading) return <p>loading...</p>;
 
   return (
     <>
       <SearchBar query={query} setQuery={setQuery} />
       <PlantFilter
-        onClearFilter={onClearFilter}
-        onFilterPlants={onFilterPlants}
+        onClearFilter={handleClearFilter}
+        onFilterPlants={handleFilterPlants}
         activeFilter={activeFilter}
       />
+          
       {plants.length === 0 ? (
         <>
           <h1>Nothing here yet</h1>
