@@ -20,19 +20,28 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
     );
   }
 
+  const defaultImage =
+    "https://images.pexels.com/photos/29780009/pexels-photo-29780009/free-photo-of-entspannte-orange-und-weisse-katze-sonnt-sich-im-sonnenlicht.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
+
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log(event.target);
     const formData = new FormData(event.target);
-    console.log("formdata: ", formData);
     const data = Object.fromEntries(formData);
-    console.log(data.imageUrl);
-    const response = await fetch("/api/upload", {
-      method: "POST",
-      body: formData,
-    });
-    const { url: imageUrl } = await response.json();
-    console.log(imageUrl);
+    let imageUrl;
+
+    if (data.imageUrl.size > 0) {
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        console.error("Whoopsie");
+        return;
+      }
+      let { url } = await response.json();
+      imageUrl = url;
+    }
     const newPlant = {
       name: data.name,
       botanicalName: data.botanicalName,
@@ -40,7 +49,7 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
       waterNeed: data.waterNeed,
       fertiliserSeason: fertiliserSeason,
       description: data.description,
-      imageUrl: imageUrl,
+      imageUrl: imageUrl || editPlant?.imageUrl || defaultImage,
     };
 
     await onSubmit(newPlant, editPlant?._id);
@@ -88,7 +97,7 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
           setFertiliserSeason={setFertiliserSeason}
           editPlant={editPlant}
         />
-        <ImageUpload />
+        <ImageUpload imageUrl={editPlant?.imageUrl} isEdit={isEdit} />
         <button
           onClick={() =>
             isEdit ? router.push(`/plants/${editPlant?._id}`) : router.push("/")
