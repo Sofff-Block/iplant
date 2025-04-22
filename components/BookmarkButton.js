@@ -1,14 +1,10 @@
 import Flower from "@/public/flower.svg";
 import styled from "styled-components";
 
-export default function BookmarkButton({
-  plantId,
-  onToggleOwned,
-  ownedPlantsIds,
-}) {
+export default function BookmarkButton({ plantId, onToggleOwned, owned }) {
   return (
     <button onClick={() => onToggleOwned(plantId)}>
-      <StyledBookmark $isOwned={ownedPlantsIds.includes(plantId)} />
+      <StyledBookmark $isOwned={owned} />
     </button>
   );
 }

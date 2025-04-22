@@ -1,11 +1,15 @@
 import PlantForm from "@/components/PlantForm/PlantForm";
 import { useRouter } from "next/router";
+import useSWR from "swr";
 
-export default function EditPlant({ plants, onEditPlant }) {
+export default function EditPlant({ onEditPlant }) {
   const router = useRouter();
   const { id } = router.query;
 
-  const plantEdit = plants.find((plant) => plant.id === id);
+  const { data: plant, isLoading, error } = useSWR(`/api/plants/${id}`);
 
-  return <PlantForm isEdit editPlant={plantEdit} onSubmit={onEditPlant} />;
+  if (error) return <p>failed to load</p>;
+  if (isLoading) return <p>loading...</p>;
+
+  return <PlantForm isEdit editPlant={plant} onSubmit={onEditPlant} />;
 }

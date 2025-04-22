@@ -1,31 +1,42 @@
 import styled from "styled-components";
-import { uid } from "uid";
 import { useRouter } from "next/navigation";
 import LightNeedFieldset from "./LightNeedFieldset";
 import WaterNeedFieldset from "./WaterNeedFieldset";
 import FertiliserSeasonFieldset from "./FertiliserSeasonFieldset";
+import { useState } from "react";
 
 export default function PlantForm({ onSubmit, isEdit, editPlant }) {
   const router = useRouter();
+  const [fertiliserSeason, setFertiliserSeason] = useState(
+    editPlant?.fertiliserSeason || []
+  );
 
-  function handleSubmit(event) {
+  function toggleSeason(season) {
+    setFertiliserSeason((prev) =>
+      prev.includes(season)
+        ? prev.filter((s) => s !== season)
+        : [...prev, season]
+    );
+  }
+
+  async function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    const randomId = uid();
     const newPlant = {
-      id: isEdit ? editPlant.id : `${randomId}`,
       name: data.name,
       botanicalName: data.botanicalName,
-      imageUrl: isEdit
-        ? editPlant.imageUrl
-        : "https://images.pexels.com/photos/2587313/pexels-photo-2587313.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      waterNeed: data.waterNeed,
       lightNeed: data.lightNeed,
-      fertiliserSeason: formData.getAll("fertiliserSeason"),
+      waterNeed: data.waterNeed,
+      fertiliserSeason: fertiliserSeason,
       description: data.description,
+      imageUrl: isEdit
+        ? editPlant?.imageUrl
+        : "https://images.pexels.com/photos/2587313/pexels-photo-2587313.jpeg?auto=compress&cs=tinysrgb&w=1600",
     };
-    onSubmit(newPlant, editPlant?.id);
+
+    await onSubmit(newPlant, editPlant?._id);
+
     event.target.reset();
   }
 
@@ -63,11 +74,16 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
 
         <LightNeedFieldset editPlant={editPlant} />
         <WaterNeedFieldset editPlant={editPlant} />
-        <FertiliserSeasonFieldset editPlant={editPlant} />
+        <FertiliserSeasonFieldset
+          onToggle={toggleSeason}
+          fertiliserSeason={fertiliserSeason}
+          setFertiliserSeason={setFertiliserSeason}
+          editPlant={editPlant}
+        />
 
         <button
           onClick={() =>
-            isEdit ? router.push(`/plants/${editPlant?.id}`) : router.push("/")
+            isEdit ? router.push(`/plants/${editPlant?._id}`) : router.push("/")
           }
           type="button"
         >

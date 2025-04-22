@@ -2,16 +2,18 @@ import PlantCard from "@/components/PlantCard";
 import { PlantList } from ".";
 import useSWR from "swr";
 
-export default function MyPlants({ ownedPlantsIds, onToggleOwned }) {
+export default function MyPlants({ onToggleOwned }) {
   const { data: plants, error, isLoading } = useSWR("/api/plants");
-  const myPlants = plants.filter((plant) => ownedPlantsIds.includes(plant._id));
+
+  if (error) return <p>failed to load</p>;
+  if (isLoading || !plants) return <p>loading...</p>;
+
+  const myPlants = plants.filter((plant) => plant.isOwned === true);
 
   if (myPlants.length === 0) {
     return <p>You don&apos;t own any plants yet!</p>;
   }
 
-  if (error) return <p>failed to load</p>;
-  if (isLoading) return <p>loading...</p>;
   return (
     <>
       <h1>Welcome to your Plants!</h1>
@@ -24,7 +26,7 @@ export default function MyPlants({ ownedPlantsIds, onToggleOwned }) {
               image={plant.imageUrl}
               botanicalName={plant.botanicalName}
               onToggleOwned={onToggleOwned}
-              ownedPlantsIds={ownedPlantsIds}
+              owned={plant.isOwned}
             />
           </li>
         ))}

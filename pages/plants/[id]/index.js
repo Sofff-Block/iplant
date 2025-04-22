@@ -17,9 +17,6 @@ export default function PlantDetails({ onDeletePlant }) {
 
   const { data: plant, isLoading, error } = useSWR(`/api/plants/${id}`);
 
-
-
-
   if (error) return <p>failed to load</p>;
   if (isLoading) return <p>loading...</p>;
 

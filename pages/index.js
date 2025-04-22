@@ -8,11 +8,8 @@ import useSWR from "swr";
 import { useMemo } from "react";
 import Fuse from "fuse.js";
 
-export default function HomePage({
-  onToggleOwned,
-  ownedPlantsIds,
-  onAddPlants,
-}) {
+
+export default function HomePage({ onToggleOwned, onAddPlants }) {
 
   const { data: plants, isLoading, error } = useSWR("/api/plants");
 
@@ -57,6 +54,7 @@ export default function HomePage({
         onFilterPlants={handleFilterPlants}
         activeFilter={activeFilter}
       />
+
           
       {plants.length === 0 ? (
         <>
@@ -68,21 +66,22 @@ export default function HomePage({
       ) : searchPlants.length === 0 && query !== "" ? (
         <p>{`Unfortunately there are no results for "${query}". `}</p>
       ) : (
-        <PlantList>
-          {searchPlants.map((plant) => (
-            <li key={plant.id}>
-              <PlantCard
-                onAddPlants={onAddPlants}
-                id={plant.id}
-                name={plant.name}
-                image={plant.imageUrl}
-                botanicalName={plant.botanicalName}
-                onToggleOwned={onToggleOwned}
-                ownedPlantsIds={ownedPlantsIds}
-              />
-            </li>
-          ))}
-        </PlantList>
+      
+      <PlantList>
+        {filtered.map((plant) => (
+          <li key={plant._id}>
+            <PlantCard
+              onAddPlants={onAddPlants}
+              id={plant._id}
+              name={plant.name}
+              image={plant.imageUrl}
+              botanicalName={plant.botanicalName}
+              onToggleOwned={onToggleOwned}
+              owned={plant.isOwned}
+            />
+          </li>
+        ))}
+      </PlantList>
       )}
     </>
   );

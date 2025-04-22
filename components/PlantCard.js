@@ -9,7 +9,7 @@ export default function PlantCard({
   botanicalName,
   id,
   onToggleOwned,
-  ownedPlantsIds,
+  owned,
 }) {
   return (
     <PlantCardWrapper>
@@ -29,7 +29,7 @@ export default function PlantCard({
       <BookmarkButton
         plantId={id}
         onToggleOwned={onToggleOwned}
-        ownedPlantsIds={ownedPlantsIds}
+        owned={owned}
       />
     </PlantCardWrapper>
   );
@@ -46,7 +46,6 @@ const PlantCardWrapper = styled.div`
   border: 1px solid black;
   width: 150px;
   text-align: center;
-
   flex-direction: column;
 `;
 

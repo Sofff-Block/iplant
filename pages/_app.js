@@ -1,55 +1,86 @@
 import Navigation from "@/components/Navigation";
 import GlobalStyle from "../styles";
-import { useEffect, useState } from "react";
-import useLocalStorageState from "use-local-storage-state";
 import { useRouter } from "next/router";
 import IPlantLogo from "@/public/iplant-logo.svg";
 import styled from "styled-components";
-import { SWRConfig } from "swr";
-
+import { SWRConfig, mutate } from "swr";
 const fetcher = (url) => fetch(url).then((response) => response.json());
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
-  const [hasMounted, setHasMounted] = useState(false);
-  const [ownedPlantsIds, setOwnedPlantsIds] = useLocalStorageState(
-    "ownedPlantsIds",
-    {
-      defaultValue: [],
+
+  async function handleAddPlants(newPlant) {
+    console.log(newPlant);
+    const response = await fetch("/api/plants", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newPlant),
+    });
+
+    if (!response.ok) {
+      console.error(response.status);
+      return;
     }
-  );
-
-  useEffect(() => {
-    setHasMounted(true);
-  }, []);
-
-  function handleAddPlants(newPlant) {
-    setInitialPlants([newPlant, ...initialPlants]);
     router.push("/");
   }
 
-  function handleEditPlant(updatedPlant, plantId) {
-    const updatePlants = plants.filter((plant) => plant.id !== plantId);
-    setInitialPlants([updatedPlant, ...updatePlants]);
-    router.push(`/plants/${plantId}`);
+  async function handleEditPlant(updatedPlant, id) {
+    const response = await fetch(`/api/plants/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedPlant),
+    });
+
+    if (!response.ok) {
+      console.error(response.status);
+      return;
+    }
+    router.push(`/plants/${id}`);
   }
 
-  function handleToggleOwned(plantId) {
-    if (ownedPlantsIds.includes(plantId)) {
-      const updateOwnPlants = ownedPlantsIds.filter((id) => id !== plantId);
-      setOwnedPlantsIds(updateOwnPlants);
-    } else {
-      setOwnedPlantsIds([plantId, ...ownedPlantsIds]);
+  async function handleToggleOwned(id) {
+    try {
+      const response = await fetch(`/api/plants/${id}`);
+
+      if (!response.ok) {
+        console.error(response.status);
+        return;
+      }
+
+      const plant = await response.json();
+      const updatedOwned = !plant.isOwned;
+
+      const updatedPlant = await fetch(`/api/plants/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ isOwned: updatedOwned }),
+      });
+
+      if (!updatedPlant.ok) {
+        console.error(response.status);
+        return;
+      }
+      mutate("/api/plants");
+    } catch (error) {
+      console.error("Something went wrong.", error);
     }
   }
 
-  function handleDeletePlant(id) {
-    const updatedPlants = initialPlants.filter((plant) => plant.id !== id);
-    setInitialPlants([...updatedPlants]);
+  async function handleDeletePlant(id) {
+    const response = await fetch(`/api/plants/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      console.error(response.status);
+      return;
+    }
     router.push("/");
   }
-
-  if (!hasMounted) return null;
 
   return (
     <SWRConfig value={{ fetcher }}>
@@ -58,7 +89,6 @@ export default function App({ Component, pageProps }) {
       <Component
         onAddPlants={handleAddPlants}
         onToggleOwned={handleToggleOwned}
-        ownedPlantsIds={ownedPlantsIds}
         onEditPlant={handleEditPlant}
         onDeletePlant={handleDeletePlant}
         {...pageProps}
