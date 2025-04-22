@@ -1,5 +1,5 @@
-import PartialShade from "@/public/half-shade.svg";
-import Shade from "@/public/sun-shade.svg";
+import PartialShade from "@/public/partial-shade.svg";
+import Shade from "@/public/shade.svg";
 import Sun from "@/public/sun.svg";
 import styled from "styled-components";
 
@@ -24,8 +24,8 @@ const StyledShade = styled(Shade)`
 `;
 
 const StyledPartialShade = styled(PartialShade)`
-  color: ${({ $isLight }) => ($isLight ? "black" : "lightgray")};
-  transform: rotate(45deg);
+  fill: ${({ $isLight }) => ($isLight ? "black" : "lightgray")};
+  width: 24px;
 `;
 
 const StyledSun = styled(Sun)`
