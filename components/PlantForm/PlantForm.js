@@ -4,6 +4,7 @@ import LightNeedFieldset from "./LightNeedFieldset";
 import WaterNeedFieldset from "./WaterNeedFieldset";
 import FertiliserSeasonFieldset from "./FertiliserSeasonFieldset";
 import { useState } from "react";
+import ImageUpload from "./ImageUpload";
 
 export default function PlantForm({ onSubmit, isEdit, editPlant }) {
   const router = useRouter();
@@ -21,8 +22,17 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
 
   async function handleSubmit(event) {
     event.preventDefault();
+    console.log(event.target);
     const formData = new FormData(event.target);
+    console.log("formdata: ", formData);
     const data = Object.fromEntries(formData);
+    console.log(data.imageUrl);
+    const response = await fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    });
+    const { url: imageUrl } = await response.json();
+    console.log(imageUrl);
     const newPlant = {
       name: data.name,
       botanicalName: data.botanicalName,
@@ -30,9 +40,7 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
       waterNeed: data.waterNeed,
       fertiliserSeason: fertiliserSeason,
       description: data.description,
-      imageUrl: isEdit
-        ? editPlant?.imageUrl
-        : "https://images.pexels.com/photos/2587313/pexels-photo-2587313.jpeg?auto=compress&cs=tinysrgb&w=1600",
+      imageUrl: imageUrl,
     };
 
     await onSubmit(newPlant, editPlant?._id);
@@ -80,7 +88,7 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
           setFertiliserSeason={setFertiliserSeason}
           editPlant={editPlant}
         />
-
+        <ImageUpload />
         <button
           onClick={() =>
             isEdit ? router.push(`/plants/${editPlant?._id}`) : router.push("/")
