@@ -31,16 +31,16 @@ export default function HomePage({ onToggleOwned, onAddPlants }) {
 
   const fuseInstance = useMemo(
     () =>
-      new Fuse(plants, {
+      new Fuse(filtered, {
         keys: ["name", "botanicalName"],
         threshold: 0.4,
       }),
-    [plants]
+    [filtered]
   );
   
     const searchPlants =
     query === ""
-      ? plants
+      ? filtered
       : fuseInstance.search(query).map((result) => result.item);
 
     if (error) return <p>failed to load</p>;
