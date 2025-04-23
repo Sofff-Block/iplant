@@ -38,19 +38,23 @@ export default function Navigation() {
 const StyledNav = styled.nav`
   position: fixed;
   bottom: 0;
+  left: 0;
+  right: 0;
   width: 100%;
   padding: 1rem;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: hotpink;
-  margin-inline: -20px;
+  background-color: var(--primary);
+  z-index: 100;
 `;
 
 const StyledLink = styled(Link)`
   all: unset;
-  color: ${({ $isActive }) => ($isActive ? "darkmagenta" : "white")};
+  color: ${({ $isActive }) =>
+    $isActive ? "var(--secondary)" : "var(--surface-light)"};
+  width: 36px;
   &:hover {
-    color: darkmagenta;
+    color: var(--on-surface);
   }
 `;

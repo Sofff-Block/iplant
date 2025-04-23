@@ -10,5 +10,6 @@ export default function BookmarkButton({ plantId, onToggleOwned, owned }) {
 }
 
 const StyledBookmark = styled(Flower)`
-  fill: ${({ $isOwned }) => ($isOwned ? "hotpink" : "")};
+  fill: ${({ $isOwned }) => ($isOwned ? "var(--highlight)" : "")};
+  width: 30px;
 `;
