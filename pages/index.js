@@ -68,7 +68,7 @@ export default function HomePage({ onToggleOwned, onAddPlants }) {
       ) : (
       
       <PlantList>
-        {filtered.map((plant) => (
+        {searchPlants.map((plant) => (
           <li key={plant._id}>
             <PlantCard
               onAddPlants={onAddPlants}
