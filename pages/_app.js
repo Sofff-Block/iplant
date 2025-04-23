@@ -10,7 +10,6 @@ export default function App({ Component, pageProps }) {
   const router = useRouter();
 
   async function handleAddPlants(newPlant) {
-    console.log(newPlant);
     const response = await fetch("/api/plants", {
       method: "POST",
       headers: {

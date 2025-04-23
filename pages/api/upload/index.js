@@ -14,7 +14,6 @@ export const config = {
 };
 
 export default async function handler(request, response) {
-  console.log("Request method:", request.method);
   if (request.method !== "POST") {
     response.status(400).json({ message: "Method not allowed" });
     return;
@@ -26,14 +25,11 @@ export default async function handler(request, response) {
 
   const file = files.imageUrl[0];
   const { newFilename, filepath } = file;
-  console.log(file);
 
   const result = await cloudinary.v2.uploader.upload(filepath, {
     public_id: newFilename,
     folder: "newplantimages",
   });
-
-  console.log("result: ", result);
 
   response.status(200).json(result);
 }

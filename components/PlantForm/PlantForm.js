@@ -97,7 +97,7 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
           setFertiliserSeason={setFertiliserSeason}
           editPlant={editPlant}
         />
-        <ImageUpload imageUrl={editPlant?.imageUrl} isEdit={isEdit} />
+        <ImageUpload />
         <button
           onClick={() =>
             isEdit ? router.push(`/plants/${editPlant?._id}`) : router.push("/")

@@ -1,4 +1,4 @@
-export default function ImageUpload({ imageUrl, isEdit }) {
+export default function ImageUpload() {
   return (
     <>
       <label htmlFor="image-upload">
