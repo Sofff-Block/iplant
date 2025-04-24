@@ -96,6 +96,8 @@ export default function App({ Component, pageProps }) {
       return;
     }
     router.push("/");
+
+    toastify("❌ Plant was successfully deleted! 🌱");
   }
 
   return (
