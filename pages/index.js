@@ -8,9 +8,7 @@ import useSWR from "swr";
 import { useMemo } from "react";
 import Fuse from "fuse.js";
 
-
 export default function HomePage({ onToggleOwned, onAddPlants }) {
-
   const { data: plants, isLoading, error } = useSWR("/api/plants");
 
   const [activeFilter, setActiveFilter] = useState("");
@@ -37,13 +35,13 @@ export default function HomePage({ onToggleOwned, onAddPlants }) {
       }),
     [filtered]
   );
-  
-    const searchPlants =
+
+  const searchPlants =
     query === ""
       ? filtered
       : fuseInstance.search(query).map((result) => result.item);
 
-    if (error) return <p>failed to load</p>;
+  if (error) return <p>failed to load</p>;
   if (isLoading) return <p>loading...</p>;
 
   return (
@@ -55,7 +53,6 @@ export default function HomePage({ onToggleOwned, onAddPlants }) {
         activeFilter={activeFilter}
       />
 
-          
       {plants.length === 0 ? (
         <>
           <h1>Nothing here yet</h1>
@@ -66,22 +63,21 @@ export default function HomePage({ onToggleOwned, onAddPlants }) {
       ) : searchPlants.length === 0 && query !== "" ? (
         <p>{`Unfortunately there are no results for "${query}". `}</p>
       ) : (
-      
-      <PlantList>
-        {searchPlants.map((plant) => (
-          <li key={plant._id}>
-            <PlantCard
-              onAddPlants={onAddPlants}
-              id={plant._id}
-              name={plant.name}
-              image={plant.imageUrl}
-              botanicalName={plant.botanicalName}
-              onToggleOwned={onToggleOwned}
-              owned={plant.isOwned}
-            />
-          </li>
-        ))}
-      </PlantList>
+        <PlantList>
+          {searchPlants.map((plant) => (
+            <li key={plant._id}>
+              <PlantCard
+                onAddPlants={onAddPlants}
+                id={plant._id}
+                name={plant.name}
+                image={plant.imageUrl}
+                botanicalName={plant.botanicalName}
+                onToggleOwned={onToggleOwned}
+                owned={plant.isOwned}
+              />
+            </li>
+          ))}
+        </PlantList>
       )}
     </>
   );

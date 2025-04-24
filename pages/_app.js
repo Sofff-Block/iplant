@@ -4,13 +4,27 @@ import { useRouter } from "next/router";
 import IPlantLogo from "@/public/iplant-logo.svg";
 import styled from "styled-components";
 import { SWRConfig, mutate } from "swr";
+import { toast, Bounce } from "react-toastify";
+import Toast from "@/components/PlantForm/Toast";
+
+const toastify = (message) =>
+  toast(`${message}`, {
+    position: "bottom-center",
+    autoClose: 1500,
+    hideProgressBar: false,
+    closeOnClick: false,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    transition: Bounce,
+  });
 const fetcher = (url) => fetch(url).then((response) => response.json());
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
 
   async function handleAddPlants(newPlant) {
-    console.log(newPlant);
     const response = await fetch("/api/plants", {
       method: "POST",
       headers: {
@@ -24,6 +38,7 @@ export default function App({ Component, pageProps }) {
       return;
     }
     router.push("/");
+    toastify("PLant was successfully created! 🌱");
   }
 
   async function handleEditPlant(updatedPlant, id) {
@@ -40,6 +55,7 @@ export default function App({ Component, pageProps }) {
       return;
     }
     router.push(`/plants/${id}`);
+    toastify("Plant was successfully updated! 🌱");
   }
 
   async function handleToggleOwned(id) {
@@ -80,6 +96,8 @@ export default function App({ Component, pageProps }) {
       return;
     }
     router.push("/");
+
+    toastify("❌ Plant was successfully deleted! 🌱");
   }
 
   return (
@@ -93,7 +111,7 @@ export default function App({ Component, pageProps }) {
         onDeletePlant={handleDeletePlant}
         {...pageProps}
       />
-
+      <Toast />
       <Navigation />
     </SWRConfig>
   );
