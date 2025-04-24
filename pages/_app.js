@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { SWRConfig, mutate } from "swr";
 import { toast, Bounce } from "react-toastify";
 import Toast from "@/components/PlantForm/Toast";
+import Head from "next/head";
 
 const toastify = (message) =>
   toast(`${message}`, {
@@ -102,6 +103,9 @@ export default function App({ Component, pageProps }) {
 
   return (
     <SWRConfig value={{ fetcher }}>
+      <Head>
+        <title>{`iPlan{t}`}</title>
+      </Head>
       <GlobalStyle />
       <StyledLogo />
       <Component
