@@ -1,9 +1,10 @@
 import Navigation from "@/components/Navigation";
 import GlobalStyle from "../styles";
 import { useRouter } from "next/router";
-import IPlantLogo from "@/public/iplant-logo.svg";
+
 import styled from "styled-components";
 import { SWRConfig, mutate } from "swr";
+import Header from "@/components/Header";
 const fetcher = (url) => fetch(url).then((response) => response.json());
 
 export default function App({ Component, pageProps }) {
@@ -85,7 +86,7 @@ export default function App({ Component, pageProps }) {
   return (
     <SWRConfig value={{ fetcher }}>
       <GlobalStyle />
-      <StyledLogo />
+      <Header />
       <Component
         onAddPlants={handleAddPlants}
         onToggleOwned={handleToggleOwned}
@@ -98,8 +99,3 @@ export default function App({ Component, pageProps }) {
     </SWRConfig>
   );
 }
-
-const StyledLogo = styled(IPlantLogo)`
-  width: 150px;
-  margin-bottom: 20px;
-`;
