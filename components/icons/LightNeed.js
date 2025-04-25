@@ -34,7 +34,7 @@ const StyledPartialShade = styled(PartialShade)`
 const StyledSun = styled(Sun)`
   width: 36px;
   color: ${({ $isLight }) =>
-    $isLight ? "var(--on-surface)" : "var(--surface-light)"};
+    $isLight ? "var(--on-surface)" : "var(--icon-disabled)"};
   fill: ${({ $isLight }) =>
-    $isLight ? "var(--on-surface)" : "var(--surface-light)"};
+    $isLight ? "var(--on-surface)" : "transparent"};
 `;

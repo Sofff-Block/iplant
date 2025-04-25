@@ -23,8 +23,6 @@ export default function PlantDetails({ onDeletePlant }) {
     <>
       <StyledBackArrow onClick={() => router.back()} />
       <main>
-
-      
         <DetailPageWrapper>
           <PlantDetailsTitle>{plant.name}</PlantDetailsTitle>
           <PlantDetailsBotanical>{plant.botanicalName}</PlantDetailsBotanical>
@@ -44,10 +42,14 @@ export default function PlantDetails({ onDeletePlant }) {
           <LightNeed lightNeed={plant.lightNeed} />
           <h3>fertiliser season:</h3>
           <FertiliserSeason season={plant.fertiliserSeason} />
-          <button onClick={() => setIsVisible(true)}>Delete</button>
-          <button onClick={() => router.push(`/plants/${id}/edit`)}>
-            Edit
-          </button>
+          <ButtonContainer>
+            <StyledButton $isDanger onClick={() => setIsVisible(true)}>
+              Delete
+            </StyledButton>
+            <StyledButton onClick={() => router.push(`/plants/${id}/edit`)}>
+              Edit
+            </StyledButton>
+          </ButtonContainer>
 
           <ConfirmationModal
             isVisible={isVisible}
@@ -56,7 +58,7 @@ export default function PlantDetails({ onDeletePlant }) {
             plantId={plant._id}
           />
         </DetailPageWrapper>
-        </main>
+      </main>
     </>
   );
 }
@@ -103,4 +105,32 @@ const PlantDetailsBotanical = styled.h2`
   font-weight: 300;
   font-family: monospace;
   margin: 0px 0px 15px;
+`;
+
+const StyledButton = styled.button`
+  all: unset;
+  padding: 5px;
+  background-color: ${({ $isDanger }) =>
+    $isDanger ? "var(--danger)" : "var(--secondary)"};
+  color: var(--surface-light);
+  border-radius: 15px;
+  width: 100px;
+  height: 20px;
+  font-size: 0.8rem;
+  transition: transform 0.3s, background-color 0.3s ease;
+  &:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+  }
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  border-radius: 10px;
+  text-align: center;
+  margin-top: 30px;
+  width: 320px;
+  align-items: center;
 `;
