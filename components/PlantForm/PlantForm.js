@@ -32,7 +32,7 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
       description: data.description,
       imageUrl: isEdit
         ? editPlant?.imageUrl
-        : "https://images.pexels.com/photos/2587313/pexels-photo-2587313.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        : "https://res.cloudinary.com/dcbjcygcd/image/upload/v1745591068/newplantimages/jty68ejwzufhytpjlfqqh2b54.jpg",
     };
 
     await onSubmit(newPlant, editPlant?._id);
