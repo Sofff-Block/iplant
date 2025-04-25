@@ -134,3 +134,5 @@ const ButtonContainer = styled.div`
   width: 320px;
   align-items: center;
 `;
+
+export {StyledButton, ButtonContainer} 
