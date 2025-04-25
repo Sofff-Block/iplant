@@ -10,11 +10,13 @@ export default createGlobalStyle`
   :root {
     --danger: #c63f38;
     --highlight: #fd7e14;
+    --highlight-light: #ffa94d;
     --primary: #7aac5d;
     --secondary: #28492f;
     --surface: #f3e7ce;
     --surface-light: #fbf7ef;
     --on-surface: #041a08;
+    
   }
 
   body {

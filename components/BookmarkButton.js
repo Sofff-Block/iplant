@@ -10,16 +10,21 @@ export default function BookmarkButton({ plantId, onToggleOwned, owned }) {
 }
 
 const StyledBookmark = styled(Flower)`
-  fill: ${({ $isOwned }) => ($isOwned ? "var(--highlight)" : "")};
+  fill: ${({ $isOwned }) =>
+    $isOwned ? "var(--highlight)" : "var(--surface-light)"};
   width: 30px;
+  color: var(--on-surface);
 `;
 
 const StyledBookmarkButton = styled.button`
   all: unset;
   background-color: transparent;
-  padding: 10px;
-  margin: 0px;
+  margin: 10px;
+  padding: 7px 7px 5px;
   align-self: flex-end;
-  // margin-top: auto;
-  //flex-grow: 5;
+  border-radius: 15px;
+  &:hover {
+    background-color: var(--highlight-light);
+    cursor: pointer;
+  }
 `;

@@ -59,6 +59,12 @@ const PlantCardWrapper = styled.div`
 const StyledImage = styled(Image)`
   object-fit: cover;
   border-radius: 10px 10px 0px 0px;
+  transition: transform 0.3s, background-color 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
+    border-radius: 10px;
+  }
 `;
 
 const PlantCardTitle = styled.h2`
