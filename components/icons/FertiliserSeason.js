@@ -16,8 +16,10 @@ const SeasonWrapper = styled.div`
 `;
 
 const StyledSeason = styled.div`
-  background-color: ${({ $isSeason }) => ($isSeason ? "black" : "lightgrey")};
-  color: ${({ $isSeason }) => ($isSeason ? "white" : "darkgrey")};
+  background-color: ${({ $isSeason }) =>
+    $isSeason ? "var(--on-surface)" : "var(--icon-disabled)"};
+  color: ${({ $isSeason }) =>
+    $isSeason ? "var(--surface-light)" : "var(--icon-disabled)"};
   padding: 10px;
   border-radius: 8px;
 `;

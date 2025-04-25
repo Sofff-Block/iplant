@@ -19,16 +19,22 @@ const LightNeedWrapper = styled.div`
 `;
 
 const StyledShade = styled(Shade)`
-  color: ${({ $isLight }) => ($isLight ? "black" : "lightgray")};
-  fill: ${({ $isLight }) => ($isLight ? "black" : "lightgray")};
+  width: 36px;
+  color: ${({ $isLight }) => ($isLight ? "var(--on-surface)" : "transparent")};
+  fill: ${({ $isLight }) =>
+    $isLight ? "var(--on-surface)" : "var(--icon-disabled)"};
 `;
 
 const StyledPartialShade = styled(PartialShade)`
-  fill: ${({ $isLight }) => ($isLight ? "black" : "lightgray")};
-  width: 24px;
+  fill: ${({ $isLight }) =>
+    $isLight ? "var(--on-surface)" : "var(--icon-disabled)"};
+  width: 33px;
 `;
 
 const StyledSun = styled(Sun)`
-  color: ${({ $isLight }) => ($isLight ? "black" : "lightgray")};
-  fill: ${({ $isLight }) => ($isLight ? "black" : "lightgray")};
+  width: 36px;
+  color: ${({ $isLight }) =>
+    $isLight ? "var(--on-surface)" : "var(--surface-light)"};
+  fill: ${({ $isLight }) =>
+    $isLight ? "var(--on-surface)" : "var(--surface-light)"};
 `;

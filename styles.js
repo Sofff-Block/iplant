@@ -16,7 +16,7 @@ export default createGlobalStyle`
     --surface: #f3e7ce;
     --surface-light: #fbf7ef;
     --on-surface: #041a08;
-    
+    --icon-disabled:rgba(4, 26, 8, 0.15);
   }
 
   body {
@@ -26,6 +26,11 @@ export default createGlobalStyle`
     font-family: system-ui;
     padding: 20px;
     padding-bottom: 100px;
+  }
+
+  main {
+display: flex;
+justify-content: center;
   }
 
   h1 {
