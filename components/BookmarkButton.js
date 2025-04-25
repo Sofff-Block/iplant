@@ -3,13 +3,23 @@ import styled from "styled-components";
 
 export default function BookmarkButton({ plantId, onToggleOwned, owned }) {
   return (
-    <button onClick={() => onToggleOwned(plantId)}>
+    <StyledBookmarkButton onClick={() => onToggleOwned(plantId)}>
       <StyledBookmark $isOwned={owned} />
-    </button>
+    </StyledBookmarkButton>
   );
 }
 
 const StyledBookmark = styled(Flower)`
   fill: ${({ $isOwned }) => ($isOwned ? "var(--highlight)" : "")};
   width: 30px;
+`;
+
+const StyledBookmarkButton = styled.button`
+  all: unset;
+  background-color: transparent;
+  padding: 10px;
+  margin: 0px;
+  align-self: flex-end;
+  // margin-top: auto;
+  //flex-grow: 5;
 `;

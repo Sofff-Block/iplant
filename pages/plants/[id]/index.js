@@ -37,11 +37,11 @@ export default function PlantDetails({ onDeletePlant }) {
         />
       </PlantImagelWrapper>
       <p>{plant.description}</p>
-      <p>water needs:</p>
+      <h3>water needs:</h3>
       <WaterNeed waterNeed={plant.waterNeed} />
-      <p>light needs:</p>
+      <h3>light needs:</h3>
       <LightNeed lightNeed={plant.lightNeed} />
-      <p>fertiliser season:</p>
+      <h3>fertiliser season:</h3>
       <FertiliserSeason season={plant.fertiliserSeason} />
       <button onClick={() => router.push(`/plants/${id}/edit`)}>Edit</button>
       <button onClick={() => setIsVisible(true)}>Delete</button>

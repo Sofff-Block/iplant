@@ -25,4 +25,22 @@ export default createGlobalStyle`
     padding: 20px;
     padding-bottom: 100px;
   }
+
+  h1 {
+      font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  h3 {
+    font-size: 0.9rem;
+  }
+
+  p {
+    font-size: 0.8rem;
+    line-height: 1.3rem;
+    font-family: monospace;
+  }
 `;
