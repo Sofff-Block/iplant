@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import LightNeedFilter from "./LightNeedFilter";
+import WaterNeedFilter from "./WaterNeedFilter";
 
 export default function PlantFilter({
   onFilterPlants,
@@ -9,6 +10,10 @@ export default function PlantFilter({
   return (
     <PlantFilterWrapper>
       <LightNeedFilter
+        activeFilter={activeFilter}
+        onFilterPlants={onFilterPlants}
+      />
+      <WaterNeedFilter
         activeFilter={activeFilter}
         onFilterPlants={onFilterPlants}
       />

@@ -7,19 +7,19 @@ export default function WaterNeedFilter({ activeFilter, onFilterPlants }) {
         $isActive={activeFilter === "Low"}
         onClick={() => onFilterPlants("waterNeed", "Low")}
       >
-        Full Shade
+        Low
       </FilterButton>
       <FilterButton
         $isActive={activeFilter === "Medium"}
         onClick={() => onFilterPlants("waterNeed", "Medium")}
       >
-        Partial Shade
+        Medium
       </FilterButton>
       <FilterButton
         $isActive={activeFilter === "High"}
         onClick={() => onFilterPlants("waterNeed", "High")}
       >
-        Full Sun
+        High
       </FilterButton>
     </>
   );
