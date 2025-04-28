@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-export default function LightNeedFilter({ activeFilter, onFilterPlants }) {
+export default function LightNeedFilter({
+  activeFilter,
+  onFilterPlants,
+  setIsDropped,
+}) {
   return (
     <PlantNeedWrapper>
       <p>light need:</p>
@@ -29,7 +33,6 @@ export default function LightNeedFilter({ activeFilter, onFilterPlants }) {
 const FilterButton = styled.button`
   all: unset;
   text-align: center;
-
   background-color: ${({ $isActive }) =>
     $isActive ? "var(--primary)" : "var(--surface-light)"};
   color: ${({ $isActive }) =>
@@ -41,7 +44,7 @@ const FilterButton = styled.button`
 `;
 
 const PlantNeedWrapper = styled.div`
-align-items: center;
+  align-items: center;
   display: flex;
   flex-direction: column;
   gap: 5px;

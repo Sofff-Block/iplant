@@ -1,12 +1,18 @@
 import { FilterButton, PlantNeedWrapper } from "./LightNeedFilter";
 
-export default function WaterNeedFilter({ activeFilter, onFilterPlants }) {
+export default function WaterNeedFilter({
+  activeFilter,
+  onFilterPlants,
+  setIsDropped,
+}) {
   return (
     <PlantNeedWrapper>
       <p>water need:</p>
       <FilterButton
         $isActive={activeFilter === "Low"}
-        onClick={() => onFilterPlants("waterNeed", "Low")}
+        onClick={() => {
+          onFilterPlants("waterNeed", "Low");
+        }}
       >
         Low
       </FilterButton>
