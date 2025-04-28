@@ -33,12 +33,12 @@ const SearchBarInput = styled.input`
   padding-left: 8px;
   background-color: var(--surface-light);
   border-radius: 5px;
-  border: 1px solid var(--highlight);
+  border: 1px solid var(--primary);
   &:focus {
-    outline: 1px solid var(--highlight);
+    outline: 1px solid var(--primary);
   }
   &::placeholder {
-    color: var(--highlight);
+    color: var(--primary);
   }
 `;
 
