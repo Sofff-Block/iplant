@@ -1,5 +1,5 @@
 import PlantCard from "@/components/PlantCard";
-import PlantFilter from "@/components/PlantFilter";
+import PlantFilter from "@/components/PlantFilter/PlantFilter";
 import SearchBar from "@/components/PlantSearch";
 import Link from "next/link";
 import { useState } from "react";
@@ -12,16 +12,19 @@ export default function HomePage({ onToggleOwned, onAddPlants }) {
   const { data: plants, isLoading, error } = useSWR("/api/plants");
 
   const [activeFilter, setActiveFilter] = useState("");
+  const [filterNeed, setFilterNeed] = useState("");
 
   const filtered = activeFilter
-    ? plants.filter((plant) => plant.lightNeed === activeFilter)
+    ? plants.filter((plant) => plant[filterNeed] === activeFilter)
     : plants;
 
-  function handleFilterPlants(plantNeed) {
-    setActiveFilter(plantNeed);
+  function handleFilterPlants(plantNeed, plantAttribute) {
+    setFilterNeed(plantNeed);
+    setActiveFilter(plantAttribute);
   }
 
   function handleClearFilter() {
+    setFilterNeed("");
     setActiveFilter("");
   }
 
