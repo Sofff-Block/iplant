@@ -5,9 +5,11 @@ import WaterNeedFieldset from "./WaterNeedFieldset";
 import FertiliserSeasonFieldset from "./FertiliserSeasonFieldset";
 import { useState } from "react";
 import ImageUpload from "./ImageUpload";
+import { ButtonContainer, StyledButton } from "@/pages/plants/[id]";
 
 export default function PlantForm({ onSubmit, isEdit, editPlant }) {
   const router = useRouter();
+  const [uploadUrl, setUploadUrl] = useState("");
   const [fertiliserSeason, setFertiliserSeason] = useState(
     editPlant?.fertiliserSeason || []
   );
@@ -27,9 +29,8 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    let imageUrl;
 
-    if (data.imageUrl.size > 0) {
+    if (uploadUrl.size > 0) {
       const response = await fetch("/api/upload", {
         method: "POST",
         body: formData,
@@ -39,8 +40,6 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
         console.error("Whoopsie");
         return;
       }
-      let { url } = await response.json();
-      imageUrl = url;
     }
     const newPlant = {
       name: data.name,
@@ -49,7 +48,7 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
       waterNeed: data.waterNeed,
       fertiliserSeason: fertiliserSeason,
       description: data.description,
-      imageUrl: imageUrl || editPlant?.imageUrl || defaultImage,
+      imageUrl: uploadUrl || editPlant?.imageUrl || defaultImage,
     };
 
     await onSubmit(newPlant, editPlant?._id);
@@ -58,7 +57,7 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
   }
 
   return (
-    <>
+    <PlantFormWrapper>
       <h1>{isEdit ? "Edit Plant" : "Create Plant"}</h1>
       <StyledForm onSubmit={handleSubmit}>
         <label htmlFor="input-name">Plant Name</label>
@@ -97,18 +96,29 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
           setFertiliserSeason={setFertiliserSeason}
           editPlant={editPlant}
         />
-        <ImageUpload />
-        <button
-          onClick={() =>
-            isEdit ? router.push(`/plants/${editPlant?._id}`) : router.push("/")
-          }
-          type="button"
-        >
-          Cancel
-        </button>
-        <button type="submit">{isEdit ? "Save Changes" : "Add Plant"}</button>
+        <ImageUpload
+          editPlant={editPlant}
+          isEdit={isEdit}
+          setUploadUrl={setUploadUrl}
+        />
+        <ButtonContainer>
+          <StyledButton
+            $isDanger
+            onClick={() =>
+              isEdit
+                ? router.push(`/plants/${editPlant?._id}`)
+                : router.push("/")
+            }
+            type="button"
+          >
+            Cancel
+          </StyledButton>
+          <StyledButton type="submit">
+            {isEdit ? "Save Changes" : "Add Plant"}
+          </StyledButton>
+        </ButtonContainer>
       </StyledForm>
-    </>
+    </PlantFormWrapper>
   );
 }
 
@@ -116,4 +126,11 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+`;
+
+const PlantFormWrapper = styled.div`
+  align-items: center;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
 `;

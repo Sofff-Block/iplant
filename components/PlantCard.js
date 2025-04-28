@@ -80,3 +80,4 @@ const PlantCardText = styled.div`
   height: 120px;
   padding: 15px 8px 0px 8px;
 `;
+export { StyledImage };
