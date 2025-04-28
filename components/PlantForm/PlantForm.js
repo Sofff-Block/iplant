@@ -103,7 +103,6 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
         />
         <ImageUpload
           editPlant={editPlant}
-          isEdit={isEdit}
           setUploadUrl={setUploadUrl}
           defaultImage={defaultImage}
         />
@@ -153,7 +152,7 @@ const StyledInput = styled.input`
 `;
 
 const StyledLabel = styled.label`
-font-size: 14px;
+  font-size: 14px;
   margin: 0px;
   display: flex;
   flex-direction: column;

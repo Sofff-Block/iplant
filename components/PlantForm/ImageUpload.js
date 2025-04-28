@@ -1,15 +1,11 @@
 import { CldImage, CldUploadButton } from "next-cloudinary";
 import styled from "styled-components";
 import { useState } from "react";
-import { StyledImage } from "../PlantCard";
+import Image from "next/image";
+import UploadIcon from "@/public/upload.svg";
 
-export default function ImageUpload({
-  setUploadUrl,
-  editPlant,
-  isEdit,
-  defaultImage,
-}) {
-  const [uploadResults, setUploadResults] = useState();
+export default function ImageUpload({ setUploadUrl, editPlant, defaultImage }) {
+  const [uploadResults, setUploadResults] = useState("");
   function handleOnUpload(result, widget) {
     setUploadResults(result.info);
     widget.close();
@@ -20,13 +16,23 @@ export default function ImageUpload({
     <UploadFieldset>
       <UploadLegend>Upload your own plant</UploadLegend>
       <UploadImageWrapper>
-        <UploadImage
-          sizes="(max-width: 150px)"
-          alt="Upload Image"
-          src={uploadResults?.public_id || editPlant?.imageUrl || defaultImage}
-          fill="true"
-          priority
-        />
+        {uploadResults?.public_id ? (
+          <UploadImage
+            sizes="(max-width: 150px)"
+            alt="Upload Image"
+            src={uploadResults?.public_id || defaultImage}
+            fill="true"
+            priority
+          />
+        ) : (
+          <EditImage
+            sizes="(max-width: 150px)"
+            alt="Upload Image"
+            src={editPlant?.imageUrl || defaultImage}
+            fill="true"
+            priority
+          />
+        )}
       </UploadImageWrapper>
       <label>
         <UploadButton
@@ -36,7 +42,7 @@ export default function ImageUpload({
           id="image-upload"
           type="file"
           accept="image/*"
-        />
+        ><StyledUploadIcon />Upload</UploadButton>
       </label>
     </UploadFieldset>
   );
@@ -57,17 +63,36 @@ const UploadLegend = styled.legend`
   color: var(--highlight);
 `;
 
-const UploadButton = styled(CldUploadButton)``;
+const UploadButton = styled(CldUploadButton)`
+  all: unset;
+  background-color: var(--highlight);
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: var(--surface-light);
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  /* border-right: 3px solid var(--highlight-light);
+  border-bottom: 3px solid var(--highlight-light); */
+`;
 
 const UploadImage = styled(CldImage)`
   object-fit: cover;
   border-radius: 10px;
 `;
 
+const EditImage = styled(Image)`
+  object-fit: cover;
+  border-radius: 10px;
+`;
 const UploadImageWrapper = styled.div`
   position: relative;
-  width: 50px;
-  height: 100px;
+  width: 100px;
+  height: 150px;
 `;
 
-export {UploadFieldset, UploadLegend}
+const StyledUploadIcon = styled(UploadIcon)`
+  width: 20px;
+  color: var(--surface-light);
+`;
+export { UploadFieldset, UploadLegend };
