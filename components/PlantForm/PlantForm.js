@@ -60,33 +60,38 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
     <PlantFormWrapper>
       <h1>{isEdit ? "Edit Plant" : "Create Plant"}</h1>
       <StyledForm onSubmit={handleSubmit}>
-        <label htmlFor="input-name">Plant Name</label>
-        <input
-          id="input-name"
-          type="text"
-          name="name"
-          aria-label="Input for Plant Name"
-          defaultValue={editPlant?.name}
-          required
-        />
+        <StyledLabel htmlFor="input-name">
+          Plant Name
+          <StyledInput
+            id="input-name"
+            type="text"
+            name="name"
+            aria-label="Input for Plant Name"
+            defaultValue={editPlant?.name}
+            required
+          />
+        </StyledLabel>
 
-        <label htmlFor="input-botanical-name">Botanical Name</label>
-        <input
-          id="input-botanical-name"
-          type="text"
-          name="botanicalName"
-          aria-label="Input for Plant Botanical Name"
-          defaultValue={editPlant?.botanicalName}
-        />
+        <StyledLabel htmlFor="input-botanical-name">
+          Botanical Name
+          <StyledInput
+            id="input-botanical-name"
+            type="text"
+            name="botanicalName"
+            aria-label="Input for Plant Botanical Name"
+            defaultValue={editPlant?.botanicalName}
+          />
+        </StyledLabel>
 
-        <label htmlFor="description">Plant Description</label>
-        <textarea
-          id="description"
-          name="description"
-          aria-label="Textinput for Plant Description"
-          placeholder="Tell us something about your plant"
-          defaultValue={editPlant?.description}
-        />
+        <StyledLabel htmlFor="description">
+          Plant Description
+          <StyledTextarea
+            id="description"
+            name="description"
+            aria-label="Textinput for Plant Description"
+            defaultValue={editPlant?.description}
+          />
+        </StyledLabel>
 
         <LightNeedFieldset editPlant={editPlant} />
         <WaterNeedFieldset editPlant={editPlant} />
@@ -100,6 +105,7 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
           editPlant={editPlant}
           isEdit={isEdit}
           setUploadUrl={setUploadUrl}
+          defaultImage={defaultImage}
         />
         <ButtonContainer>
           <StyledButton
@@ -125,7 +131,7 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
 `;
 
 const PlantFormWrapper = styled.div`
@@ -133,4 +139,33 @@ const PlantFormWrapper = styled.div`
   width: 320px;
   display: flex;
   flex-direction: column;
+`;
+
+const StyledInput = styled.input`
+  all: unset;
+  margin-top: 10px;
+  background-color: var(--surface-light);
+  border-radius: 5px;
+  border: 1px solid var(--highlight);
+  &:focus {
+    outline: 1px solid var(--highlight);
+  }
+`;
+
+const StyledLabel = styled.label`
+font-size: 14px;
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const StyledTextarea = styled.textarea`
+  height: 120px;
+  background-color: var(--surface-light);
+  border: 1px solid var(--highlight);
+  border-radius: 5px;
+  margin-top: 10px;
+  &:focus {
+    outline: 1px solid var(--highlight);
+  }
 `;

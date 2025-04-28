@@ -3,7 +3,12 @@ import styled from "styled-components";
 import { useState } from "react";
 import { StyledImage } from "../PlantCard";
 
-export default function ImageUpload({ setUploadUrl, editPlant, isEdit }) {
+export default function ImageUpload({
+  setUploadUrl,
+  editPlant,
+  isEdit,
+  defaultImage,
+}) {
   const [uploadResults, setUploadResults] = useState();
   function handleOnUpload(result, widget) {
     setUploadResults(result.info);
@@ -12,18 +17,17 @@ export default function ImageUpload({ setUploadUrl, editPlant, isEdit }) {
   }
   console.log(uploadResults);
   return (
-    <>
-      {(isEdit || uploadResults?.public_id) && (
-        <UploadImageWrapper>
-          <UploadImage
-            sizes="(max-width: 150px)"
-            alt="Upload Image"
-            src={uploadResults?.public_id || editPlant?.imageUrl}
-            fill="true"
-            priority
-          />
-        </UploadImageWrapper>
-      )}
+    <UploadFieldset>
+      <UploadLegend>Upload your own plant</UploadLegend>
+      <UploadImageWrapper>
+        <UploadImage
+          sizes="(max-width: 150px)"
+          alt="Upload Image"
+          src={uploadResults?.public_id || editPlant?.imageUrl || defaultImage}
+          fill="true"
+          priority
+        />
+      </UploadImageWrapper>
       <label>
         <UploadButton
           uploadPreset="ml_default"
@@ -34,9 +38,24 @@ export default function ImageUpload({ setUploadUrl, editPlant, isEdit }) {
           accept="image/*"
         />
       </label>
-    </>
+    </UploadFieldset>
   );
 }
+
+const UploadFieldset = styled.fieldset`
+  border-radius: 10px;
+  border: 1px solid var(--highlight);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px;
+  font-size: 14px;
+`;
+
+const UploadLegend = styled.legend`
+  padding: 2px 5px;
+  color: var(--highlight);
+`;
 
 const UploadButton = styled(CldUploadButton)``;
 
@@ -50,3 +69,5 @@ const UploadImageWrapper = styled.div`
   width: 50px;
   height: 100px;
 `;
+
+export {UploadFieldset, UploadLegend}

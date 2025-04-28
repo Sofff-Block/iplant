@@ -1,12 +1,13 @@
 import { useState } from "react";
+import { UploadFieldset, UploadLegend } from "./ImageUpload";
 
 export default function FertiliserSeasonFieldset({
   onToggle,
   fertiliserSeason,
 }) {
   return (
-    <fieldset>
-      <legend>Fertiliser Season</legend>
+    <UploadFieldset>
+      <UploadLegend>Fertiliser Season</UploadLegend>
       {["Spring", "Summer", "Fall", "Winter"].map((season) => (
         <label key={season}>
           <input
@@ -19,6 +20,6 @@ export default function FertiliserSeasonFieldset({
           {season}
         </label>
       ))}
-    </fieldset>
+    </UploadFieldset>
   );
 }
