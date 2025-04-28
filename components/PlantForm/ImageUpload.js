@@ -72,6 +72,9 @@ const UploadButton = styled(CldUploadButton)`
   display: flex;
   gap: 5px;
   align-items: center;
+  &:hover {
+    background-color: var(--highlight-light);
+  }
   /* border-right: 3px solid var(--highlight-light);
   border-bottom: 3px solid var(--highlight-light); */
 `;

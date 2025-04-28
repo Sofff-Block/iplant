@@ -34,14 +34,23 @@ export default function PlantFilter({
         ""
       )}
       <PlantFilterDisplayOptions>
-        <DisplayActiveFilter $isActive={activeFilter.length > 0}>
-          {activeFilter}
-        </DisplayActiveFilter>
+        {isDropped === false && (
+          <DisplayActiveFilterWrapper>
+            {Object.entries(activeFilter).map(([key, value]) => (
+              <DisplayActiveFilter
+                key={key}
+                $isActive={Object.keys(activeFilter).length > 0}
+              >
+                {value}
+              </DisplayActiveFilter>
+            ))}
+          </DisplayActiveFilterWrapper>
+        )}
         <ClearButton
-          $isActive={activeFilter.length > 0}
+          $isActive={Object.keys(activeFilter).length > 0}
           onClick={() => {
             onClearFilter();
-            setIsDropped(true);
+            setIsDropped(false);
           }}
         >
           clear
@@ -53,10 +62,16 @@ export default function PlantFilter({
 
 const PlantFilterContainer = styled.div`
   width: 320px;
+  margin-bottom: 1.7rem;
 `;
 const PlantFilterMenu = styled.div`
   display: flex;
   justify-content: space-between;
+  color: var(--primary);
+`;
+const DisplayActiveFilterWrapper = styled.div`
+  display: flex;
+  gap: 10px;
 `;
 
 const DisplayActiveFilter = styled(FilterButton)`
@@ -65,16 +80,16 @@ const DisplayActiveFilter = styled(FilterButton)`
   background-color: var(--primary);
   color: white;
   padding: 5px;
-  font-size: 13px;
-  width: 100px;
-  height: 20px;
+  font-size: 10px;
+  width: 70px;
+  height: 12px;
   text-align: center;
   border-radius: 50px;
 `;
 
 const PlantFilterDisplayOptions = styled.div`
   display: flex;
-  justify-content: space-between;
+  align-items: center;
 `;
 
 const MenuIconUp = styled(DropUp)`
@@ -107,6 +122,8 @@ const ClearButton = styled.button`
   height: 20px;
   text-align: center;
   border-radius: 50px;
+  margin-left: auto;
+  margin-right: 0;
   &:hover {
     background-color: var(--highlight);
     cursor: pointer;
