@@ -28,6 +28,16 @@ export default createGlobalStyle`
     padding-bottom: 100px;
   }
 
+  [data-theme="dark"] body {
+  background-color: #000;
+  color: #fff;
+}
+
+[data-theme="dark"] h2, p {
+
+  color:var(--secondary);
+}
+
   main {
 display: flex;
 flex-direction: column;

@@ -6,6 +6,8 @@ import Header from "@/components/Header";
 import { toast, Bounce } from "react-toastify";
 import Toast from "@/components/PlantForm/Toast";
 import Head from "next/head";
+import Providers from "./providers";
+
 
 const toastify = (message) =>
   toast(`${message}`, {
@@ -102,6 +104,7 @@ export default function App({ Component, pageProps }) {
   }
 
   return (
+    <Providers>
     <SWRConfig value={{ fetcher }}>
       <Head>
         <title>{`iPlan{t}`}</title>
@@ -118,5 +121,6 @@ export default function App({ Component, pageProps }) {
       <Toast />
       <Navigation />
     </SWRConfig>
+    </Providers>
   );
 }

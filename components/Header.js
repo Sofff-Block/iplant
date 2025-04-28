@@ -1,6 +1,7 @@
 import IPlantLogo from "@/public/iplant-logo.svg";
 import styled from "styled-components";
 import Link from "next/link";
+import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 export default function Header() {
   return (
@@ -8,6 +9,7 @@ export default function Header() {
     <Link href={"/"}> 
       <StyledLogo />
       </Link>
+      <ThemeSwitcher></ThemeSwitcher>
     </StyledHeader>
   );
 }
