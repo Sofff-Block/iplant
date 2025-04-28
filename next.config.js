@@ -4,6 +4,7 @@ const nextConfig = {
     styledComponents: true,
   },
   reactStrictMode: true,
+
   images: {
     domains: ["res.cloudinary.com"],
 

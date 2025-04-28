@@ -4,6 +4,7 @@ import LightNeedFieldset from "./LightNeedFieldset";
 import WaterNeedFieldset from "./WaterNeedFieldset";
 import FertiliserSeasonFieldset from "./FertiliserSeasonFieldset";
 import { useState } from "react";
+import ImageUpload from "./ImageUpload";
 
 export default function PlantForm({ onSubmit, isEdit, editPlant }) {
   const router = useRouter();
@@ -19,10 +20,28 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
     );
   }
 
+  const defaultImage =
+    "https://res.cloudinary.com/dcbjcygcd/image/upload/v1745591068/newplantimages/jty68ejwzufhytpjlfqqh2b54.jpg";
+
   async function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
+    let imageUrl;
+
+    if (data.imageUrl.size > 0) {
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        console.error("Whoopsie");
+        return;
+      }
+      let { url } = await response.json();
+      imageUrl = url;
+    }
     const newPlant = {
       name: data.name,
       botanicalName: data.botanicalName,
@@ -30,9 +49,7 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
       waterNeed: data.waterNeed,
       fertiliserSeason: fertiliserSeason,
       description: data.description,
-      imageUrl: isEdit
-        ? editPlant?.imageUrl
-        : "https://res.cloudinary.com/dcbjcygcd/image/upload/v1745591068/newplantimages/jty68ejwzufhytpjlfqqh2b54.jpg",
+      imageUrl: imageUrl || editPlant?.imageUrl || defaultImage,
     };
 
     await onSubmit(newPlant, editPlant?._id);
@@ -80,7 +97,7 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
           setFertiliserSeason={setFertiliserSeason}
           editPlant={editPlant}
         />
-
+        <ImageUpload />
         <button
           onClick={() =>
             isEdit ? router.push(`/plants/${editPlant?._id}`) : router.push("/")
