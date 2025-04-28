@@ -10,8 +10,9 @@ import Head from "next/head";
 const toastify = (message) =>
   toast(`${message}`, {
     position: "bottom-center",
+    style: { backgroundColor: "var(--surface-light)" },
     autoClose: 1500,
-    hideProgressBar: false,
+    hideProgressBar: true,
     closeOnClick: false,
     pauseOnHover: true,
     draggable: true,
@@ -97,7 +98,7 @@ export default function App({ Component, pageProps }) {
     }
     router.push("/");
 
-    toastify("❌ Plant was successfully deleted! 🌱");
+    toastify(" Plant was successfully deleted! 🌱 ✅");
   }
 
   return (
