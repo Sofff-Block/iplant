@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export default function LightNeedFilter({ activeFilter, onFilterPlants }) {
   return (
-    <>
+    <PlantNeedWrapper>
+      <p>light need:</p>
       <FilterButton
         $isActive={activeFilter === "Full Shade"}
         onClick={() => onFilterPlants("lightNeed", "Full Shade")}
@@ -21,18 +22,29 @@ export default function LightNeedFilter({ activeFilter, onFilterPlants }) {
       >
         Full Sun
       </FilterButton>
-    </>
+    </PlantNeedWrapper>
   );
 }
 
 const FilterButton = styled.button`
   all: unset;
-  background-color: ${({ $isActive }) => ($isActive ? "lightgreen" : "white")};
-  color: ${({ $isActive }) => ($isActive ? "black" : "black")};
-  border: 1px solid black;
-  padding: 5px;
+  text-align: center;
+
+  background-color: ${({ $isActive }) =>
+    $isActive ? "var(--primary)" : "var(--surface-light)"};
+  color: ${({ $isActive }) =>
+    $isActive ? "var(--surface-light)" : "var(--on-surface)"};
+  padding: 5px 10px;
+  width: 100px;
   font-size: 13px;
   border-radius: 8px;
 `;
 
-export { FilterButton };
+const PlantNeedWrapper = styled.div`
+align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`;
+
+export { FilterButton, PlantNeedWrapper };

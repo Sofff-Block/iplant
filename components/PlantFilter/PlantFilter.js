@@ -8,21 +8,21 @@ export default function PlantFilter({
   onClearFilter,
 }) {
   return (
-    <PlantFilterWrapper>
-      <p>light need:</p>
-      <LightNeedFilter
-        activeFilter={activeFilter}
-        onFilterPlants={onFilterPlants}
-      />
-      <p>water need:</p>
-      <WaterNeedFilter
-        activeFilter={activeFilter}
-        onFilterPlants={onFilterPlants}
-      />
+    <>
+      <PlantFilterWrapper>
+        <LightNeedFilter
+          activeFilter={activeFilter}
+          onFilterPlants={onFilterPlants}
+        />
+        <WaterNeedFilter
+          activeFilter={activeFilter}
+          onFilterPlants={onFilterPlants}
+        />
+      </PlantFilterWrapper>
       <ClearButton $isActive={activeFilter.length > 0} onClick={onClearFilter}>
         clear
       </ClearButton>
-    </PlantFilterWrapper>
+    </>
   );
 }
 
@@ -30,13 +30,25 @@ const PlantFilterWrapper = styled.div`
   display: flex;
   gap: 10px;
   margin-bottom: 1rem;
+  width: 320px;
+  justify-content: center;
+  gap: 70px;
 `;
 
 const ClearButton = styled.button`
+  all: unset;
   visibility: ${({ $isActive }) => ($isActive ? "visible" : "hidden")};
-  background-color: black;
+  background-color: var(--secondary);
   color: white;
   padding: 5px;
   font-size: 13px;
-  border-radius: 8px;
+  width: 100px;
+  height: 20px;
+  text-align: center;
+  border-radius: 50px;
+  margin-bottom: 20px;
+  &:hover {
+    background-color: var(--highlight);
+    cursor: pointer;
+  }
 `;

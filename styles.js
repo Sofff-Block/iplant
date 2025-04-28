@@ -30,7 +30,8 @@ export default createGlobalStyle`
 
   main {
 display: flex;
-justify-content: center;
+flex-direction: column;
+align-items: center;
   }
 
   h1 {
@@ -49,5 +50,6 @@ justify-content: center;
     font-size: 0.8rem;
     line-height: 1.3rem;
     font-family: monospace;
+    margin: 0px;
   }
 `;

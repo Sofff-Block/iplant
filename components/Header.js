@@ -5,21 +5,20 @@ import Link from "next/link";
 export default function Header() {
   return (
     <StyledHeader>
-    <StyledHomeLink href={"/"}> 
+    <Link href={"/"}> 
       <StyledLogo />
-      </StyledHomeLink>
+      </Link>
     </StyledHeader>
   );
 }
 const StyledHeader = styled.header`
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+  padding: 10px 0px;
+  width: 100%;
 `;
 const StyledLogo = styled(IPlantLogo)`
   width: 150px;
   fill: var(--secondary);
-`;
-
-const StyledHomeLink = styled(Link)`
 `;

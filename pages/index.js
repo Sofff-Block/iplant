@@ -48,7 +48,7 @@ export default function HomePage({ onToggleOwned, onAddPlants }) {
   if (isLoading) return <p>loading...</p>;
 
   return (
-    <>
+    <main>
       <SearchBar query={query} setQuery={setQuery} />
       <PlantFilter
         onClearFilter={handleClearFilter}
@@ -82,7 +82,7 @@ export default function HomePage({ onToggleOwned, onAddPlants }) {
           ))}
         </PlantList>
       )}
-    </>
+    </main>
   );
 }
 

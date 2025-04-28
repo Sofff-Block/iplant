@@ -64,8 +64,9 @@ export default function PlantDetails({ onDeletePlant }) {
 }
 
 const PlantImagelWrapper = styled.div`
-  width: 300px;
-  height: 300px;
+  margin-bottom: 10px;
+  width: 320px;
+  height: 320px;
   position: relative;
   border-radius: 10px;
 `;
@@ -135,4 +136,4 @@ const ButtonContainer = styled.div`
   align-items: center;
 `;
 
-export {StyledButton, ButtonContainer} 
+export { StyledButton, ButtonContainer };
