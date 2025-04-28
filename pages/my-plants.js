@@ -29,10 +29,6 @@ export default function MyPlants({ onToggleOwned }) {
     setActiveFilter("");
   }
 
-  if (filtered.length === 0) {
-    return <p>You don&apos;t own any plants yet!</p>;
-  }
-
   return (
     <>
       <h1>Welcome to your Plants!</h1>

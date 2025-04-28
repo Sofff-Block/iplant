@@ -9,10 +9,12 @@ export default function PlantFilter({
 }) {
   return (
     <PlantFilterWrapper>
+      <p>light need:</p>
       <LightNeedFilter
         activeFilter={activeFilter}
         onFilterPlants={onFilterPlants}
       />
+      <p>water need:</p>
       <WaterNeedFilter
         activeFilter={activeFilter}
         onFilterPlants={onFilterPlants}
