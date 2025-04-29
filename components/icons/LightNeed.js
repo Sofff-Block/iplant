@@ -51,13 +51,11 @@ const StyledSun = styled(Sun)`
 const StyledShadeDark = styled(Shade)`
   width: 36px;
   color: ${({ $isLight }) => ($isLight ? "white" : "transparent")};
-  fill: ${({ $isLight }) =>
-    $isLight ? "white" : "rgba(255, 255, 255, 0.28)"};
+  fill: ${({ $isLight }) => ($isLight ? "white" : "rgba(255, 255, 255, 0.28)")};
 `;
 
 const StyledPartialShadeDark = styled(PartialShade)`
-  fill: ${({ $isLight }) =>
-    $isLight ? "white" : "rgba(255, 255, 255, 0.28)"};
+  fill: ${({ $isLight }) => ($isLight ? "white" : "rgba(255, 255, 255, 0.28)")};
   width: 33px;
 `;
 
