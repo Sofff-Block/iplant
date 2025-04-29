@@ -11,8 +11,6 @@ import Fuse from "fuse.js";
 export default function HomePage({ onToggleOwned, onAddPlants }) {
   const { data: plants, isLoading, error } = useSWR("/api/plants");
 
-  // const [activeFilter, setActiveFilter] = useState("");
-  // const [filterNeed, setFilterNeed] = useState("");
   const [filters, setFilters] = useState({});
 
   const filtered = Object.keys(filters).length
