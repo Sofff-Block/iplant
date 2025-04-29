@@ -11,21 +11,31 @@ import Fuse from "fuse.js";
 export default function HomePage({ onToggleOwned, onAddPlants }) {
   const { data: plants, isLoading, error } = useSWR("/api/plants");
 
-  const [activeFilter, setActiveFilter] = useState("");
-  const [filterNeed, setFilterNeed] = useState("");
+  const [filters, setFilters] = useState({});
 
-  const filtered = activeFilter
-    ? plants.filter((plant) => plant[filterNeed] === activeFilter)
+  const filtered = Object.keys(filters).length
+    ? plants.filter((plant) =>
+        Object.entries(filters).every(([key, value]) => plant[key] === value)
+      )
     : plants;
 
-  function handleFilterPlants(plantNeed, plantAttribute) {
-    setFilterNeed(plantNeed);
-    setActiveFilter(plantAttribute);
-  }
+    function handleFilterPlants(plantNeed, plantAttribute) {
+      setFilters((prevFilters) => {
+        if (prevFilters[plantNeed] === plantAttribute) {
+          const updatedFilters = { ...prevFilters };
+          delete updatedFilters[plantNeed];
+          return updatedFilters;
+        } else {
+          return {
+            ...prevFilters,
+            [plantNeed]: plantAttribute,
+          };
+        }
+      });
+    }
 
   function handleClearFilter() {
-    setFilterNeed("");
-    setActiveFilter("");
+    setFilters({});
   }
 
   const [query, setQuery] = useState("");
@@ -44,16 +54,16 @@ export default function HomePage({ onToggleOwned, onAddPlants }) {
       ? filtered
       : fuseInstance.search(query).map((result) => result.item);
 
+  
   if (error) return <p>failed to load</p>;
   if (isLoading) return <p>loading...</p>;
-
   return (
     <main>
       <SearchBar query={query} setQuery={setQuery} />
       <PlantFilter
         onClearFilter={handleClearFilter}
         onFilterPlants={handleFilterPlants}
-        activeFilter={activeFilter}
+        activeFilter={filters}
       />
 
       {plants.length === 0 ? (
@@ -61,13 +71,13 @@ export default function HomePage({ onToggleOwned, onAddPlants }) {
           <h1>Nothing here yet</h1>
           <Link href="/create">Add your first plant here</Link>
         </>
-      ) : searchPlants.length === 0 && activeFilter ? (
+      ) : searchPlants.length === 0 && filters ? (
         <p>No plants match the criteria!</p>
       ) : searchPlants.length === 0 && query !== "" ? (
         <p>{`Unfortunately there are no results for "${query}". `}</p>
       ) : (
         <PlantList>
-          {searchPlants.map((plant) => (
+          {searchPlants.toSorted((a, b) => b._id.localeCompare(a._id)).map((plant) => (
             <li key={plant._id}>
               <PlantCard
                 onAddPlants={onAddPlants}

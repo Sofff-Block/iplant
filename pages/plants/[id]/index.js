@@ -82,14 +82,13 @@ const DetailPageWrapper = styled.div`
   gap: 10px;
   width: 320px;
   align-items: center;
-  align-self: center;
 `;
 
 const StyledBackArrow = styled(BackArrow)`
   color: var(--on-surface);
-  position: relative;
+  position: absolute;
   z-index: 102;
-  top: -3.7rem;
+  top: 2rem;
   width: 36px;
   &:hover {
     color: var(--primary);
