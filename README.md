@@ -16,7 +16,7 @@ iPlant is an interactive platform designed to help users care for their plants e
 - Update Plant: Update and modify existing plant details.
 - Filter Plants: Filter plants based on various criteria, e.g. light need and water need.
 - Search Plants: Search plants on the homepage based on characters.
-- Plant Database Read, Create, Put/Patch, Delete: Access plant data browser independently. 
+- Plant Database Read, Create, Put/Patch, Delete: Access plant data browser independently.
 - Upload Plant Images: Upload own plant image or a stock plant image.
 - Toggle Theme: The plant theme can be switched between light and dark mode.
 
@@ -37,6 +37,7 @@ To work locally, please install the dependencies using `npm i` first.
 - `npm install formidable`
 - `npm i react -toastify`
 - `npm install next-cloudinary`
+- `npm i next-themes`
 
 Run `npm run dev` to start a development server and open the displayed URL in a browser.
 
@@ -63,8 +64,8 @@ You can use the following commands:
 
 - https://github.com/DanielGressmann
 - https://github.com/GitLanz
-- Margaux
-- Lisa
+- https://github.com/MargeauxGebert
+- https://github.com/LIsa-Hauschild
 - https://github.com/Sofff-Block
 
 ©2025 Daniel Greßmann, Brigitte Lanz, Margaux Gebert, Sofia Block, Lisa Hauschild
