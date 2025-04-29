@@ -77,7 +77,7 @@ export default function HomePage({ onToggleOwned, onAddPlants }) {
         <p>{`Unfortunately there are no results for "${query}". `}</p>
       ) : (
         <PlantList>
-          {searchPlants.map((plant) => (
+          {searchPlants.toSorted((a, b) => b._id.localeCompare(a._id)).map((plant) => (
             <li key={plant._id}>
               <PlantCard
                 onAddPlants={onAddPlants}
