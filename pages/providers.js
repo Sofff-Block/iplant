@@ -1,13 +1,11 @@
-
-
 import { ThemeProvider } from "next-themes";
 import { useEffect, useState } from "react";
 
 export default function Providers({ children }) {
-  const [mounted, setMounted] = useState(false);
+  const [mounted, SetMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    SetMounted(true);
   }, []);
 
   if (!mounted) {
