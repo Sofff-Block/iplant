@@ -20,8 +20,8 @@ const WaterNeedWrapper = styled.div`
   gap: 1rem;
 `;
 
-const StyledDrop = styled(Drop)`
-width: 36px;
+const StyledDrop = styled(Drop).attrs({ id: "darkdrop" })`
+  width: 36px;
   fill: ${({ $isWater }) => ($isWater ? "black" : "")};
   color: ${({ $isWater }) => ($isWater ? "black" : "var(--icon-disabled)")};
 `;

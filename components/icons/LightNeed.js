@@ -18,20 +18,20 @@ const LightNeedWrapper = styled.div`
   gap: 1rem;
 `;
 
-const StyledShade = styled(Shade)`
+const StyledShade = styled(Shade).attrs({className: "darkNeed"})`
   width: 36px;
   color: ${({ $isLight }) => ($isLight ? "var(--on-surface)" : "transparent")};
   fill: ${({ $isLight }) =>
     $isLight ? "var(--on-surface)" : "var(--icon-disabled)"};
 `;
 
-const StyledPartialShade = styled(PartialShade)`
+const StyledPartialShade = styled(PartialShade).attrs({className: "darkNeed"})`
   fill: ${({ $isLight }) =>
     $isLight ? "var(--on-surface)" : "var(--icon-disabled)"};
   width: 33px;
 `;
 
-const StyledSun = styled(Sun)`
+const StyledSun = styled(Sun).attrs({className: "darkNeed"})`
   width: 36px;
   color: ${({ $isLight }) =>
     $isLight ? "var(--on-surface)" : "var(--icon-disabled)"};

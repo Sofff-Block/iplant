@@ -15,7 +15,7 @@ const SeasonWrapper = styled.div`
   gap: 1rem;
 `;
 
-const StyledSeason = styled.div`
+const StyledSeason = styled.div.attrs({className: "darkNeed"})`
   background-color: ${({ $isSeason }) =>
     $isSeason ? "var(--on-surface)" : "var(--icon-disabled)"};
   color: ${({ $isSeason }) =>

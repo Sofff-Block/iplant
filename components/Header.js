@@ -6,8 +6,8 @@ import ThemeSwitcher from "@/components/ThemeSwitcher";
 export default function Header() {
   return (
     <StyledHeader>
-    <Link href={"/"}> 
-      <StyledLogo />
+      <Link href={"/"}>
+        <StyledLogo />
       </Link>
       <ThemeSwitcher></ThemeSwitcher>
     </StyledHeader>
@@ -20,7 +20,7 @@ const StyledHeader = styled.header`
   padding: 10px 0px;
   width: 100%;
 `;
-const StyledLogo = styled(IPlantLogo)`
+const StyledLogo = styled(IPlantLogo).attrs({ id: "logo" })`
   width: 150px;
   fill: var(--secondary);
 `;

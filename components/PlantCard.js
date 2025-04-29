@@ -67,12 +67,12 @@ const StyledImage = styled(Image)`
   }
 `;
 
-const PlantCardTitle = styled.h2`
+const PlantCardTitle = styled.h2.attrs({ id: "cardtitle" })`
   margin: 0px;
   margin-bottom: 10px;
 `;
 
-const PlantCardBotanical = styled.p`
+const PlantCardBotanical = styled.p.attrs({ id: "botanicalname" })`
   margin: 0px;
 `;
 

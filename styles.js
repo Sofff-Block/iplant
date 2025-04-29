@@ -29,14 +29,23 @@ export default createGlobalStyle`
   }
 
   [data-theme="dark"] body {
-  background-color: #000;
+  background-color:var(--on-surface);
   color: #fff;
 }
 
-[data-theme="dark"] h2, p {
+[data-theme="dark"] #cardtitle, #botanicalname {
 
   color:var(--secondary);
 }
+
+[data-theme="dark"] #logo, #darkdrop {
+    fill: white;
+    color:white;
+  }
+  [data-theme="dark"] input, textarea {
+
+    color:black;
+  }
 
   main {
 display: flex;
