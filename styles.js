@@ -29,32 +29,40 @@ export default createGlobalStyle`
   }
 
   [data-theme="dark"] body {
-  background-color:var(--on-surface);
-  color: #fff;
+    background-color:var(--on-surface);
+    color: var(--surface-light);
 }
 
-[data-theme="dark"] #cardtitle, #botanicalname {
-
-  color:var(--secondary);
+  [data-theme="dark"] #cardtitle, #botanicalname {
+    color:var(--secondary);
 }
 
 [data-theme="dark"] #logo, .darkneed {
-    fill: white;
-    color:white;
+    fill: var(--surface-light);
+    color:var(--surface-light);
   }
+  
+[data-theme="dark"] #backarrow {
+    color: var(--surface-light);
+    &:hover {
+      color: var(--primary);
+      cursor: pointer;
+    }
+  }
+
   [data-theme="dark"] input, textarea {
 
-    color:black;
+    color:var(--on-surface);
   }
 
-  main {
-display: flex;
-flex-direction: column;
-align-items: center;
+main {
+  display: flex;
+  flex-direction: column;
+    align-items: center;
   }
 
   h1 {
-      font-size: 1.8rem;
+    font-size: 1.8rem;
   }
 
   h2 {

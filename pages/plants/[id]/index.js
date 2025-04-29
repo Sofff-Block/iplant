@@ -10,13 +10,12 @@ import ConfirmationModal from "@/components/ConfirmationModal";
 import useSWR from "swr";
 import { useTheme } from "next-themes";
 
-export default function PlantDetails({ onDeletePlant }) {
+export default function PlantDetails({ onDeletePlant, isDark }) {
   const [isVisible, setIsVisible] = useState(false);
   const router = useRouter();
   const { id } = router.query;
 
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
+ 
 
   const { data: plant, isLoading, error } = useSWR(`/api/plants/${id}`);
 
@@ -24,9 +23,7 @@ export default function PlantDetails({ onDeletePlant }) {
   if (isLoading) return <p>loading...</p>;
 
   return (
-    <>
-      <StyledBackArrow $isDark={isDark} onClick={() => router.back()} />
-      <main>
+          <main>
         <DetailPageWrapper>
           <PlantDetailsTitle>{plant.name}</PlantDetailsTitle>
           <PlantDetailsBotanical>{plant.botanicalName}</PlantDetailsBotanical>
@@ -63,7 +60,6 @@ export default function PlantDetails({ onDeletePlant }) {
           />
         </DetailPageWrapper>
       </main>
-    </>
   );
 }
 
@@ -87,18 +83,6 @@ const DetailPageWrapper = styled.div`
   width: 320px;
   align-items: center;
   align-self: center;
-`;
-
-const StyledBackArrow = styled(BackArrow)`
-  color: ${({ $isDark }) =>
-    $isDark ? "var(--surface-light)" : "var(--on-surface)"};
-  position: relative;
-  z-index: 102;
-  top: -3.7rem;
-  width: 36px;
-  &:hover {
-    color: var(--primary);
-  }
 `;
 
 const PlantDetailsTitle = styled.h1`

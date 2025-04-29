@@ -8,8 +8,7 @@ import styled from "styled-components";
 
 export default function ThemeSwitcher() {
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
-
+  const { resolvedTheme, setTheme } = useTheme();
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -18,15 +17,17 @@ export default function ThemeSwitcher() {
     return null;
   }
 
-  const isDark = theme === "dark";
+  const isDark = resolvedTheme === "dark";
 
   return (
     <>
       <StyledToggleButton
-        onClick={() => setTheme(isDark ? "light" : "dark")}
+        onClick={() => {
+          setTheme(isDark ? "light" : "dark");
+        }}
         aria-label="Toggle Theme"
       >
-        {isDark ? <StyledSunIcon /> : <Moon width={24} height={24} />}
+        {isDark ? <StyledSunIcon /> : <StyledMoonIcon />}
       </StyledToggleButton>
     </>
   );
@@ -37,6 +38,19 @@ const StyledToggleButton = styled.button`
 `;
 
 const StyledSunIcon = styled(Sun)`
-  width: 36px;
-  height: 36px;
+  width: 30px;
+  height: 30px;
+  &:hover {
+    color: var(--highlight);
+    cursor: pointer;
+  }
+`;
+
+const StyledMoonIcon = styled(Moon)`
+  width: 30px;
+  height: 30px;
+  &:hover {
+    color: var(--highlight);
+    cursor: pointer;
+  }
 `;

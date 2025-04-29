@@ -11,7 +11,6 @@ export default function ImageUpload({ setUploadUrl, editPlant, defaultImage }) {
     widget.close();
     setUploadUrl(result.info.secure_url);
   }
-  console.log(uploadResults);
   return (
     <UploadFieldset>
       <UploadLegend>Upload your own plant</UploadLegend>

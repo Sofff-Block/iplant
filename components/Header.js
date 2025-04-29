@@ -2,34 +2,39 @@ import IPlantLogo from "@/public/iplant-logo.svg";
 import styled from "styled-components";
 import Link from "next/link";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
+import BackArrow from "@/public/circle-chevron-left.svg";
 
-export default function Header() {
+export default function Header({router}) {
   return (
     <StyledHeader>
+      <StyledBackArrow $isVisible={router.pathname === "/plants/[id]"} onClick={() => router.back()} />
       <Link href={"/"}>
         <StyledLogo />
       </Link>
-      <StyledThemeSwitcher />
+      <ThemeSwitcher />
     </StyledHeader>
   );
 }
 const StyledHeader = styled.header`
   display: flex;
-  justify-content: center;
   margin-bottom: 40px;
+  justify-content: space-between;
+  align-items: center;
   padding: 10px 0px;
   width: 100%;
   gap: 30px;
-  position: relative;
 `;
 const StyledLogo = styled(IPlantLogo).attrs({ id: "logo" })`
   width: 150px;
   fill: var(--secondary);
 `;
-
-const StyledThemeSwitcher = styled(ThemeSwitcher)`
-  position: absolute;
-  z-index: 1000;
-  top: 10px;
-  right: 0;
+const StyledBackArrow = styled(BackArrow).attrs({id: "backarrow"})`
+  color: var(--on-surface);
+    visibility: ${({$isVisible}) => $isVisible ? "visible" : "hidden"};
+  width: 30px;
+  &:hover {
+    color: var(--primary);
+    cursor: pointer;
+  }
 `;
+
