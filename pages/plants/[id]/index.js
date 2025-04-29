@@ -8,11 +8,15 @@ import LightNeed from "@/components/icons/LightNeed";
 import FertiliserSeason from "@/components/icons/FertiliserSeason";
 import ConfirmationModal from "@/components/ConfirmationModal";
 import useSWR from "swr";
+import { useTheme } from "next-themes";
 
 export default function PlantDetails({ onDeletePlant }) {
   const [isVisible, setIsVisible] = useState(false);
   const router = useRouter();
   const { id } = router.query;
+
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   const { data: plant, isLoading, error } = useSWR(`/api/plants/${id}`);
 
@@ -21,7 +25,7 @@ export default function PlantDetails({ onDeletePlant }) {
 
   return (
     <>
-      <StyledBackArrow onClick={() => router.back()} />
+      <StyledBackArrow $isDark={isDark} onClick={() => router.back()} />
       <main>
         <DetailPageWrapper>
           <PlantDetailsTitle>{plant.name}</PlantDetailsTitle>
@@ -37,11 +41,11 @@ export default function PlantDetails({ onDeletePlant }) {
           </PlantImagelWrapper>
           <p>{plant.description}</p>
           <h3>water needs:</h3>
-          <WaterNeed waterNeed={plant.waterNeed} />
+          <WaterNeed isDark={isDark} waterNeed={plant.waterNeed} />
           <h3>light needs:</h3>
-          <LightNeed lightNeed={plant.lightNeed} />
+          <LightNeed isDark={isDark} lightNeed={plant.lightNeed} />
           <h3>fertiliser season:</h3>
-          <FertiliserSeason season={plant.fertiliserSeason} />
+          <FertiliserSeason isDark={isDark} season={plant.fertiliserSeason} />
           <ButtonContainer>
             <StyledButton $isDanger onClick={() => setIsVisible(true)}>
               Delete
@@ -86,7 +90,8 @@ const DetailPageWrapper = styled.div`
 `;
 
 const StyledBackArrow = styled(BackArrow)`
-  color: var(--on-surface);
+  color: ${({ $isDark }) =>
+    $isDark ? "var(--surface-light)" : "var(--on-surface)"};
   position: relative;
   z-index: 102;
   top: -3.7rem;
@@ -101,7 +106,6 @@ const PlantDetailsTitle = styled.h1`
 `;
 
 const PlantDetailsBotanical = styled.h2`
-  //font-style: italic;
   font-size: 1rem;
   font-weight: 300;
   font-family: monospace;

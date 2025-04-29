@@ -3,7 +3,7 @@
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import Sun from "@/public/sun.svg";
-import Drop from "@/public/droplet.svg";
+import Moon from "@/public/moon.svg";
 import styled from "styled-components";
 
 export default function ThemeSwitcher() {
@@ -26,11 +26,7 @@ export default function ThemeSwitcher() {
         onClick={() => setTheme(isDark ? "light" : "dark")}
         aria-label="Toggle Theme"
       >
-        {isDark ? (
-          <StyledSunIcon width={24} height={24} />
-        ) : (
-          <Drop width={24} height={24} />
-        )}
+        {isDark ? <StyledSunIcon /> : <Moon width={24} height={24} />}
       </StyledToggleButton>
     </>
   );
