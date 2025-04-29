@@ -11,5 +11,9 @@ export default function EditPlant({ onEditPlant }) {
   if (error) return <p>failed to load</p>;
   if (isLoading) return <p>loading...</p>;
 
-  return <PlantForm isEdit editPlant={plant} onSubmit={onEditPlant} />;
+  return (
+    <main>
+      <PlantForm isEdit editPlant={plant} onSubmit={onEditPlant} />
+    </main>
+  );
 }

@@ -1,9 +1,8 @@
 import Navigation from "@/components/Navigation";
 import GlobalStyle from "../styles";
 import { useRouter } from "next/router";
-import IPlantLogo from "@/public/iplant-logo.svg";
-import styled from "styled-components";
 import { SWRConfig, mutate } from "swr";
+import Header from "@/components/Header";
 import { toast, Bounce } from "react-toastify";
 import Toast from "@/components/PlantForm/Toast";
 import Head from "next/head";
@@ -11,8 +10,9 @@ import Head from "next/head";
 const toastify = (message) =>
   toast(`${message}`, {
     position: "bottom-center",
+    style: { backgroundColor: "var(--surface-light)" },
     autoClose: 1500,
-    hideProgressBar: false,
+    hideProgressBar: true,
     closeOnClick: false,
     pauseOnHover: true,
     draggable: true,
@@ -98,7 +98,7 @@ export default function App({ Component, pageProps }) {
     }
     router.push("/");
 
-    toastify("❌ Plant was successfully deleted! 🌱");
+    toastify(" Plant was successfully deleted! 🌱 ✅");
   }
 
   return (
@@ -107,7 +107,7 @@ export default function App({ Component, pageProps }) {
         <title>{`iPlan{t}`}</title>
       </Head>
       <GlobalStyle />
-      <StyledLogo />
+      <Header />
       <Component
         onAddPlants={handleAddPlants}
         onToggleOwned={handleToggleOwned}
@@ -120,8 +120,3 @@ export default function App({ Component, pageProps }) {
     </SWRConfig>
   );
 }
-
-const StyledLogo = styled(IPlantLogo)`
-  width: 150px;
-  margin-bottom: 20px;
-`;

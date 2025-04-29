@@ -5,9 +5,11 @@ import WaterNeedFieldset from "./WaterNeedFieldset";
 import FertiliserSeasonFieldset from "./FertiliserSeasonFieldset";
 import { useState } from "react";
 import ImageUpload from "./ImageUpload";
+import { ButtonContainer, StyledButton } from "@/pages/plants/[id]";
 
 export default function PlantForm({ onSubmit, isEdit, editPlant }) {
   const router = useRouter();
+  const [uploadUrl, setUploadUrl] = useState("");
   const [fertiliserSeason, setFertiliserSeason] = useState(
     editPlant?.fertiliserSeason || []
   );
@@ -21,15 +23,14 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
   }
 
   const defaultImage =
-    "https://images.pexels.com/photos/29780009/pexels-photo-29780009/free-photo-of-entspannte-orange-und-weisse-katze-sonnt-sich-im-sonnenlicht.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
+    "https://res.cloudinary.com/dcbjcygcd/image/upload/v1745591068/newplantimages/jty68ejwzufhytpjlfqqh2b54.jpg";
 
   async function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    let imageUrl;
 
-    if (data.imageUrl.size > 0) {
+    if (uploadUrl.size > 0) {
       const response = await fetch("/api/upload", {
         method: "POST",
         body: formData,
@@ -39,8 +40,6 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
         console.error("Whoopsie");
         return;
       }
-      let { url } = await response.json();
-      imageUrl = url;
     }
     const newPlant = {
       name: data.name,
@@ -49,7 +48,7 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
       waterNeed: data.waterNeed,
       fertiliserSeason: fertiliserSeason,
       description: data.description,
-      imageUrl: imageUrl || editPlant?.imageUrl || defaultImage,
+      imageUrl: uploadUrl || editPlant?.imageUrl || defaultImage,
     };
 
     await onSubmit(newPlant, editPlant?._id);
@@ -58,36 +57,41 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
   }
 
   return (
-    <>
+    <PlantFormWrapper>
       <h1>{isEdit ? "Edit Plant" : "Create Plant"}</h1>
       <StyledForm onSubmit={handleSubmit}>
-        <label htmlFor="input-name">Plant Name</label>
-        <input
-          id="input-name"
-          type="text"
-          name="name"
-          aria-label="Input for Plant Name"
-          defaultValue={editPlant?.name}
-          required
-        />
+        <StyledLabel htmlFor="input-name">
+          Plant Name
+          <StyledInput
+            id="input-name"
+            type="text"
+            name="name"
+            aria-label="Input for Plant Name"
+            defaultValue={editPlant?.name}
+            required
+          />
+        </StyledLabel>
 
-        <label htmlFor="input-botanical-name">Botanical Name</label>
-        <input
-          id="input-botanical-name"
-          type="text"
-          name="botanicalName"
-          aria-label="Input for Plant Botanical Name"
-          defaultValue={editPlant?.botanicalName}
-        />
+        <StyledLabel htmlFor="input-botanical-name">
+          Botanical Name
+          <StyledInput
+            id="input-botanical-name"
+            type="text"
+            name="botanicalName"
+            aria-label="Input for Plant Botanical Name"
+            defaultValue={editPlant?.botanicalName}
+          />
+        </StyledLabel>
 
-        <label htmlFor="description">Plant Description</label>
-        <textarea
-          id="description"
-          name="description"
-          aria-label="Textinput for Plant Description"
-          placeholder="Tell us something about your plant"
-          defaultValue={editPlant?.description}
-        />
+        <StyledLabel htmlFor="description">
+          Plant Description
+          <StyledTextarea
+            id="description"
+            name="description"
+            aria-label="Textinput for Plant Description"
+            defaultValue={editPlant?.description}
+          />
+        </StyledLabel>
 
         <LightNeedFieldset editPlant={editPlant} />
         <WaterNeedFieldset editPlant={editPlant} />
@@ -97,23 +101,70 @@ export default function PlantForm({ onSubmit, isEdit, editPlant }) {
           setFertiliserSeason={setFertiliserSeason}
           editPlant={editPlant}
         />
-        <ImageUpload />
-        <button
-          onClick={() =>
-            isEdit ? router.push(`/plants/${editPlant?._id}`) : router.push("/")
-          }
-          type="button"
-        >
-          Cancel
-        </button>
-        <button type="submit">{isEdit ? "Save Changes" : "Add Plant"}</button>
+        <ImageUpload
+          editPlant={editPlant}
+          setUploadUrl={setUploadUrl}
+          defaultImage={defaultImage}
+        />
+        <ButtonContainer>
+          <StyledButton
+            $isDanger
+            onClick={() =>
+              isEdit
+                ? router.push(`/plants/${editPlant?._id}`)
+                : router.push("/")
+            }
+            type="button"
+          >
+            Cancel
+          </StyledButton>
+          <StyledButton type="submit">
+            {isEdit ? "Save Changes" : "Add Plant"}
+          </StyledButton>
+        </ButtonContainer>
       </StyledForm>
-    </>
+    </PlantFormWrapper>
   );
 }
 
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
+`;
+
+const PlantFormWrapper = styled.div`
+  align-items: center;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const StyledInput = styled.input`
+  all: unset;
+  margin-top: 10px;
+  background-color: var(--surface-light);
+  border-radius: 5px;
+  border: 1px solid var(--highlight);
+  &:focus {
+    outline: 1px solid var(--highlight);
+  }
+`;
+
+const StyledLabel = styled.label`
+  font-size: 14px;
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const StyledTextarea = styled.textarea`
+  height: 120px;
+  background-color: var(--surface-light);
+  border: 1px solid var(--highlight);
+  border-radius: 5px;
+  margin-top: 10px;
+  &:focus {
+    outline: 1px solid var(--highlight);
+  }
 `;

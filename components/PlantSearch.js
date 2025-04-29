@@ -1,23 +1,55 @@
 import ClearSearch from "@/public/x.svg";
 import styled from "styled-components";
+
 export default function SearchBar({ query, setQuery }) {
   return (
     <SearchBarWrapper>
-      <input
+      <SearchBarInput
         type="text"
         placeholder="Search plants..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
-      <button onClick={() => setQuery("")}>
+      <ClearSearchButton onClick={() => setQuery("")}>
         <ClearSearch />
-      </button>
+      </ClearSearchButton>
     </SearchBarWrapper>
   );
 }
 
 const SearchBarWrapper = styled.div`
+  align-items: center;
   display: flex;
+  justify-content: center;
   gap: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
+  width: 320px;
+`;
+
+const SearchBarInput = styled.input`
+  all: unset;
+  width: 278px;
+  height: 2rem;
+  padding-left: 8px;
+  background-color: var(--surface-light);
+  border-radius: 5px;
+  border: 1px solid var(--highlight);
+  &:focus {
+    outline: 1px solid var(--highlight);
+  }
+  &::placeholder {
+    color: var(--highlight);
+  }
+`;
+
+const ClearSearchButton = styled.button`
+  all: unset;
+  color: var(--surface-light);
+  background-color: var(--highlight);
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
 `;

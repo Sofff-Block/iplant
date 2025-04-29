@@ -24,8 +24,10 @@ export default function PlantCard({
           />
         </PlantImageWrapper>
       </Link>
-      <h2>{name}</h2>
-      <p>{botanicalName}</p>
+      <PlantCardText>
+        <PlantCardTitle>{name}</PlantCardTitle>
+        <PlantCardBotanical>{botanicalName}</PlantCardBotanical>
+      </PlantCardText>
       <BookmarkButton
         plantId={id}
         onToggleOwned={onToggleOwned}
@@ -39,16 +41,43 @@ const PlantImageWrapper = styled.div`
   width: 100%;
   height: 200px;
   position: relative;
+  border-radius: 10px;
 `;
 
 const PlantCardWrapper = styled.div`
   display: flex;
-  border: 1px solid black;
+  background-color: var(--surface-light);
   width: 150px;
-  text-align: center;
+  height: 380px;
+  border-radius: 10px;
+  justify-content: space-between;
   flex-direction: column;
+  word-wrap: normal;
+  overflow-wrap: break-word;
 `;
 
 const StyledImage = styled(Image)`
   object-fit: cover;
+  border-radius: 10px 10px 0px 0px;
+  transition: transform 0.3s, background-color 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
+    border-radius: 10px;
+  }
 `;
+
+const PlantCardTitle = styled.h2`
+  margin: 0px;
+  margin-bottom: 10px;
+`;
+
+const PlantCardBotanical = styled.p`
+  margin: 0px;
+`;
+
+const PlantCardText = styled.div`
+  height: 120px;
+  padding: 15px 8px 0px 8px;
+`;
+export { StyledImage };
