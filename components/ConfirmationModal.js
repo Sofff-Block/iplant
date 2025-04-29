@@ -7,6 +7,7 @@ export default function ConfirmationModal({
   isVisible,
   setIsVisible,
 }) {
+  if ( !isVisible ) { return null }
   return (
     <StyledConfirmationWrapper $isVisible={isVisible}>
       <StyledConfirmationContent>
