@@ -1,7 +1,11 @@
+"use client";
+
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import Sun from "@/public/sun.svg";
+import Drop from "@/public/droplet.svg";
 
-const ThemeSwitcher = () => {
+export default function ThemeSwitcher() {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
@@ -13,16 +17,21 @@ const ThemeSwitcher = () => {
     return null;
   }
 
-  const handleTheme = () => {
-    if (theme === "light") {
-      setTheme("dark");
-    } else {
-      setTheme("light");
-    }
-  };
+  const isDark = theme === "dark";
 
-  return <button onClick={handleTheme}>Toggle Theme</button>;
-};
-
-
-export default ThemeSwitcher;
+  return (
+    <>
+      <button
+        onClick={() => setTheme(isDark ? "light" : "dark")}
+        aria-label="Toggle Theme"
+      >
+        {isDark ? (
+          <Sun width={24} height={24} />
+        ) : (
+          <Drop width={24} height={24} />
+        )}
+      </button>
+      
+    </>
+  );
+}
