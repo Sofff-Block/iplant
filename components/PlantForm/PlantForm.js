@@ -143,6 +143,7 @@ const PlantFormWrapper = styled.div`
 const StyledInput = styled.input`
   all: unset;
   margin-top: 10px;
+  padding: 2px;
   background-color: var(--surface-light);
   border-radius: 5px;
   border: 1px solid var(--highlight);
@@ -163,6 +164,7 @@ const StyledTextarea = styled.textarea`
   background-color: var(--surface-light);
   border: 1px solid var(--highlight);
   border-radius: 5px;
+  padding: 2px;
   margin-top: 10px;
   &:focus {
     outline: 1px solid var(--highlight);
