@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import { toast, Bounce } from "react-toastify";
 import Toast from "@/components/PlantForm/Toast";
 import Head from "next/head";
+import Providers from "./providers";
 
 const toastify = (message) =>
   toast(`${message}`, {
@@ -39,7 +40,7 @@ export default function App({ Component, pageProps }) {
       return;
     }
     router.push("/");
-    toastify("PLant was successfully created! 🌱");
+    toastify("Plant was successfully created! 🌱");
   }
 
   async function handleEditPlant(updatedPlant, id) {
@@ -102,21 +103,23 @@ export default function App({ Component, pageProps }) {
   }
 
   return (
-    <SWRConfig value={{ fetcher }}>
-      <Head>
-        <title>{`iPlan{t}`}</title>
-      </Head>
-      <GlobalStyle />
-      <Header />
-      <Component
-        onAddPlants={handleAddPlants}
-        onToggleOwned={handleToggleOwned}
-        onEditPlant={handleEditPlant}
-        onDeletePlant={handleDeletePlant}
-        {...pageProps}
-      />
-      <Toast />
-      <Navigation />
-    </SWRConfig>
+    <Providers>
+      <SWRConfig value={{ fetcher }}>
+        <Head>
+          <title>{`iPlan{t}`}</title>
+        </Head>
+        <GlobalStyle />
+        <Header router={router} />
+        <Component
+          onAddPlants={handleAddPlants}
+          onToggleOwned={handleToggleOwned}
+          onEditPlant={handleEditPlant}
+          onDeletePlant={handleDeletePlant}
+          {...pageProps}
+        />
+        <Toast />
+        <Navigation />
+      </SWRConfig>
+    </Providers>
   );
 }

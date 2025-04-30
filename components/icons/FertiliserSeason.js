@@ -1,12 +1,20 @@
 import styled from "styled-components";
 
-export default function FertiliserSeason({ season }) {
+export default function FertiliserSeason({ season, isDark }) {
   return (
     <SeasonWrapper>
-      <StyledSeason $isSeason={season.includes("Spring")}>Spring</StyledSeason>
-      <StyledSeason $isSeason={season.includes("Summer")}>Summer</StyledSeason>
-      <StyledSeason $isSeason={season.includes("Fall")}>Fall</StyledSeason>
-      <StyledSeason $isSeason={season.includes("Winter")}>Winter</StyledSeason>
+      <StyledSeason $isDark={isDark} $isSeason={season.includes("Spring")}>
+        Spring
+      </StyledSeason>
+      <StyledSeason $isDark={isDark} $isSeason={season.includes("Summer")}>
+        Summer
+      </StyledSeason>
+      <StyledSeason $isDark={isDark} $isSeason={season.includes("Fall")}>
+        Fall
+      </StyledSeason>
+      <StyledSeason $isDark={isDark} $isSeason={season.includes("Winter")}>
+        Winter
+      </StyledSeason>
     </SeasonWrapper>
   );
 }
@@ -16,10 +24,24 @@ const SeasonWrapper = styled.div`
 `;
 
 const StyledSeason = styled.div`
-  background-color: ${({ $isSeason }) =>
-    $isSeason ? "var(--on-surface)" : "var(--icon-disabled)"};
-  color: ${({ $isSeason }) =>
-    $isSeason ? "var(--surface-light)" : "var(--icon-disabled)"};
+  background-color: ${({ $isSeason, $isDark }) =>
+    $isSeason
+      ? $isDark
+        ? "var(--surface-light)"
+        : "var(--on-surface)"
+      : $isDark
+      ? "rgba(255, 255, 255, 0.28)"
+      : "var(--icon-disabled)"};
+
+  color: ${({ $isSeason, $isDark }) =>
+    $isSeason
+      ? $isDark
+        ? "var(--on-surface)"
+        : "var(--surface-light)"
+      : $isDark
+      ? "rgba(255, 255, 255, 0.28)"
+      : "var(--icon-disabled)"};
+
   padding: 10px;
   border-radius: 8px;
 `;

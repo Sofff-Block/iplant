@@ -28,14 +28,41 @@ export default createGlobalStyle`
     padding-bottom: 100px;
   }
 
-  main {
-display: flex;
-flex-direction: column;
-align-items: center;
+  [data-theme="dark"] body {
+    background-color:var(--on-surface);
+    color: var(--surface-light);
+}
+
+  [data-theme="dark"] #cardtitle, #botanicalname {
+    color:var(--secondary);
+}
+
+[data-theme="dark"] #logo {
+    fill: var(--surface-light);
+    color:var(--surface-light);
+  }
+  
+[data-theme="dark"] #backarrow {
+    color: var(--surface-light);
+    &:hover {
+      color: var(--primary);
+      cursor: pointer;
+    }
+  }
+
+  [data-theme="dark"] input, textarea {
+
+    color:var(--on-surface);
+  }
+
+main {
+  display: flex;
+  flex-direction: column;
+    align-items: center;
   }
 
   h1 {
-      font-size: 1.8rem;
+    font-size: 1.8rem;
   }
 
   h2 {

@@ -11,7 +11,6 @@ export default function ImageUpload({ setUploadUrl, editPlant, defaultImage }) {
     widget.close();
     setUploadUrl(result.info.secure_url);
   }
-  console.log(uploadResults);
   return (
     <UploadFieldset>
       <UploadLegend>Upload your own plant</UploadLegend>
@@ -42,7 +41,10 @@ export default function ImageUpload({ setUploadUrl, editPlant, defaultImage }) {
           id="image-upload"
           type="file"
           accept="image/*"
-        ><StyledUploadIcon />Upload</UploadButton>
+        >
+          <StyledUploadIcon />
+          Upload
+        </UploadButton>
       </label>
     </UploadFieldset>
   );
@@ -75,8 +77,6 @@ const UploadButton = styled(CldUploadButton)`
   &:hover {
     background-color: var(--highlight-light);
   }
-  /* border-right: 3px solid var(--highlight-light);
-  border-bottom: 3px solid var(--highlight-light); */
 `;
 
 const UploadImage = styled(CldImage)`

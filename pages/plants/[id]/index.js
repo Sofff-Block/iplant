@@ -2,64 +2,63 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import styled from "styled-components";
-import BackArrow from "@/public/circle-chevron-left.svg";
 import WaterNeed from "@/components/icons/WaterNeed";
 import LightNeed from "@/components/icons/LightNeed";
 import FertiliserSeason from "@/components/icons/FertiliserSeason";
 import ConfirmationModal from "@/components/ConfirmationModal";
 import useSWR from "swr";
+import { useTheme } from "next-themes";
 
 export default function PlantDetails({ onDeletePlant }) {
   const [isVisible, setIsVisible] = useState(false);
   const router = useRouter();
   const { id } = router.query;
+  const { resolvedTheme } = useTheme();
 
+  const isDark = resolvedTheme === "dark";
   const { data: plant, isLoading, error } = useSWR(`/api/plants/${id}`);
 
   if (error) return <p>failed to load</p>;
   if (isLoading) return <p>loading...</p>;
 
   return (
-    <>
-      <StyledBackArrow onClick={() => router.back()} />
-      <main>
-        <DetailPageWrapper>
-          <PlantDetailsTitle>{plant.name}</PlantDetailsTitle>
-          <PlantDetailsBotanical>{plant.botanicalName}</PlantDetailsBotanical>
-          <PlantImagelWrapper>
-            <PlantDetailImage
-              sizes="(max-width: 300px)"
-              alt={plant.name}
-              src={plant.imageUrl}
-              fill="true"
-              priority
-            />
-          </PlantImagelWrapper>
-          <p>{plant.description}</p>
-          <h3>water needs:</h3>
-          <WaterNeed waterNeed={plant.waterNeed} />
-          <h3>light needs:</h3>
-          <LightNeed lightNeed={plant.lightNeed} />
-          <h3>fertiliser season:</h3>
-          <FertiliserSeason season={plant.fertiliserSeason} />
-          <ButtonContainer>
-            <StyledButton $isDanger onClick={() => setIsVisible(true)}>
-              Delete
-            </StyledButton>
-            <StyledButton onClick={() => router.push(`/plants/${id}/edit`)}>
-              Edit
-            </StyledButton>
-          </ButtonContainer>
-
-          <ConfirmationModal
-            isVisible={isVisible}
-            setIsVisible={setIsVisible}
-            onDeletePlant={onDeletePlant}
-            plantId={plant._id}
+    <main>
+      <DetailPageWrapper>
+        <PlantDetailsTitle>{plant.name}</PlantDetailsTitle>
+        <PlantDetailsBotanical>{plant.botanicalName}</PlantDetailsBotanical>
+        <PlantImagelWrapper>
+          <PlantDetailImage
+            sizes="(max-width: 300px)"
+            alt={plant.name}
+            src={plant.imageUrl}
+            fill="true"
+            priority
           />
-        </DetailPageWrapper>
-      </main>
-    </>
+        </PlantImagelWrapper>
+        <p>{plant.description}</p>
+        <h3>water needs:</h3>
+        <WaterNeed isDark={isDark} waterNeed={plant.waterNeed} />
+        <h3>light needs:</h3>
+        <LightNeed isDark={isDark} lightNeed={plant.lightNeed} />
+        <h3>fertiliser season:</h3>
+        <FertiliserSeason isDark={isDark} season={plant.fertiliserSeason} />
+        <ButtonContainer>
+          <StyledButton $isDanger onClick={() => setIsVisible(true)}>
+            Delete
+          </StyledButton>
+          <StyledButton onClick={() => router.push(`/plants/${id}/edit`)}>
+            Edit
+          </StyledButton>
+        </ButtonContainer>
+
+        <ConfirmationModal
+          isVisible={isVisible}
+          setIsVisible={setIsVisible}
+          onDeletePlant={onDeletePlant}
+          plantId={plant._id}
+        />
+      </DetailPageWrapper>
+    </main>
   );
 }
 
@@ -84,23 +83,11 @@ const DetailPageWrapper = styled.div`
   align-items: center;
 `;
 
-const StyledBackArrow = styled(BackArrow)`
-  color: var(--on-surface);
-  position: absolute;
-  z-index: 102;
-  top: 2rem;
-  width: 36px;
-  &:hover {
-    color: var(--primary);
-  }
-`;
-
 const PlantDetailsTitle = styled.h1`
   margin: 10px 0px 0px;
 `;
 
 const PlantDetailsBotanical = styled.h2`
-  //font-style: italic;
   font-size: 1rem;
   font-weight: 300;
   font-family: monospace;
