@@ -37,7 +37,7 @@ export default createGlobalStyle`
     color:var(--secondary);
 }
 
-[data-theme="dark"] #logo, .darkneed {
+[data-theme="dark"] #logo {
     fill: var(--surface-light);
     color:var(--surface-light);
   }

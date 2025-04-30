@@ -7,8 +7,6 @@ import { toast, Bounce } from "react-toastify";
 import Toast from "@/components/PlantForm/Toast";
 import Head from "next/head";
 import Providers from "./providers";
-import { useTheme} from "next-themes";
-import { useEffect, useState } from "react";
 
 const toastify = (message) =>
   toast(`${message}`, {
@@ -27,14 +25,6 @@ const fetcher = (url) => fetch(url).then((response) => response.json());
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
-  const { resolvedTheme } = useTheme();
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) return null;
 
   async function handleAddPlants(newPlant) {
     const response = await fetch("/api/plants", {
@@ -52,8 +42,6 @@ export default function App({ Component, pageProps }) {
     router.push("/");
     toastify("Plant was successfully created! 🌱");
   }
-
-  const isDark = resolvedTheme === "dark";
 
   async function handleEditPlant(updatedPlant, id) {
     const response = await fetch(`/api/plants/${id}`, {
@@ -121,13 +109,12 @@ export default function App({ Component, pageProps }) {
           <title>{`iPlan{t}`}</title>
         </Head>
         <GlobalStyle />
-        <Header isDark={isDark} router={router} />
+        <Header router={router} />
         <Component
           onAddPlants={handleAddPlants}
           onToggleOwned={handleToggleOwned}
           onEditPlant={handleEditPlant}
           onDeletePlant={handleDeletePlant}
-          isDark={isDark}
           {...pageProps}
         />
         <Toast />
