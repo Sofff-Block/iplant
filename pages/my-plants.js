@@ -5,8 +5,7 @@ import { useState } from "react";
 import PlantFilter from "@/components/PlantFilter/PlantFilter";
 
 export default function MyPlants({ onToggleOwned }) {
-  const [activeFilter, setActiveFilter] = useState("");
-  const [filterNeed, setFilterNeed] = useState("");
+  const [filters, setFilters] = useState({});
 
   const { data: plants, error, isLoading } = useSWR("/api/plants");
 
@@ -15,27 +14,39 @@ export default function MyPlants({ onToggleOwned }) {
 
   const myPlants = plants.filter((plant) => plant.isOwned === true);
 
-  const filtered = activeFilter
-    ? myPlants.filter((plant) => plant[filterNeed] === activeFilter)
+
+  const filtered = Object.keys(filters).length
+    ? myPlants.filter((plant) =>
+        Object.entries(filters).every(([key, value]) => plant[key] === value)
+      )
     : myPlants;
 
-  function handleFilterPlants(plantNeed, plantAttribute) {
-    setFilterNeed(plantNeed);
-    setActiveFilter(plantAttribute);
-  }
+    function handleFilterPlants(plantNeed, plantAttribute) {
+      setFilters((prevFilters) => {
+        if (prevFilters[plantNeed] === plantAttribute) {
+          const updatedFilters = { ...prevFilters };
+          delete updatedFilters[plantNeed];
+          return updatedFilters;
+        } else {
+          return {
+            ...prevFilters,
+            [plantNeed]: plantAttribute,
+          };
+        }
+      });
+    }
 
   function handleClearFilter() {
-    setFilterNeed("");
-    setActiveFilter("");
+    setFilters({});
   }
 
   return (
-    <>
+    <main>
       <h1>Welcome to your Plants!</h1>
       <PlantFilter
         onClearFilter={handleClearFilter}
         onFilterPlants={handleFilterPlants}
-        activeFilter={activeFilter}
+        activeFilter={filters}
       />
       {filtered.length === 0 ? (
         <p>You don&apos;t own any plants yet!</p>
@@ -57,6 +68,6 @@ export default function MyPlants({ onToggleOwned }) {
           ))}
         </PlantList>
       )}
-    </>
+    </main>
   );
 }

@@ -41,7 +41,10 @@ export default function ImageUpload({ setUploadUrl, editPlant, defaultImage }) {
           id="image-upload"
           type="file"
           accept="image/*"
-        ><StyledUploadIcon />Upload</UploadButton>
+        >
+          <StyledUploadIcon />
+          Upload
+        </UploadButton>
       </label>
     </UploadFieldset>
   );
@@ -71,6 +74,9 @@ const UploadButton = styled(CldUploadButton)`
   display: flex;
   gap: 5px;
   align-items: center;
+  &:hover {
+    background-color: var(--highlight-light);
+  }
 `;
 
 const UploadImage = styled(CldImage)`

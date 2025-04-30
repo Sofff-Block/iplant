@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import styled from "styled-components";
-import BackArrow from "@/public/circle-chevron-left.svg";
 import WaterNeed from "@/components/icons/WaterNeed";
 import LightNeed from "@/components/icons/LightNeed";
 import FertiliserSeason from "@/components/icons/FertiliserSeason";
@@ -82,7 +81,6 @@ const DetailPageWrapper = styled.div`
   gap: 10px;
   width: 320px;
   align-items: center;
-  align-self: center;
 `;
 
 const PlantDetailsTitle = styled.h1`
