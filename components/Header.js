@@ -7,18 +7,18 @@ import BackArrow from "@/public/circle-chevron-left.svg";
 export default function Header({router}) {
   return (
     <StyledHeader>
-      <StyledBackArrow $isVisible={router.pathname === "/plants/[id]"} onClick={() => router.back()} />
-      <Link href={"/"}>
+      <StyledBackArrow aria-label="Link back to homepage" $isVisible={router.pathname === "/plants/[id]"} onClick={() => router.back()} />
+      <Link href={"/"} aria-label="Link to homepage">
         <StyledLogo />
       </Link>
-      <ThemeSwitcher />
+      <ThemeSwitcher aria-label="Switch between light and dark mode"/>
     </StyledHeader>
   );
 }
 const StyledHeader = styled.header`
   display: flex;
   margin-bottom: 40px;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   padding: 10px 0px;
   width: 100%;

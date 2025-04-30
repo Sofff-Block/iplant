@@ -41,6 +41,10 @@ export default createGlobalStyle`
     fill: var(--surface-light);
     color:var(--surface-light);
   }
+
+  [data-theme="dark"] #filtertitlename {
+    color:var(--surface-light);
+  }
   
 [data-theme="dark"] #backarrow {
     color: var(--surface-light);

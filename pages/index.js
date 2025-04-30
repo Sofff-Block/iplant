@@ -19,20 +19,20 @@ export default function HomePage({ onToggleOwned, onAddPlants }) {
       )
     : plants;
 
-    function handleFilterPlants(plantNeed, plantAttribute) {
-      setFilters((prevFilters) => {
-        if (prevFilters[plantNeed] === plantAttribute) {
-          const updatedFilters = { ...prevFilters };
-          delete updatedFilters[plantNeed];
-          return updatedFilters;
-        } else {
-          return {
-            ...prevFilters,
-            [plantNeed]: plantAttribute,
-          };
-        }
-      });
-    }
+  function handleFilterPlants(plantNeed, plantAttribute) {
+    setFilters((prevFilters) => {
+      if (prevFilters[plantNeed] === plantAttribute) {
+        const updatedFilters = { ...prevFilters };
+        delete updatedFilters[plantNeed];
+        return updatedFilters;
+      } else {
+        return {
+          ...prevFilters,
+          [plantNeed]: plantAttribute,
+        };
+      }
+    });
+  }
 
   function handleClearFilter() {
     setFilters({});
@@ -54,7 +54,6 @@ export default function HomePage({ onToggleOwned, onAddPlants }) {
       ? filtered
       : fuseInstance.search(query).map((result) => result.item);
 
-  
   if (error) return <p>failed to load</p>;
   if (isLoading) return <p>loading...</p>;
   return (
@@ -77,19 +76,21 @@ export default function HomePage({ onToggleOwned, onAddPlants }) {
         <p>{`Unfortunately there are no results for "${query}". `}</p>
       ) : (
         <PlantList>
-          {searchPlants.toSorted((a, b) => b._id.localeCompare(a._id)).map((plant) => (
-            <li key={plant._id}>
-              <PlantCard
-                onAddPlants={onAddPlants}
-                id={plant._id}
-                name={plant.name}
-                image={plant.imageUrl}
-                botanicalName={plant.botanicalName}
-                onToggleOwned={onToggleOwned}
-                owned={plant.isOwned}
-              />
-            </li>
-          ))}
+          {searchPlants
+            .toSorted((a, b) => b._id.localeCompare(a._id))
+            .map((plant) => (
+              <li key={plant._id}>
+                <PlantCard
+                  onAddPlants={onAddPlants}
+                  id={plant._id}
+                  name={plant.name}
+                  image={plant.imageUrl}
+                  botanicalName={plant.botanicalName}
+                  onToggleOwned={onToggleOwned}
+                  owned={plant.isOwned}
+                />
+              </li>
+            ))}
         </PlantList>
       )}
     </main>
